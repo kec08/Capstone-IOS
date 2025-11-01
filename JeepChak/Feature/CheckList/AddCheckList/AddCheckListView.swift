@@ -131,7 +131,18 @@ struct AddCheckListView: View {
                 guard viewModel.isValid else { return }
                 let newItem = viewModel.createCheckListItem()
                 addCheckListItem(newItem)
-                onDismiss()
+                viewModel.showAILoading = true
+            }
+            .sheet(isPresented: $viewModel.showAILoading) {
+                AILoadingView {
+                    viewModel.showAILoading = false
+                    viewModel.showAIResult = true
+                }
+            }
+            .sheet(isPresented: $viewModel.showAIResult) {
+                AIGeneratedListView(onConfirm: {
+                    onDismiss()
+                })
             }
             .frame(maxWidth: .infinity)
             .padding()

@@ -15,4 +15,6 @@ extension Color {
   static let customMainRed = Color("customRed")
   static let customBackgroundWhite = Color("customWhite")
   static let customMainYellow = Color("customYellow")
+    static let customBkBlue = Color("customBackgroundBlue")
+    static let customMainBlue = Color("customBlue")
 }

@@ -8,29 +8,41 @@
 import SwiftUI
 
 struct HomeView: View {
+    @StateObject private var viewModel = HomeViewModel()
+
     var body: some View {
         NavigationView {
-            VStack {
-                Spacer()
-                Image(systemName: "home.fill")
-                    .font(.system(size: 80))
-                    .foregroundColor(.blue)
-                Text("홈")
-                    .font(.system(size: 28, weight: .bold))
-                    .padding(.top)
-                Text("홈 페이지입니다")
-                    .font(.system(size: 16))
-                    .foregroundColor(.gray)
-                    .padding(.top, 4)
-                Spacer()
+            ZStack {
+                Color.customBackgroundBlue
+                    .ignoresSafeArea()
+                ScrollView(.vertical, showsIndicators: false) {
+                    VStack(spacing: 0) {
+                        // MARK: - 파란 배경 영역
+                        VStack(spacing: 24) {
+                            HomeHeaderView()
+                                .padding(.top, UIApplication.shared.windows.first?.safeAreaInsets.top ?? 10)
+                                .padding(.horizontal, 20)
+                                .padding(.trailing, 24)
+
+                            HomeCategorySectionView()
+                                .padding(.horizontal, 20)
+                                .padding(.bottom, 28)
+                        }
+
+                        // MARK: - 흰색 영역
+                        VStack(spacing: 32) {
+                            HomePopularSectionView(properties: viewModel.homepopularProperties)
+                            HomeRecentSectionView(recentPropeties: viewModel.homerecentProperties)
+                        }
+                        .padding(.horizontal, 20)
+                        .padding(.top, 24)
+                        .padding(.bottom, 80)
+                        .background(.customWhite)
+                    }
+                }
             }
-            .padding(.bottom, 80)
-            .navigationTitle("홈")
-            .navigationBarTitleDisplayMode(.inline)
+            .navigationBarHidden(true)
         }
     }
 }
 
-#Preview {
-    HomeView()
-}

@@ -22,6 +22,9 @@ final class AddCheckListViewModel: ObservableObject {
     @Published var memo = ""
     @Published var selectedImage: UIImage?
     @Published var isImagePickerPresented = false
+    @Published var showAILoading = false
+    @Published var showAIResult = false
+
 
     
     @Published var focusedField: Field?

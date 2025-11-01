@@ -39,11 +39,22 @@
 		};
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
+/* Begin PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet section */
+		BC659D962EB5DD4600E56141 /* Exceptions for "JeepChak" folder in "Copy Bundle Resources" phase from "JeepChak" target */ = {
+			isa = PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet;
+			buildPhase = BC3D529B2EA37C4800BD9E2B /* Resources */;
+			membershipExceptions = (
+				Feature/CheckList/AIView/AIGeneratedListView.swift,
+			);
+		};
+/* End PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet section */
+
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		BC3D529F2EA37C4800BD9E2B /* JeepChak */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
 				BC8754D72EA53E490026C2A9 /* Exceptions for "JeepChak" folder in "JeepChak" target */,
+				BC659D962EB5DD4600E56141 /* Exceptions for "JeepChak" folder in "Copy Bundle Resources" phase from "JeepChak" target */,
 			);
 			path = JeepChak;
 			sourceTree = "<group>";
