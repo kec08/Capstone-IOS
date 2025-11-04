@@ -14,7 +14,6 @@ final class AddCheckListViewModel: ObservableObject {
         case title, address, propertyType, unit, memo
     }
 
-    // 입력 상태
     @Published var title = ""
     @Published var address = ""
     @Published var propertyType = ""

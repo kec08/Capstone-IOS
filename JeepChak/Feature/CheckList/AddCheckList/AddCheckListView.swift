@@ -32,7 +32,7 @@ struct AddCheckListView: View {
             .toolbar {
                 ToolbarItem(placement: .principal) {
                     Text("체크리스트")
-                        .font(.system(size: 18, weight: .semibold))
+                        .font(.system(size: 18, weight: .bold))
                         .foregroundColor(.black)
                 }
             }

@@ -19,7 +19,6 @@ struct HomeHeaderView: View {
 
             Spacer()
 
-            // MARK: - 검색창
             HStack {
                 TextField("찾으시는 방을 검색해보세요", text: $searchText)
                     .font(.system(size: 12))

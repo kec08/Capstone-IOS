@@ -15,7 +15,8 @@ struct CheckListHeaderView: View {
     var body: some View {
         HStack {
 
-            Spacer().frame(width: 126)
+            Spacer()
+                .frame(width: 150)
 
             Image("Header_AppIcon")
                 .resizable()

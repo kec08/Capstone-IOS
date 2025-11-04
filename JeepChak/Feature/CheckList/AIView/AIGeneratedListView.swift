@@ -10,33 +10,67 @@ import SwiftUI
 struct AIGeneratedListView: View {
     var onConfirm: () -> Void
 
-    let checklistItems = [
-        "창문 틀에 곰팡이 여부 확인",
-        "화장실 누수 흔적 확인",
-        "보일러 작동 테스트",
-        "주변 소음 확인"
+    @State private var checklistItems: [AICheckItem] = [
+        AICheckItem(name: "창문 틀에 곰팡이 여부 확인"),
+        AICheckItem(name: "화장실 누수 흔적 확인"),
+        AICheckItem(name: "보일러 작동 테스트"),
+        AICheckItem(name: "주변 소음 확인")
     ]
+
+    @State private var showAddSheet = false
+    @State private var newItem = ""
 
     var body: some View {
         VStack(spacing: 20) {
             Text("AI가 생성한 체크리스트")
                 .font(.system(size: 20, weight: .semibold))
                 .padding(.top, 24)
+                .padding(.bottom, 12)
+                .foregroundColor(Color.customBlack)
 
             ScrollView {
                 VStack(alignment: .leading, spacing: 16) {
-                    ForEach(checklistItems, id: \.self) { item in
-                        HStack {
-                            Image(systemName: "checkmark.circle.fill")
-                                .foregroundColor(.cyan)
-                            Text(item)
+                    ForEach($checklistItems) { $item in
+                        HStack(spacing: 10) {
+                            Button(action: {
+                                withAnimation(.easeInOut(duration: 0.15)) {
+                                    item.isChecked.toggle()
+                                }
+                            }) {
+                                Image(systemName: item.isChecked ? "checkmark.square.fill" : "square")
+                                    .foregroundColor(item.isChecked ? .cyan : .gray)
+                                    .font(.system(size: 22))
+                            }
+                            .buttonStyle(.plain)
+
+                            Text(item.name)
                                 .font(.system(size: 16))
                                 .foregroundColor(.black)
+                                .lineLimit(2)
+                                .multilineTextAlignment(.leading)
+
                             Spacer()
                         }
+                        .padding(.vertical, 4)
+                    }
+
+                    Button(action: {
+                        showAddSheet = true
+                    }) {
+                        HStack(spacing: 8) {
+                            Text("+")
+                                .font(.system(size: 20, weight: .medium))
+                                .foregroundColor(.gray)
+                            Text("추가로 작성하실 체크리스트를 입력해주세요")
+                                .font(.system(size: 15))
+                                .foregroundColor(.gray)
+                        }
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .padding(.top, 12)
                     }
                 }
-                .padding()
+                .padding(.horizontal, 20)
+                .padding(.bottom, 10)
             }
 
             Button(action: onConfirm) {
@@ -53,9 +87,26 @@ struct AIGeneratedListView: View {
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(Color.white.ignoresSafeArea())
+        .sheet(isPresented: $showAddSheet) {
+            AddChecklistSheet(
+                newItem: $newItem,
+                onAdd: {
+                    if !newItem.isEmpty {
+                        checklistItems.append(AICheckItem(name: newItem))
+                        newItem = ""
+                    }
+                    showAddSheet = false
+                },
+                onDismiss: {
+                    newItem = ""
+                    showAddSheet = false
+                }
+            )
+        }
     }
 }
 
 #Preview {
     AIGeneratedListView(onConfirm: {})
 }
+
