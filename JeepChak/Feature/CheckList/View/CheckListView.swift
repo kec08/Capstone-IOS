@@ -64,7 +64,6 @@ struct CheckListView: View {
             .sheet(isPresented: $showSavedView) {
                 SavedView(
                     onPropertySelected: { property in
-                        // 매물 선택 시 AI 생성 후 체크리스트 추가
                         viewModel.addItem(
                             title: property.name,
                             date: property.createdAt,
