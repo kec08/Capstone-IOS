@@ -88,6 +88,10 @@
 		BC10B2E72EC84F310067C14E /* ChecklistRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC10B2E62EC84F2C0067C14E /* ChecklistRequest.swift */; };
 		BC10B2E92EC84FDC0067C14E /* ChecklistService.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC10B2E82EC84FD30067C14E /* ChecklistService.swift */; };
 		BC10B2EC2EC8528A0067C14E /* PropertyAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC10B2EB2EC852870067C14E /* PropertyAPI.swift */; };
+		BCBF066B2ED601DE009ECE84 /* AnalyzeHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCBF066A2ED601DD009ECE84 /* AnalyzeHeaderView.swift */; };
+		BCBF066D2ED601E9009ECE84 /* DocumentUploadCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCBF066C2ED601E9009ECE84 /* DocumentUploadCard.swift */; };
+		BCBF066F2ED601F0009ECE84 /* PropertyUploadCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCBF066E2ED601EF009ECE84 /* PropertyUploadCard.swift */; };
+		BCBF06712ED601F8009ECE84 /* AnalyzeButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCBF06702ED601F7009ECE84 /* AnalyzeButton.swift */; };
 		BCC987B82EC40456002AE0F8 /* CombineMoya in Frameworks */ = {isa = PBXBuildFile; productRef = BCC987B72EC40456002AE0F8 /* CombineMoya */; };
 		BCC987BA2EC40456002AE0F8 /* Moya in Frameworks */ = {isa = PBXBuildFile; productRef = BCC987B92EC40456002AE0F8 /* Moya */; };
 		BCC987BC2EC40456002AE0F8 /* ReactiveMoya in Frameworks */ = {isa = PBXBuildFile; productRef = BCC987BB2EC40456002AE0F8 /* ReactiveMoya */; };
@@ -198,6 +202,10 @@
 		BC3D529D2EA37C4800BD9E2B /* JeepChak.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = JeepChak.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BC3D52AA2EA37C4A00BD9E2B /* JeepChakTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = JeepChakTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		BC3D52B42EA37C4A00BD9E2B /* JeepChakUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = JeepChakUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		BCBF066A2ED601DD009ECE84 /* AnalyzeHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyzeHeaderView.swift; sourceTree = "<group>"; };
+		BCBF066C2ED601E9009ECE84 /* DocumentUploadCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentUploadCard.swift; sourceTree = "<group>"; };
+		BCBF066E2ED601EF009ECE84 /* PropertyUploadCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PropertyUploadCard.swift; sourceTree = "<group>"; };
+		BCBF06702ED601F7009ECE84 /* AnalyzeButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyzeButton.swift; sourceTree = "<group>"; };
 		BCF9E25D2ECCBD28004FB229 /* PropertyRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PropertyRequest.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -257,6 +265,7 @@
 		BC10B17F2EC4E2D60067C14E /* Analyze */ = {
 			isa = PBXGroup;
 			children = (
+				BCBF06692ED60160009ECE84 /* Components */,
 				BC10B17D2EC4E2D60067C14E /* AnalyzeView.swift */,
 				BC10B17E2EC4E2D60067C14E /* AnalyzeViewModel.swift */,
 			);
@@ -649,6 +658,17 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		BCBF06692ED60160009ECE84 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				BCBF06702ED601F7009ECE84 /* AnalyzeButton.swift */,
+				BCBF066E2ED601EF009ECE84 /* PropertyUploadCard.swift */,
+				BCBF066C2ED601E9009ECE84 /* DocumentUploadCard.swift */,
+				BCBF066A2ED601DD009ECE84 /* AnalyzeHeaderView.swift */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -837,6 +857,7 @@
 				BC10B1FF2EC4E2D60067C14E /* CheckListViewModel.swift in Sources */,
 				BC10B2002EC4E2D60067C14E /* PropertyCard.swift in Sources */,
 				BC10B2012EC4E2D60067C14E /* RecentPropertyCard.swift in Sources */,
+				BCBF06712ED601F8009ECE84 /* AnalyzeButton.swift in Sources */,
 				BC10B2E22EC841FA0067C14E /* SavedHeaderView.swift in Sources */,
 				BC10B2022EC4E2D60067C14E /* Property.swift in Sources */,
 				BC10B2032EC4E2D60067C14E /* RecentProperty.swift in Sources */,
@@ -863,9 +884,11 @@
 				BC10B2142EC4E2D60067C14E /* InfoSection.swift in Sources */,
 				BC10B2152EC4E2D60067C14E /* MyHeaderView.swift.swift in Sources */,
 				BC10B2162EC4E2D60067C14E /* MyView.swift in Sources */,
+				BCBF066F2ED601F0009ECE84 /* PropertyUploadCard.swift in Sources */,
 				BC10B2172EC4E2D60067C14E /* ProfileSection.swift in Sources */,
 				BC10B2182EC4E2D60067C14E /* RecommendationBanner.swift in Sources */,
 				BC10B2E92EC84FDC0067C14E /* ChecklistService.swift in Sources */,
+				BCBF066B2ED601DE009ECE84 /* AnalyzeHeaderView.swift in Sources */,
 				BC10B2192EC4E2D60067C14E /* StatCard.swift in Sources */,
 				BC10B21A2EC4E2D60067C14E /* StatisticsSection.swift in Sources */,
 				BC10B21B2EC4E2D60067C14E /* MyViewModel.swift in Sources */,
@@ -879,6 +902,7 @@
 				BC10B2242EC4E2D60067C14E /* LoginResponse.swift in Sources */,
 				BC10B2E52EC84D5F0067C14E /* SavedMdoel.swift in Sources */,
 				BC10B2252EC4E2D60067C14E /* ImagePicker.swift in Sources */,
+				BCBF066D2ED601E9009ECE84 /* DocumentUploadCard.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
