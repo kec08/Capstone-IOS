@@ -43,6 +43,6 @@ struct ChecklistDetailResponse: Codable {
 struct ChecklistItemDetail: Codable {
     let itemId: Int
     let content: String
-    let severity: Int  // 0: none, 1: normal, 2: warning, 3: danger
+    let severity: Int
     let memo: String?
 }

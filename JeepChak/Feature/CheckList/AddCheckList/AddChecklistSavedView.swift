@@ -9,7 +9,7 @@ import SwiftUI
 
 struct AddChecklistFromWishlistView: View {
     @StateObject private var viewModel = SavedViewModel()
-    @State private var selectedProperties: Set<UUID> = []
+    @State private var selectedProperties: Set<Int> = []
     @Environment(\.dismiss) var dismiss
     
     var body: some View {

@@ -9,22 +9,43 @@ import SwiftUI
 import MapKit
 
 struct MapView: View {
+    @State private var position: MapCameraPosition = .region(
+        MKCoordinateRegion(
+            center: CLLocationCoordinate2D(latitude: 37.5665, longitude: 126.9780),
+            span: MKCoordinateSpan(latitudeDelta: 0.05, longitudeDelta: 0.05)
+        )
+    )
+    
     var body: some View {
-        NavigationView {
+        ZStack {
+            Map(position: $position)
+                .mapStyle(.standard)
+            
             VStack {
-                Spacer()
-                Text("지도")
-                    .font(.system(size: 28, weight: .bold))
-                    .padding(.top)
-                Text("지도 페이지입니다")
-                    .font(.system(size: 16))
-                    .foregroundColor(.gray)
-                    .padding(.top, 4)
+                HStack {
+                    
+                    Spacer()
+                    
+                    Button(action: {
+                        position = .region(
+                            MKCoordinateRegion(
+                                center: CLLocationCoordinate2D(latitude: 37.5665, longitude: 126.9780),
+                                span: MKCoordinateSpan(latitudeDelta: 0.05, longitudeDelta: 0.05)
+                            )
+                        )
+                    }) {
+                        Image(systemName: "location.circle.fill")
+                            .font(.title)
+                            .foregroundColor(.blue)
+                            .padding()
+                            .background(Color.white)
+                            .clipShape(Circle())
+                    }
+                    .padding()
+                }
+                
                 Spacer()
             }
-            .padding(.bottom, 80)
-            .navigationTitle("지도")
-            .navigationBarTitleDisplayMode(.inline)
         }
     }
 }

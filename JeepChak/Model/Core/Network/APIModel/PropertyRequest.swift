@@ -27,26 +27,21 @@ struct PropertyListResponse: Codable {
     // thumbnail은 multipart header로 별도 처리 필요
 }
 
-struct PropertyDetailResponse: Codable {
-    let propertyId: Int
-    let name: String
-    let address: String
-    let propertyType: String
-    let floor: String
-    let buildYear: String
-    let area: String
-    let availableDate: String
-    let createdAt: String
-}
-
 struct PropertyResponse: Codable {
     let propertyId: Int
     let name: String
     let address: String
     let propertyType: String
-    let floor: String
-    let buildYear: String
-    let area: String
+    let floor: Int
+    let buildYear: Int
+    let area: Int
     let availableDate: String
+    let thumbnail: String?
     let createdAt: String
+}
+
+struct ApiResponse<T: Decodable>: Decodable {
+    let success: Bool
+    let message: String
+    let data: T
 }

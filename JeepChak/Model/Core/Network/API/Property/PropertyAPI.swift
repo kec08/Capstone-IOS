@@ -19,7 +19,7 @@ enum PropertyAPI {
 extension PropertyAPI: TargetType {
     
     var baseURL: URL {
-        URL(string: "http://ai.zipchak-backend.kro.kr")!   // 백엔드 도메인
+        URL(string: "http://zipchak-backend.kro.kr:8080/")!   // 백엔드 도메인
     }
     
     var path: String {
@@ -56,7 +56,13 @@ extension PropertyAPI: TargetType {
         }
     }
     
-    var headers: [String : String]? {
-        ["Content-Type": "application/json"]
+    var headers: [String: String]? {
+        switch self {
+        case .getProperties, .getPropertyDetail, .deleteProperty:
+            return ["Accept": "application/json"]
+        case .createProperty:
+            return ["Content-Type": "application/json",
+                    "Accept": "application/json"]
+        }
     }
 }

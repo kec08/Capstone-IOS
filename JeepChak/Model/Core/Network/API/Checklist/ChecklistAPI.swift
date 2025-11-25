@@ -19,10 +19,11 @@ enum ChecklistAPI {
 }
 
 extension ChecklistAPI: TargetType {
+
     var baseURL: URL {
-        URL(string: "http://ai.zipchak-backend.kro.kr")!
+        URL(string: "http://zipchak-backend.kro.kr:8080/")!
     }
-    
+
     var path: String {
         switch self {
         case .createChecklist:
@@ -31,41 +32,42 @@ extension ChecklistAPI: TargetType {
             return "/api/checklist/generate"
         case .getChecklists:
             return "/api/checklist"
-        case .getChecklistDetail(let id), .deleteChecklist(let id):
-            return "/api/checklist/\(id)"
-        case .updateChecklist(let id, _):
+        case .getChecklistDetail(let id),
+             .deleteChecklist(let id),
+             .updateChecklist(let id, _):
             return "/api/checklist/\(id)"
         }
     }
-    
+
     var method: Moya.Method {
         switch self {
-        case .createChecklist, .generateChecklist:
-            return .post
-        case .getChecklists, .getChecklistDetail:
-            return .get
-        case .updateChecklist:
-            return .put
-        case .deleteChecklist:
-            return .delete
+        case .createChecklist, .generateChecklist: return .post
+        case .getChecklists, .getChecklistDetail: return .get
+        case .updateChecklist: return .put
+        case .deleteChecklist: return .delete
         }
     }
-    
+
     var task: Task {
         switch self {
         case .createChecklist(let request):
             return .requestJSONEncodable(request)
+
         case .generateChecklist(let propertyId):
-                let body = ["propertyId": propertyId]
-                return .requestJSONEncodable(body)
+            return .requestParameters(
+                parameters: ["propertyId": propertyId],
+                encoding: JSONEncoding.default
+            )
+
         case .getChecklists, .getChecklistDetail, .deleteChecklist:
             return .requestPlain
+
         case .updateChecklist(_, let items):
             return .requestJSONEncodable(items)
         }
     }
-    
+
     var headers: [String : String]? {
-        ["Content-Type": "application/json"]
+        ["Content-Type": "application/json", "Accept": "application/json"]
     }
 }

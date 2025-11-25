@@ -61,8 +61,6 @@ final class AddCheckListViewModel: ObservableObject {
                 }
             } receiveValue: { response in
                 print("생성된 체크리스트:", response)
-                // response: [GeneratedChecklistResponse]
-                // 각 항목에는 content가 들어있음
             }
             .store(in: &cancellables)
     }

@@ -40,28 +40,13 @@ struct SavedView: View {
         .sheet(isPresented: $showAddView) {
             AddCheckListView(
                 addCheckListItem: { newItem in
-                    let saved = SavedProperty(
-                        propertyId: Int.random(in: 1000...9999),
-                        image: newItem.image,
-                        type: newItem.propertyType,
-                        name: newItem.title,
-                        details: newItem.address,
-                        description: newItem.memo,
-                        price: newItem.unit,
-                        createdAt: newItem.date
-                    )
-                    
-                    // 로컬에 추가
-                    viewModel.properties.append(saved)
-                    selectedProperty = saved
-                    showAddView = false
-                    
-                    // AI 로딩 시작
-                    showAILoading = true
+                    viewModel.createProperty(from: newItem) { saved in
+                        selectedProperty = saved
+                        showAddView = false
+                        showAILoading = true
+                    }
                 },
-                onDismiss: {
-                    showAddView = false
-                }
+                onDismiss: { showAddView = false }
             )
         }
         .sheet(isPresented: $showAILoading) {
@@ -169,21 +154,62 @@ struct SavedView: View {
                 showAddView = true
             }) {
                 Text("직접 추가")
-                    .font(.system(size: 14))
+                    .font(.system(size: 16))
                     .foregroundColor(.cyan)
                 Image(systemName: "plus")
-                    .font(.system(size: 12))
+                    .font(.system(size: 14))
                     .foregroundColor(.cyan)
             }
-            .padding(.top, 8)
+            .padding(.top, 14)
             
             Spacer()
         }
     }
 }
+extension SavedView {
+    init(mockProperties: [SavedProperty]) {
+        self._viewModel = StateObject(
+            wrappedValue: SavedViewModel(mockProperties: mockProperties)
+        )
+    }
+}
+
+
 
 #Preview("빈 상태") {
     NavigationView {
         SavedView()
     }
 }
+
+#Preview("데이터 있음") {
+    NavigationView {
+        SavedView(
+            mockProperties: [
+                SavedProperty(
+                    id: 1,
+                    propertyId: 1,
+                    image: UIImage(systemName: "house.fill"),
+                    type: "원룸",
+                    name: "성수동 풀옵션 원룸",
+                    details: "서울특별시 성동구 성수동1가",
+                    description: "채광 좋고, 주변 조용함",
+                    price: "월세 80/10",
+                    createdAt: "2025-11-15"
+                ),
+                SavedProperty(
+                    id: 2,
+                    propertyId: 2,
+                    image: UIImage(systemName: "building.columns"),
+                    type: "투룸",
+                    name: "역삼역 도보 3분 투룸",
+                    details: "서울특별시 강남구 역삼동",
+                    description: "회사와 가까움",
+                    price: "전세 4.5억",
+                    createdAt: "2025-11-10"
+                )
+            ]
+        )
+    }
+}
+
