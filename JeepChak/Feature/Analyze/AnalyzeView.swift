@@ -10,7 +10,7 @@ import UniformTypeIdentifiers
 
 struct AnalyzeView: View {
     @State private var selectedFileURL: URL?
-    @State private var selectedProperty: Property?
+    @State private var selectedProperty: SavedProperty?
     
     @State private var showingFileImporter = false
     @State private var showingPropertySheet = false
@@ -44,7 +44,7 @@ struct AnalyzeView: View {
                             print("분석 시작")
                         }
                         .padding(.horizontal, 20)
-                        .padding(.top, -75)
+                        .padding(.top, -85)
                 }
             }
             .background(.customBackgroundGray)
@@ -59,8 +59,16 @@ struct AnalyzeView: View {
                     UTType(filenameExtension: "png")!
                 ]
             ) { result in
-                if case .success(let url) = result {
+                switch result {
+                case .success(let url):
                     selectedFileURL = url
+                case .failure:
+                    break
+                }
+            }
+            .sheet(isPresented: $showingPropertySheet) {
+                PropertyUploadView { saved in
+                    self.selectedProperty = saved
                 }
             }
         }

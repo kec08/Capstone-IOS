@@ -1,0 +1,52 @@
+//
+//  PropertyUploadHeaderView.swift
+//  JeepChak
+//
+//  Created by 김은찬 on 11/26/25.
+//
+
+import SwiftUI
+
+struct PropertyUploadHeaderView: View {
+    let title: String
+    let onBack: () -> Void
+    
+    var body: some View {
+        VStack(spacing: 16) {
+            HStack {
+                Button(action: onBack) {
+                    Image(systemName: "chevron.left")
+                        .font(.system(size: 20))
+                        .foregroundColor(.black)
+                }
+                
+                Spacer()
+                
+                Text(title)
+                    .font(.system(size: 18, weight: .semibold))
+                    .foregroundColor(.black)
+                
+                Spacer()
+                
+                Spacer()
+                    .frame(width: 24)
+            }
+            .padding(.horizontal, 20)
+            .padding(.top, 35)
+            
+            HStack {
+                Text("매물 업로드")
+                    .font(.system(size: 18, weight: .bold))
+                    .foregroundColor(.black)
+                Spacer()
+            }
+            .padding(.horizontal, 20)
+            .padding(.vertical, 10)
+        }
+        .background(Color.white)
+    }
+}
+
+#Preview {
+    PropertyUploadHeaderView(title: "매물 업로드", onBack: {})
+}

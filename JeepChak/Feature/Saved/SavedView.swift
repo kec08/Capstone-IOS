@@ -35,7 +35,7 @@ struct SavedView: View {
                 propertyListView
             }
         }
-        .background(Color.white)
+        .background(.customWhite)
         .navigationBarHidden(true)
         .sheet(isPresented: $showAddView) {
             AddCheckListView(
@@ -74,9 +74,8 @@ struct SavedView: View {
             VStack(spacing: 16) {
                 ForEach(viewModel.properties) { property in
                     SavedPropertyCard(property: property)
-                        .padding(.horizontal, 20)
+                        .padding(.horizontal, 10)
                         .onTapGesture {
-                            // 매물 선택 시
                             selectedProperty = property
                             showAILoading = true
                         }
@@ -95,7 +94,7 @@ struct SavedView: View {
                 .scaleEffect(1.5)
             Text("매물 목록을 불러오는 중...")
                 .font(.system(size: 14))
-                .foregroundColor(.gray)
+                .foregroundColor(.customDarkGray)
                 .padding(.top, 16)
             Spacer()
         }
@@ -189,7 +188,7 @@ extension SavedView {
                 SavedProperty(
                     id: 1,
                     propertyId: 1,
-                    image: UIImage(systemName: "house.fill"),
+                    image: UIImage(contentsOfFile: "CheckListHouse1"),
                     type: "원룸",
                     name: "성수동 풀옵션 원룸",
                     details: "서울특별시 성동구 성수동1가",
@@ -200,7 +199,7 @@ extension SavedView {
                 SavedProperty(
                     id: 2,
                     propertyId: 2,
-                    image: UIImage(systemName: "building.columns"),
+                    image: UIImage(contentsOfFile: "CheckListHouse1"),
                     type: "투룸",
                     name: "역삼역 도보 3분 투룸",
                     details: "서울특별시 강남구 역삼동",

@@ -92,6 +92,12 @@
 		BCBF066D2ED601E9009ECE84 /* DocumentUploadCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCBF066C2ED601E9009ECE84 /* DocumentUploadCard.swift */; };
 		BCBF066F2ED601F0009ECE84 /* PropertyUploadCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCBF066E2ED601EF009ECE84 /* PropertyUploadCard.swift */; };
 		BCBF06712ED601F8009ECE84 /* AnalyzeButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCBF06702ED601F7009ECE84 /* AnalyzeButton.swift */; };
+		BCBF06742ED6D612009ECE84 /* PropertyUploadView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCBF06732ED6D611009ECE84 /* PropertyUploadView.swift */; };
+		BCBF06772ED6D636009ECE84 /* PropertyUploadHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCBF06762ED6D635009ECE84 /* PropertyUploadHeaderView.swift */; };
+		BCBF06792ED6D644009ECE84 /* PropertyUploadBottomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCBF06782ED6D644009ECE84 /* PropertyUploadBottomButton.swift */; };
+		BCBF067B2ED6D656009ECE84 /* PropertyUploadLoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCBF067A2ED6D655009ECE84 /* PropertyUploadLoadingView.swift */; };
+		BCBF067D2ED6D6CD009ECE84 /* PropertyUploadErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCBF067C2ED6D6CC009ECE84 /* PropertyUploadErrorView.swift */; };
+		BCBF067F2ED6D6EF009ECE84 /* PropertyUploadEmptyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCBF067E2ED6D6EE009ECE84 /* PropertyUploadEmptyView.swift */; };
 		BCC987B82EC40456002AE0F8 /* CombineMoya in Frameworks */ = {isa = PBXBuildFile; productRef = BCC987B72EC40456002AE0F8 /* CombineMoya */; };
 		BCC987BA2EC40456002AE0F8 /* Moya in Frameworks */ = {isa = PBXBuildFile; productRef = BCC987B92EC40456002AE0F8 /* Moya */; };
 		BCC987BC2EC40456002AE0F8 /* ReactiveMoya in Frameworks */ = {isa = PBXBuildFile; productRef = BCC987BB2EC40456002AE0F8 /* ReactiveMoya */; };
@@ -206,6 +212,12 @@
 		BCBF066C2ED601E9009ECE84 /* DocumentUploadCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentUploadCard.swift; sourceTree = "<group>"; };
 		BCBF066E2ED601EF009ECE84 /* PropertyUploadCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PropertyUploadCard.swift; sourceTree = "<group>"; };
 		BCBF06702ED601F7009ECE84 /* AnalyzeButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyzeButton.swift; sourceTree = "<group>"; };
+		BCBF06732ED6D611009ECE84 /* PropertyUploadView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PropertyUploadView.swift; sourceTree = "<group>"; };
+		BCBF06762ED6D635009ECE84 /* PropertyUploadHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PropertyUploadHeaderView.swift; sourceTree = "<group>"; };
+		BCBF06782ED6D644009ECE84 /* PropertyUploadBottomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PropertyUploadBottomButton.swift; sourceTree = "<group>"; };
+		BCBF067A2ED6D655009ECE84 /* PropertyUploadLoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PropertyUploadLoadingView.swift; sourceTree = "<group>"; };
+		BCBF067C2ED6D6CC009ECE84 /* PropertyUploadErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PropertyUploadErrorView.swift; sourceTree = "<group>"; };
+		BCBF067E2ED6D6EE009ECE84 /* PropertyUploadEmptyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PropertyUploadEmptyView.swift; sourceTree = "<group>"; };
 		BCF9E25D2ECCBD28004FB229 /* PropertyRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PropertyRequest.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -486,6 +498,7 @@
 		BC10B1CC2EC4E2D60067C14E /* Feature */ = {
 			isa = PBXGroup;
 			children = (
+				BCBF06722ED6D5DD009ECE84 /* Property */,
 				BC10B2CF2EC83C0C0067C14E /* Saved */,
 				BC10B17F2EC4E2D60067C14E /* Analyze */,
 				BC10B19F2EC4E2D60067C14E /* CheckList */,
@@ -669,6 +682,27 @@
 			path = Components;
 			sourceTree = "<group>";
 		};
+		BCBF06722ED6D5DD009ECE84 /* Property */ = {
+			isa = PBXGroup;
+			children = (
+				BCBF06752ED6D62C009ECE84 /* Components */,
+				BCBF06732ED6D611009ECE84 /* PropertyUploadView.swift */,
+			);
+			path = Property;
+			sourceTree = "<group>";
+		};
+		BCBF06752ED6D62C009ECE84 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				BCBF067E2ED6D6EE009ECE84 /* PropertyUploadEmptyView.swift */,
+				BCBF067C2ED6D6CC009ECE84 /* PropertyUploadErrorView.swift */,
+				BCBF067A2ED6D655009ECE84 /* PropertyUploadLoadingView.swift */,
+				BCBF06782ED6D644009ECE84 /* PropertyUploadBottomButton.swift */,
+				BCBF06762ED6D635009ECE84 /* PropertyUploadHeaderView.swift */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -832,6 +866,7 @@
 				BC10B1EA2EC4E2D60067C14E /* AddChecklistSheet.swift in Sources */,
 				BC10B1EB2EC4E2D60067C14E /* AIGeneratedListView.swift in Sources */,
 				BC10B1EC2EC4E2D60067C14E /* AILoadingView.swift in Sources */,
+				BCBF06742ED6D612009ECE84 /* PropertyUploadView.swift in Sources */,
 				BC10B1ED2EC4E2D60067C14E /* AIResultView.swift in Sources */,
 				BC10B2DD2EC83F1D0067C14E /* AddChecklistSavedView.swift in Sources */,
 				BC10B1EE2EC4E2D60067C14E /* AddCheckListItem.swift in Sources */,
@@ -839,6 +874,7 @@
 				BC10B1F02EC4E2D60067C14E /* CheckItem.swift in Sources */,
 				BC10B1F12EC4E2D60067C14E /* DetailItem.swift in Sources */,
 				BC10B1F22EC4E2D60067C14E /* AddCheckItemSheet.swift in Sources */,
+				BCBF067B2ED6D656009ECE84 /* PropertyUploadLoadingView.swift in Sources */,
 				BC10B2D92EC83DB40067C14E /* SavedPropertyCard.swift in Sources */,
 				BC10B1F32EC4E2D60067C14E /* CheckListDetailHeaderView.swift in Sources */,
 				BC10B1F42EC4E2D60067C14E /* CheckListFinalHeaderView.swift in Sources */,
@@ -849,15 +885,18 @@
 				BC10B2E02EC83F5A0067C14E /* SelectablePropertyCard.swift in Sources */,
 				BC10B2EC2EC8528A0067C14E /* PropertyAPI.swift in Sources */,
 				BC10B1F92EC4E2D60067C14E /* CheckListEmptyView.swift in Sources */,
+				BCBF067F2ED6D6EF009ECE84 /* PropertyUploadEmptyView.swift in Sources */,
 				BC10B1FA2EC4E2D60067C14E /* CheckListFinalView.swift in Sources */,
 				BC10B1FB2EC4E2D60067C14E /* CheckListGridView.swift in Sources */,
 				BC10B1FC2EC4E2D60067C14E /* CheckListView.swift in Sources */,
 				BC10B1FD2EC4E2D60067C14E /* CheckListDetailViewModel.swift in Sources */,
 				BC10B1FE2EC4E2D60067C14E /* CheckListFinalViewModel.swift in Sources */,
+				BCBF067D2ED6D6CD009ECE84 /* PropertyUploadErrorView.swift in Sources */,
 				BC10B1FF2EC4E2D60067C14E /* CheckListViewModel.swift in Sources */,
 				BC10B2002EC4E2D60067C14E /* PropertyCard.swift in Sources */,
 				BC10B2012EC4E2D60067C14E /* RecentPropertyCard.swift in Sources */,
 				BCBF06712ED601F8009ECE84 /* AnalyzeButton.swift in Sources */,
+				BCBF06792ED6D644009ECE84 /* PropertyUploadBottomButton.swift in Sources */,
 				BC10B2E22EC841FA0067C14E /* SavedHeaderView.swift in Sources */,
 				BC10B2022EC4E2D60067C14E /* Property.swift in Sources */,
 				BC10B2032EC4E2D60067C14E /* RecentProperty.swift in Sources */,
@@ -893,6 +932,7 @@
 				BC10B21A2EC4E2D60067C14E /* StatisticsSection.swift in Sources */,
 				BC10B21B2EC4E2D60067C14E /* MyViewModel.swift in Sources */,
 				BC10B21C2EC4E2D60067C14E /* SignUpView.swift in Sources */,
+				BCBF06772ED6D636009ECE84 /* PropertyUploadHeaderView.swift in Sources */,
 				BC10B21D2EC4E2D60067C14E /* SignUpViewModel.swift in Sources */,
 				BC10B21E2EC4E2D60067C14E /* SplashView.swift in Sources */,
 				BC10B21F2EC4E2D60067C14E /* Color+Extensions.swift in Sources */,

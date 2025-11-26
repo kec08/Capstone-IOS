@@ -22,8 +22,9 @@ struct DocumentUploadCard: View {
                         Image("Analyz_documents")
                             .resizable()
                             .scaledToFit()
-                            .frame(width: 80, height: 80)
+                            .frame(width: 85, height: 85)
                             .foregroundColor(.blue)
+                            .padding(.top, -10)
                         
                         Text(file.lastPathComponent)
                             .font(.system(size: 15, weight: .medium))

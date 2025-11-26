@@ -8,14 +8,14 @@
 import SwiftUI
 
 struct PropertyUploadCard: View {
-    let selectedProperty: Property?
+    let selectedProperty: SavedProperty?
     @Binding var showingSheet: Bool
     
     var body: some View {
         VStack(alignment: .leading) {
             VStack(spacing: 16) {
                 if let property = selectedProperty {
-                    PropertyCard(property: property)
+                    SavedPropertyCard(property: property)
                         .padding(.horizontal, 16)
                         .padding(.top, 16)
                 } else {

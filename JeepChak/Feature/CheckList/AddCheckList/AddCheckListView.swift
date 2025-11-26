@@ -135,7 +135,7 @@ struct AddCheckListView: View {
                 guard viewModel.isValid else { return }
                 let newItem = viewModel.createCheckListItem()
                 
-                print("📍 전송할 propertyId:", propertyId)
+                print("전송할 propertyId:", propertyId)
 
                 // 로컬에 추가
                 addCheckListItem(newItem)
