@@ -23,7 +23,7 @@ struct AnalyzeHeaderView: View {
                 .fixedSize(horizontal: false, vertical: true)
         }
         .frame(maxWidth: .infinity)
-        .padding(.top, 20)
+        .padding(.top, 10)
     }
 }
 

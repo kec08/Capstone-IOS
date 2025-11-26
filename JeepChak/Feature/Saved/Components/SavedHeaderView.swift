@@ -36,7 +36,7 @@ struct SavedHeaderView: View {
             
         }
         .padding(.horizontal, 20)
-        .padding(.top, 35)
+        .padding(.vertical, 25)
         .background(Color.customWhite)
     }
 }
