@@ -98,6 +98,12 @@
 		BCBF067B2ED6D656009ECE84 /* PropertyUploadLoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCBF067A2ED6D655009ECE84 /* PropertyUploadLoadingView.swift */; };
 		BCBF067D2ED6D6CD009ECE84 /* PropertyUploadErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCBF067C2ED6D6CC009ECE84 /* PropertyUploadErrorView.swift */; };
 		BCBF067F2ED6D6EF009ECE84 /* PropertyUploadEmptyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCBF067E2ED6D6EE009ECE84 /* PropertyUploadEmptyView.swift */; };
+		BCBF07252ED89586009ECE84 /* AnalyzeResultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCBF07242ED89585009ECE84 /* AnalyzeResultView.swift */; };
+		BCBF07272ED89674009ECE84 /* RiskDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCBF07262ED89673009ECE84 /* RiskDetail.swift */; };
+		BCBF07292ED8970D009ECE84 /* RiskSolutionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCBF07282ED8970C009ECE84 /* RiskSolutionView.swift */; };
+		BCBF072B2ED89747009ECE84 /* ChecklistItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCBF072A2ED89746009ECE84 /* ChecklistItem.swift */; };
+		BCBF072D2ED899D1009ECE84 /* RiskSolutionCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCBF072C2ED899D1009ECE84 /* RiskSolutionCard.swift */; };
+		BCBF072F2ED899ED009ECE84 /* ResourceCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCBF072E2ED899EC009ECE84 /* ResourceCard.swift */; };
 		BCC987B82EC40456002AE0F8 /* CombineMoya in Frameworks */ = {isa = PBXBuildFile; productRef = BCC987B72EC40456002AE0F8 /* CombineMoya */; };
 		BCC987BA2EC40456002AE0F8 /* Moya in Frameworks */ = {isa = PBXBuildFile; productRef = BCC987B92EC40456002AE0F8 /* Moya */; };
 		BCC987BC2EC40456002AE0F8 /* ReactiveMoya in Frameworks */ = {isa = PBXBuildFile; productRef = BCC987BB2EC40456002AE0F8 /* ReactiveMoya */; };
@@ -218,6 +224,12 @@
 		BCBF067A2ED6D655009ECE84 /* PropertyUploadLoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PropertyUploadLoadingView.swift; sourceTree = "<group>"; };
 		BCBF067C2ED6D6CC009ECE84 /* PropertyUploadErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PropertyUploadErrorView.swift; sourceTree = "<group>"; };
 		BCBF067E2ED6D6EE009ECE84 /* PropertyUploadEmptyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PropertyUploadEmptyView.swift; sourceTree = "<group>"; };
+		BCBF07242ED89585009ECE84 /* AnalyzeResultView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyzeResultView.swift; sourceTree = "<group>"; };
+		BCBF07262ED89673009ECE84 /* RiskDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RiskDetail.swift; sourceTree = "<group>"; };
+		BCBF07282ED8970C009ECE84 /* RiskSolutionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RiskSolutionView.swift; sourceTree = "<group>"; };
+		BCBF072A2ED89746009ECE84 /* ChecklistItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChecklistItem.swift; sourceTree = "<group>"; };
+		BCBF072C2ED899D1009ECE84 /* RiskSolutionCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RiskSolutionCard.swift; sourceTree = "<group>"; };
+		BCBF072E2ED899EC009ECE84 /* ResourceCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResourceCard.swift; sourceTree = "<group>"; };
 		BCF9E25D2ECCBD28004FB229 /* PropertyRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PropertyRequest.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -278,8 +290,10 @@
 			isa = PBXGroup;
 			children = (
 				BCBF06692ED60160009ECE84 /* Components */,
+				BCBF07242ED89585009ECE84 /* AnalyzeResultView.swift */,
 				BC10B17D2EC4E2D60067C14E /* AnalyzeView.swift */,
 				BC10B17E2EC4E2D60067C14E /* AnalyzeViewModel.swift */,
+				BCBF07282ED8970C009ECE84 /* RiskSolutionView.swift */,
 			);
 			path = Analyze;
 			sourceTree = "<group>";
@@ -638,6 +652,8 @@
 		BC10B2E32EC84D1D0067C14E /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				BCBF072A2ED89746009ECE84 /* ChecklistItem.swift */,
+				BCBF07262ED89673009ECE84 /* RiskDetail.swift */,
 				BC10B2E42EC84D5A0067C14E /* SavedMdoel.swift */,
 			);
 			path = Model;
@@ -674,6 +690,8 @@
 		BCBF06692ED60160009ECE84 /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				BCBF072E2ED899EC009ECE84 /* ResourceCard.swift */,
+				BCBF072C2ED899D1009ECE84 /* RiskSolutionCard.swift */,
 				BCBF06702ED601F7009ECE84 /* AnalyzeButton.swift */,
 				BCBF066E2ED601EF009ECE84 /* PropertyUploadCard.swift */,
 				BCBF066C2ED601E9009ECE84 /* DocumentUploadCard.swift */,
@@ -854,12 +872,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				BCF9E25E2ECCBD2F004FB229 /* PropertyRequest.swift in Sources */,
+				BCBF07292ED8970D009ECE84 /* RiskSolutionView.swift in Sources */,
 				BC10B1E12EC4E2D60067C14E /* AppState.swift in Sources */,
 				BC10B1E22EC4E2D60067C14E /* JeepChakApp.swift in Sources */,
+				BCBF07272ED89674009ECE84 /* RiskDetail.swift in Sources */,
 				BC10B1E32EC4E2D60067C14E /* MainTabView.swift in Sources */,
 				BC10B1E42EC4E2D60067C14E /* RootView.swift in Sources */,
 				BC10B1E52EC4E2D60067C14E /* AnalyzeView.swift in Sources */,
 				BC10B1E62EC4E2D60067C14E /* AnalyzeViewModel.swift in Sources */,
+				BCBF07252ED89586009ECE84 /* AnalyzeResultView.swift in Sources */,
 				BC10B1E72EC4E2D60067C14E /* AddCheckListView.swift in Sources */,
 				BC10B1E82EC4E2D60067C14E /* AddCheckListViewModel.swift in Sources */,
 				BC10B1E92EC4E2D60067C14E /* CheckListTextField.swift in Sources */,
@@ -884,6 +905,7 @@
 				BC10B1F82EC4E2D60067C14E /* CheckListDetailView.swift in Sources */,
 				BC10B2E02EC83F5A0067C14E /* SelectablePropertyCard.swift in Sources */,
 				BC10B2EC2EC8528A0067C14E /* PropertyAPI.swift in Sources */,
+				BCBF072D2ED899D1009ECE84 /* RiskSolutionCard.swift in Sources */,
 				BC10B1F92EC4E2D60067C14E /* CheckListEmptyView.swift in Sources */,
 				BCBF067F2ED6D6EF009ECE84 /* PropertyUploadEmptyView.swift in Sources */,
 				BC10B1FA2EC4E2D60067C14E /* CheckListFinalView.swift in Sources */,
@@ -896,6 +918,7 @@
 				BC10B2002EC4E2D60067C14E /* PropertyCard.swift in Sources */,
 				BC10B2012EC4E2D60067C14E /* RecentPropertyCard.swift in Sources */,
 				BCBF06712ED601F8009ECE84 /* AnalyzeButton.swift in Sources */,
+				BCBF072F2ED899ED009ECE84 /* ResourceCard.swift in Sources */,
 				BCBF06792ED6D644009ECE84 /* PropertyUploadBottomButton.swift in Sources */,
 				BC10B2E22EC841FA0067C14E /* SavedHeaderView.swift in Sources */,
 				BC10B2022EC4E2D60067C14E /* Property.swift in Sources */,
@@ -903,6 +926,7 @@
 				BC10B2042EC4E2D60067C14E /* HomeCategorySectionView.swift in Sources */,
 				BC10B2052EC4E2D60067C14E /* HomeHeaderView.swift in Sources */,
 				BC10B2062EC4E2D60067C14E /* HomePopularSectionView.swift in Sources */,
+				BCBF072B2ED89747009ECE84 /* ChecklistItem.swift in Sources */,
 				BC10B2072EC4E2D60067C14E /* HomeRecentSectionView.swift in Sources */,
 				BC10B2082EC4E2D60067C14E /* HomeView.swift in Sources */,
 				BC10B2092EC4E2D60067C14E /* HomeViewModel.swift in Sources */,

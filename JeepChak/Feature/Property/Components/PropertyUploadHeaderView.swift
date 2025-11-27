@@ -36,12 +36,12 @@ struct PropertyUploadHeaderView: View {
             
             HStack {
                 Text("매물 업로드")
-                    .font(.system(size: 18, weight: .bold))
+                    .font(.system(size: 17, weight: .bold))
                     .foregroundColor(.black)
                 Spacer()
             }
             .padding(.horizontal, 20)
-            .padding(.vertical, 10)
+            .padding(.vertical, 8)
         }
         .background(Color.white)
     }
