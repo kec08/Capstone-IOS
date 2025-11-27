@@ -61,6 +61,6 @@ struct MainTabView: View {
 
 
 #Preview {
-    RootView()
+    MainTabView()
 }
 
