@@ -20,13 +20,14 @@ struct LoginView: View {
 
             // MARK: - 메인 콘텐츠
             VStack(spacing: 32) {
-                // 타이틀
                 titleSection
 
                 // Apple 로그인
-                AppleSignInButton(action: viewModel.signInWithApple)
-                    .frame(height: 48)
-                    .cornerRadius(10)
+                AppleSignInStyledButton {
+                    viewModel.signInWithApple()
+                }
+                .padding(.horizontal, 8)
+
 
                 Divider()
                     .padding(.horizontal, 40)

@@ -48,7 +48,6 @@
 		BC10B2072EC4E2D60067C14E /* HomeRecentSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC10B1A92EC4E2D60067C14E /* HomeRecentSectionView.swift */; };
 		BC10B2082EC4E2D60067C14E /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC10B1AB2EC4E2D60067C14E /* HomeView.swift */; };
 		BC10B2092EC4E2D60067C14E /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC10B1AC2EC4E2D60067C14E /* HomeViewModel.swift */; };
-		BC10B20A2EC4E2D60067C14E /* AppleSignInButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC10B1AE2EC4E2D60067C14E /* AppleSignInButton.swift */; };
 		BC10B20B2EC4E2D60067C14E /* AuthHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC10B1AF2EC4E2D60067C14E /* AuthHeaderView.swift */; };
 		BC10B20C2EC4E2D60067C14E /* CustomSecureField.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC10B1B02EC4E2D60067C14E /* CustomSecureField.swift */; };
 		BC10B20D2EC4E2D60067C14E /* CustomTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC10B1B12EC4E2D60067C14E /* CustomTextField.swift */; };
@@ -59,7 +58,7 @@
 		BC10B2122EC4E2D60067C14E /* UserInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC10B1B92EC4E2D60067C14E /* UserInfo.swift */; };
 		BC10B2132EC4E2D60067C14E /* InfoRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC10B1BB2EC4E2D60067C14E /* InfoRow.swift */; };
 		BC10B2142EC4E2D60067C14E /* InfoSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC10B1BC2EC4E2D60067C14E /* InfoSection.swift */; };
-		BC10B2152EC4E2D60067C14E /* MyHeaderView.swift.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC10B1BD2EC4E2D60067C14E /* MyHeaderView.swift.swift */; };
+		BC10B2152EC4E2D60067C14E /* MyHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC10B1BD2EC4E2D60067C14E /* MyHeaderView.swift */; };
 		BC10B2162EC4E2D60067C14E /* MyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC10B1BE2EC4E2D60067C14E /* MyView.swift */; };
 		BC10B2172EC4E2D60067C14E /* ProfileSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC10B1BF2EC4E2D60067C14E /* ProfileSection.swift */; };
 		BC10B2182EC4E2D60067C14E /* RecommendationBanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC10B1C02EC4E2D60067C14E /* RecommendationBanner.swift */; };
@@ -104,6 +103,7 @@
 		BCBF072B2ED89747009ECE84 /* ChecklistItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCBF072A2ED89746009ECE84 /* ChecklistItem.swift */; };
 		BCBF072D2ED899D1009ECE84 /* RiskSolutionCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCBF072C2ED899D1009ECE84 /* RiskSolutionCard.swift */; };
 		BCBF072F2ED899ED009ECE84 /* ResourceCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCBF072E2ED899EC009ECE84 /* ResourceCard.swift */; };
+		BCBF07322EDAE822009ECE84 /* AppleSignInStyledButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCBF07312EDAE821009ECE84 /* AppleSignInStyledButton.swift */; };
 		BCC987B82EC40456002AE0F8 /* CombineMoya in Frameworks */ = {isa = PBXBuildFile; productRef = BCC987B72EC40456002AE0F8 /* CombineMoya */; };
 		BCC987BA2EC40456002AE0F8 /* Moya in Frameworks */ = {isa = PBXBuildFile; productRef = BCC987B92EC40456002AE0F8 /* Moya */; };
 		BCC987BC2EC40456002AE0F8 /* ReactiveMoya in Frameworks */ = {isa = PBXBuildFile; productRef = BCC987BB2EC40456002AE0F8 /* ReactiveMoya */; };
@@ -170,7 +170,6 @@
 		BC10B1A92EC4E2D60067C14E /* HomeRecentSectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeRecentSectionView.swift; sourceTree = "<group>"; };
 		BC10B1AB2EC4E2D60067C14E /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		BC10B1AC2EC4E2D60067C14E /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
-		BC10B1AE2EC4E2D60067C14E /* AppleSignInButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleSignInButton.swift; sourceTree = "<group>"; };
 		BC10B1AF2EC4E2D60067C14E /* AuthHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthHeaderView.swift; sourceTree = "<group>"; };
 		BC10B1B02EC4E2D60067C14E /* CustomSecureField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomSecureField.swift; sourceTree = "<group>"; };
 		BC10B1B12EC4E2D60067C14E /* CustomTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextField.swift; sourceTree = "<group>"; };
@@ -181,7 +180,7 @@
 		BC10B1B92EC4E2D60067C14E /* UserInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfo.swift; sourceTree = "<group>"; };
 		BC10B1BB2EC4E2D60067C14E /* InfoRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoRow.swift; sourceTree = "<group>"; };
 		BC10B1BC2EC4E2D60067C14E /* InfoSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoSection.swift; sourceTree = "<group>"; };
-		BC10B1BD2EC4E2D60067C14E /* MyHeaderView.swift.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyHeaderView.swift.swift; sourceTree = "<group>"; };
+		BC10B1BD2EC4E2D60067C14E /* MyHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyHeaderView.swift; sourceTree = "<group>"; };
 		BC10B1BE2EC4E2D60067C14E /* MyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyView.swift; sourceTree = "<group>"; };
 		BC10B1BF2EC4E2D60067C14E /* ProfileSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileSection.swift; sourceTree = "<group>"; };
 		BC10B1C02EC4E2D60067C14E /* RecommendationBanner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendationBanner.swift; sourceTree = "<group>"; };
@@ -230,6 +229,7 @@
 		BCBF072A2ED89746009ECE84 /* ChecklistItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChecklistItem.swift; sourceTree = "<group>"; };
 		BCBF072C2ED899D1009ECE84 /* RiskSolutionCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RiskSolutionCard.swift; sourceTree = "<group>"; };
 		BCBF072E2ED899EC009ECE84 /* ResourceCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResourceCard.swift; sourceTree = "<group>"; };
+		BCBF07312EDAE821009ECE84 /* AppleSignInStyledButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleSignInStyledButton.swift; sourceTree = "<group>"; };
 		BCF9E25D2ECCBD28004FB229 /* PropertyRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PropertyRequest.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -424,7 +424,7 @@
 		BC10B1B22EC4E2D60067C14E /* components */ = {
 			isa = PBXGroup;
 			children = (
-				BC10B1AE2EC4E2D60067C14E /* AppleSignInButton.swift */,
+				BCBF07312EDAE821009ECE84 /* AppleSignInStyledButton.swift */,
 				BC10B1AF2EC4E2D60067C14E /* AuthHeaderView.swift */,
 				BC10B1B02EC4E2D60067C14E /* CustomSecureField.swift */,
 				BC10B1B12EC4E2D60067C14E /* CustomTextField.swift */,
@@ -462,24 +462,11 @@
 		BC10B1C32EC4E2D60067C14E /* View */ = {
 			isa = PBXGroup;
 			children = (
-				BC10B1BB2EC4E2D60067C14E /* InfoRow.swift */,
-				BC10B1BC2EC4E2D60067C14E /* InfoSection.swift */,
-				BC10B1BD2EC4E2D60067C14E /* MyHeaderView.swift.swift */,
+				BCBF07302EDADD97009ECE84 /* Conponents */,
 				BC10B1BE2EC4E2D60067C14E /* MyView.swift */,
-				BC10B1BF2EC4E2D60067C14E /* ProfileSection.swift */,
-				BC10B1C02EC4E2D60067C14E /* RecommendationBanner.swift */,
-				BC10B1C12EC4E2D60067C14E /* StatCard.swift */,
-				BC10B1C22EC4E2D60067C14E /* StatisticsSection.swift */,
-			);
-			path = View;
-			sourceTree = "<group>";
-		};
-		BC10B1C52EC4E2D60067C14E /* ViewModel */ = {
-			isa = PBXGroup;
-			children = (
 				BC10B1C42EC4E2D60067C14E /* MyViewModel.swift */,
 			);
-			path = ViewModel;
+			path = View;
 			sourceTree = "<group>";
 		};
 		BC10B1C62EC4E2D60067C14E /* My */ = {
@@ -487,7 +474,6 @@
 			children = (
 				BC10B1BA2EC4E2D60067C14E /* Model */,
 				BC10B1C32EC4E2D60067C14E /* View */,
-				BC10B1C52EC4E2D60067C14E /* ViewModel */,
 			);
 			path = My;
 			sourceTree = "<group>";
@@ -721,6 +707,20 @@
 			path = Components;
 			sourceTree = "<group>";
 		};
+		BCBF07302EDADD97009ECE84 /* Conponents */ = {
+			isa = PBXGroup;
+			children = (
+				BC10B1BC2EC4E2D60067C14E /* InfoSection.swift */,
+				BC10B1BB2EC4E2D60067C14E /* InfoRow.swift */,
+				BC10B1BF2EC4E2D60067C14E /* ProfileSection.swift */,
+				BC10B1C02EC4E2D60067C14E /* RecommendationBanner.swift */,
+				BC10B1C12EC4E2D60067C14E /* StatCard.swift */,
+				BC10B1C22EC4E2D60067C14E /* StatisticsSection.swift */,
+				BC10B1BD2EC4E2D60067C14E /* MyHeaderView.swift */,
+			);
+			path = Conponents;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -930,7 +930,6 @@
 				BC10B2072EC4E2D60067C14E /* HomeRecentSectionView.swift in Sources */,
 				BC10B2082EC4E2D60067C14E /* HomeView.swift in Sources */,
 				BC10B2092EC4E2D60067C14E /* HomeViewModel.swift in Sources */,
-				BC10B20A2EC4E2D60067C14E /* AppleSignInButton.swift in Sources */,
 				BC10B20B2EC4E2D60067C14E /* AuthHeaderView.swift in Sources */,
 				BC10B20C2EC4E2D60067C14E /* CustomSecureField.swift in Sources */,
 				BC10B20D2EC4E2D60067C14E /* CustomTextField.swift in Sources */,
@@ -940,12 +939,13 @@
 				BC10B2D12EC83CA30067C14E /* SavedView.swift in Sources */,
 				BC10B2102EC4E2D60067C14E /* MapView.swift in Sources */,
 				BC10B2E72EC84F310067C14E /* ChecklistRequest.swift in Sources */,
+				BCBF07322EDAE822009ECE84 /* AppleSignInStyledButton.swift in Sources */,
 				BC10B22A2EC4EC160067C14E /* PropertyService.swift in Sources */,
 				BC10B2112EC4E2D60067C14E /* MapViewModel.swift in Sources */,
 				BC10B2122EC4E2D60067C14E /* UserInfo.swift in Sources */,
 				BC10B2132EC4E2D60067C14E /* InfoRow.swift in Sources */,
 				BC10B2142EC4E2D60067C14E /* InfoSection.swift in Sources */,
-				BC10B2152EC4E2D60067C14E /* MyHeaderView.swift.swift in Sources */,
+				BC10B2152EC4E2D60067C14E /* MyHeaderView.swift in Sources */,
 				BC10B2162EC4E2D60067C14E /* MyView.swift in Sources */,
 				BCBF066F2ED601F0009ECE84 /* PropertyUploadCard.swift in Sources */,
 				BC10B2172EC4E2D60067C14E /* ProfileSection.swift in Sources */,

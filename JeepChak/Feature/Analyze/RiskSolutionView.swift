@@ -142,7 +142,6 @@ struct RiskSolutionView: View {
                 .padding(.bottom, 50)
             }
             
-            // 하단 버튼
             Button {
                 // 나중에 새 분석 시작 화면으로 라우팅
                 dismiss()

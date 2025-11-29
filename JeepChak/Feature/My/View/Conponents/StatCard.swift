@@ -24,7 +24,6 @@ struct StatCard: View {
             Text(title)
                 .font(.system(size: 14, weight: .semibold))
                 .foregroundColor(.black)
-            
         }
         .frame(maxWidth: .infinity)
         .padding(.vertical, 20)
@@ -32,4 +31,3 @@ struct StatCard: View {
         .cornerRadius(16)
     }
 }
-

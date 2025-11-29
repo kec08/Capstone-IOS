@@ -58,9 +58,13 @@ struct AnalyzeResultView: View {
                     // AI 분석 요약
                     VStack(alignment: .leading, spacing: 12) {
                         HStack(spacing: 6) {
-                            Text("✨")
+                            Image("AI_icon")
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: 22)
+                                .padding(.bottom, 6)
                             Text("AI 분석 요약")
-                                .font(.system(size: 16, weight: .semibold))
+                                .font(.system(size: 17, weight: .semibold))
                                 .foregroundColor(.customBlack)
                                 .padding(.bottom, 4)
                         }
@@ -77,7 +81,7 @@ struct AnalyzeResultView: View {
                     
                     VStack(alignment: .leading, spacing: 12) {
                         Text("상세 분석 결과")
-                            .font(.system(size: 15, weight: .semibold))
+                            .font(.system(size: 17, weight: .semibold))
                             .foregroundColor(.customBlack)
                             .padding(.top, 16)
                             .padding(.leading, 16)
