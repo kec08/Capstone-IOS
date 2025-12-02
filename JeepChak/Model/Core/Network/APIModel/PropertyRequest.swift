@@ -12,9 +12,9 @@ struct PropertyRequest: Codable {
     let name: String
     let address: String
     let propertyType: String
-    let floor: String
-    let buildYear: String
-    let area: String
+    let floor: Int
+    let builtYear: Int
+    let area: Double
     let availableDate: String
 }
 
@@ -33,7 +33,7 @@ struct PropertyResponse: Codable {
     let address: String
     let propertyType: String
     let floor: Int
-    let buildYear: Int
+    let builtYear: Int
     let area: Int
     let availableDate: String
     let thumbnail: String?

@@ -21,7 +21,7 @@ enum ChecklistAPI {
 extension ChecklistAPI: TargetType {
 
     var baseURL: URL {
-        URL(string: "http://zipchak-backend.kro.kr:8080/")!
+        URL(string: "http://zipchak-backend.kro.kr:8080")!
     }
 
     var path: String {

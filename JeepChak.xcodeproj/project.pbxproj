@@ -305,7 +305,6 @@
 				BC10B2DC2EC83EF10067C14E /* AddChecklistSavedView.swift */,
 				BC10B1802EC4E2D60067C14E /* AddCheckListView.swift */,
 				BC10B1812EC4E2D60067C14E /* AddCheckListViewModel.swift */,
-				BC10B1822EC4E2D60067C14E /* CheckListTextField.swift */,
 			);
 			path = AddCheckList;
 			sourceTree = "<group>";
@@ -631,6 +630,7 @@
 			isa = PBXGroup;
 			children = (
 				BC10B2DF2EC83F550067C14E /* SelectablePropertyCard.swift */,
+				BC10B1822EC4E2D60067C14E /* CheckListTextField.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";

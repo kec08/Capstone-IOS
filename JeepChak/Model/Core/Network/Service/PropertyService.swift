@@ -18,10 +18,8 @@ final class PropertyService {
         provider.requestPublisher(.getProperties)
             .filterSuccessfulStatusCodes()
             .tryMap { response in
-                print("====== RAW JSON START ======")
                 print(String(data: response.data, encoding: .utf8) ?? "nil")
-                print("====== RAW JSON END ======")
-
+                
                 let decoded = try JSONDecoder().decode(
                     ApiResponse<[PropertyListResponse]>.self,
                     from: response.data
@@ -31,9 +29,6 @@ final class PropertyService {
             .mapError { $0 as Error }
             .eraseToAnyPublisher()
     }
-
-
-
 
     // 매물 상세 조회
     func getPropertyDetail(id: Int) -> AnyPublisher<PropertyResponse, Error> {
@@ -47,11 +42,21 @@ final class PropertyService {
     // 매물 생성
     func createProperty(request: PropertyRequest) -> AnyPublisher<PropertyResponse, Error> {
         provider.requestPublisher(.createProperty(request: request))
-            .filterSuccessfulStatusCodes()
-            .map(PropertyResponse.self)
+            .tryMap { response in
+                print("status:", response.statusCode)
+                print(String(data: response.data, encoding: .utf8) ?? "nil")
+
+                guard (200...299).contains(response.statusCode) else {
+                    throw MoyaError.statusCode(response)
+                }
+
+                let decoded = try JSONDecoder().decode(ApiResponse<PropertyResponse>.self, from: response.data)
+                return decoded.data
+            }
             .mapError { $0 as Error }
             .eraseToAnyPublisher()
     }
+
     
     // 매물 삭제
     func deleteProperty(id: Int) -> AnyPublisher<Void, Error> {
