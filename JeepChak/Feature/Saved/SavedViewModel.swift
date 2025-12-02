@@ -18,15 +18,14 @@ final class SavedViewModel: ObservableObject {
     private var cancellables = Set<AnyCancellable>()
 
     init() {
-            fetchProperties()
-        }
+        fetchProperties()
+    }
 
-        // 프리뷰/테스트용 init
-        init(mockProperties: [SavedProperty]) {
-            self.properties = mockProperties
-            self.isLoading = false
-            self.errorMessage = nil
-        }
+    init(mockProperties: [SavedProperty]) {
+        self.properties = mockProperties
+        self.isLoading = false
+        self.errorMessage = nil
+    }
 
     // 전체 매물 조회
     func fetchProperties() {
@@ -54,18 +53,25 @@ final class SavedViewModel: ObservableObject {
             .store(in: &cancellables)
     }
 
-    // 매물 생성 - AddCheckListView에서 호출
+    // MARK: - 매물 생성
     func createProperty(
         from newItem: AddCheckListItem,
         onSuccess: @escaping (SavedProperty) -> Void
     ) {
+        let floorValue = Int(newItem.unit) ?? 0
+
+        let builtYearValue = 2000
+        let areaValue: Double = 30.0
+
+        let propertyTypeCode = mapPropertyType(newItem.propertyType)
+
         let request = PropertyRequest(
             name: newItem.title,
             address: newItem.address,
-            propertyType: newItem.propertyType,
-            floor: newItem.unit,
-            buildYear: "",
-            area: "",
+            propertyType: propertyTypeCode,
+            floor: floorValue,
+            builtYear: builtYearValue,
+            area: areaValue,
             availableDate: newItem.date
         )
 
@@ -94,5 +100,19 @@ final class SavedViewModel: ObservableObject {
                 onSuccess(saved)
             }
             .store(in: &cancellables)
+    }
+
+    // 서버 enum에 맞게 수정 필요
+    private func mapPropertyType(_ raw: String) -> String {
+        switch raw {
+        case "아파트": return "APARTMENT"
+        case "빌라": return "VILLA"
+        case "오피스텔": return "OFFICETEL"
+        case "원룸": return "ONE_ROOM"
+        case "기타", "기타 주택": return "OTHER"
+        default:
+            print("알 수 없는 타입", raw)
+            return "OTHER"
+        }
     }
 }

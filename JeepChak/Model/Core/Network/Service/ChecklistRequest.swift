@@ -15,14 +15,14 @@ struct ChecklistRequest: Codable {
 
 struct ChecklistItemRequest: Codable {
     let content: String
-    let severity: String   // "NONE", "NORMAL", "WARNING", "DANGER"
+    let severity: String
 }
 
 struct GenerateChecklistRequest: Codable {
     let propertyId: Int
 }
 
-// MARK: - Response Models
+// MARK: - Response
 struct ChecklistResponse: Codable {
     let checklistId: Int
     let propertyId: Int

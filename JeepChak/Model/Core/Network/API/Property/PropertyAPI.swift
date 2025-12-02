@@ -19,7 +19,7 @@ enum PropertyAPI {
 extension PropertyAPI: TargetType {
     
     var baseURL: URL {
-        URL(string: "http://zipchak-backend.kro.kr:8080/")!   // 백엔드 도메인
+        URL(string: "http://zipchak-backend.kro.kr:8080")!   // 백엔드 도메인
     }
     
     var path: String {
@@ -29,9 +29,9 @@ extension PropertyAPI: TargetType {
         case .getPropertyDetail(let id):
             return "/api/properties/\(id)"
         case .createProperty:
-            return "/api/property"
+            return "/api/properties"
         case .deleteProperty(let id):
-            return "/api/property/\(id)"
+            return "/api/properties/\(id)"
         }
     }
     
