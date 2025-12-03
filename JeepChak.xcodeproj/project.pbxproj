@@ -72,7 +72,7 @@
 		BC10B2202EC4E2D60067C14E /* Date+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC10B1CE2EC4E2D60067C14E /* Date+Extensions.swift */; };
 		BC10B2212EC4E2D60067C14E /* AuthAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC10B1D02EC4E2D60067C14E /* AuthAPI.swift */; };
 		BC10B2222EC4E2D60067C14E /* ChecklistAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC10B1D22EC4E2D60067C14E /* ChecklistAPI.swift */; };
-		BC10B2242EC4E2D60067C14E /* LoginResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC10B1D72EC4E2D60067C14E /* LoginResponse.swift */; };
+		BC10B2242EC4E2D60067C14E /* LoginDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC10B1D72EC4E2D60067C14E /* LoginDTO.swift */; };
 		BC10B2252EC4E2D60067C14E /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC10B1DB2EC4E2D60067C14E /* ImagePicker.swift */; };
 		BC10B2262EC4E2D60067C14E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BC10B1DD2EC4E2D60067C14E /* Assets.xcassets */; };
 		BC10B2282EC4E2D60067C14E /* AIGeneratedListView.swift in Resources */ = {isa = PBXBuildFile; fileRef = BC10B1852EC4E2D60067C14E /* AIGeneratedListView.swift */; };
@@ -84,7 +84,7 @@
 		BC10B2E02EC83F5A0067C14E /* SelectablePropertyCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC10B2DF2EC83F550067C14E /* SelectablePropertyCard.swift */; };
 		BC10B2E22EC841FA0067C14E /* SavedHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC10B2E12EC841ED0067C14E /* SavedHeaderView.swift */; };
 		BC10B2E52EC84D5F0067C14E /* SavedMdoel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC10B2E42EC84D5A0067C14E /* SavedMdoel.swift */; };
-		BC10B2E72EC84F310067C14E /* ChecklistRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC10B2E62EC84F2C0067C14E /* ChecklistRequest.swift */; };
+		BC10B2E72EC84F310067C14E /* ChecklistDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC10B2E62EC84F2C0067C14E /* ChecklistDTO.swift */; };
 		BC10B2E92EC84FDC0067C14E /* ChecklistService.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC10B2E82EC84FD30067C14E /* ChecklistService.swift */; };
 		BC10B2EC2EC8528A0067C14E /* PropertyAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC10B2EB2EC852870067C14E /* PropertyAPI.swift */; };
 		BCBF066B2ED601DE009ECE84 /* AnalyzeHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCBF066A2ED601DD009ECE84 /* AnalyzeHeaderView.swift */; };
@@ -104,11 +104,12 @@
 		BCBF072D2ED899D1009ECE84 /* RiskSolutionCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCBF072C2ED899D1009ECE84 /* RiskSolutionCard.swift */; };
 		BCBF072F2ED899ED009ECE84 /* ResourceCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCBF072E2ED899EC009ECE84 /* ResourceCard.swift */; };
 		BCBF07322EDAE822009ECE84 /* AppleSignInStyledButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCBF07312EDAE821009ECE84 /* AppleSignInStyledButton.swift */; };
+		BCBF07DB2EE04E43009ECE84 /* AnalyzeDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCBF07DA2EE04E30009ECE84 /* AnalyzeDTO.swift */; };
 		BCC987B82EC40456002AE0F8 /* CombineMoya in Frameworks */ = {isa = PBXBuildFile; productRef = BCC987B72EC40456002AE0F8 /* CombineMoya */; };
 		BCC987BA2EC40456002AE0F8 /* Moya in Frameworks */ = {isa = PBXBuildFile; productRef = BCC987B92EC40456002AE0F8 /* Moya */; };
 		BCC987BC2EC40456002AE0F8 /* ReactiveMoya in Frameworks */ = {isa = PBXBuildFile; productRef = BCC987BB2EC40456002AE0F8 /* ReactiveMoya */; };
 		BCC987BE2EC40456002AE0F8 /* RxMoya in Frameworks */ = {isa = PBXBuildFile; productRef = BCC987BD2EC40456002AE0F8 /* RxMoya */; };
-		BCF9E25E2ECCBD2F004FB229 /* PropertyRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCF9E25D2ECCBD28004FB229 /* PropertyRequest.swift */; };
+		BCF9E25E2ECCBD2F004FB229 /* PropertyDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCF9E25D2ECCBD28004FB229 /* PropertyDTO.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -194,7 +195,7 @@
 		BC10B1CE2EC4E2D60067C14E /* Date+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extensions.swift"; sourceTree = "<group>"; };
 		BC10B1D02EC4E2D60067C14E /* AuthAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthAPI.swift; sourceTree = "<group>"; };
 		BC10B1D22EC4E2D60067C14E /* ChecklistAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChecklistAPI.swift; sourceTree = "<group>"; };
-		BC10B1D72EC4E2D60067C14E /* LoginResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginResponse.swift; sourceTree = "<group>"; };
+		BC10B1D72EC4E2D60067C14E /* LoginDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginDTO.swift; sourceTree = "<group>"; };
 		BC10B1DB2EC4E2D60067C14E /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
 		BC10B1DD2EC4E2D60067C14E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		BC10B1DE2EC4E2D60067C14E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -207,7 +208,7 @@
 		BC10B2DF2EC83F550067C14E /* SelectablePropertyCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectablePropertyCard.swift; sourceTree = "<group>"; };
 		BC10B2E12EC841ED0067C14E /* SavedHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedHeaderView.swift; sourceTree = "<group>"; };
 		BC10B2E42EC84D5A0067C14E /* SavedMdoel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedMdoel.swift; sourceTree = "<group>"; };
-		BC10B2E62EC84F2C0067C14E /* ChecklistRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChecklistRequest.swift; sourceTree = "<group>"; };
+		BC10B2E62EC84F2C0067C14E /* ChecklistDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChecklistDTO.swift; sourceTree = "<group>"; };
 		BC10B2E82EC84FD30067C14E /* ChecklistService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChecklistService.swift; sourceTree = "<group>"; };
 		BC10B2EB2EC852870067C14E /* PropertyAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PropertyAPI.swift; sourceTree = "<group>"; };
 		BC3D529D2EA37C4800BD9E2B /* JeepChak.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = JeepChak.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -230,7 +231,8 @@
 		BCBF072C2ED899D1009ECE84 /* RiskSolutionCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RiskSolutionCard.swift; sourceTree = "<group>"; };
 		BCBF072E2ED899EC009ECE84 /* ResourceCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResourceCard.swift; sourceTree = "<group>"; };
 		BCBF07312EDAE821009ECE84 /* AppleSignInStyledButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleSignInStyledButton.swift; sourceTree = "<group>"; };
-		BCF9E25D2ECCBD28004FB229 /* PropertyRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PropertyRequest.swift; sourceTree = "<group>"; };
+		BCBF07DA2EE04E30009ECE84 /* AnalyzeDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyzeDTO.swift; sourceTree = "<group>"; };
+		BCF9E25D2ECCBD28004FB229 /* PropertyDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PropertyDTO.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -539,6 +541,7 @@
 		BC10B1D42EC4E2D60067C14E /* API */ = {
 			isa = PBXGroup;
 			children = (
+				BCBF07D92EE04E18009ECE84 /* DTO */,
 				BC10B2EA2EC8527E0067C14E /* Property */,
 				BC10B1D12EC4E2D60067C14E /* Auth */,
 				BC10B1D32EC4E2D60067C14E /* Checklist */,
@@ -546,21 +549,11 @@
 			path = API;
 			sourceTree = "<group>";
 		};
-		BC10B1D62EC4E2D60067C14E /* APIModel */ = {
-			isa = PBXGroup;
-			children = (
-				BCF9E25D2ECCBD28004FB229 /* PropertyRequest.swift */,
-			);
-			path = APIModel;
-			sourceTree = "<group>";
-		};
 		BC10B1D82EC4E2D60067C14E /* Service */ = {
 			isa = PBXGroup;
 			children = (
 				BC10B2E82EC84FD30067C14E /* ChecklistService.swift */,
-				BC10B2E62EC84F2C0067C14E /* ChecklistRequest.swift */,
 				BC10B2292EC4EC080067C14E /* PropertyService.swift */,
-				BC10B1D72EC4E2D60067C14E /* LoginResponse.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -569,7 +562,6 @@
 			isa = PBXGroup;
 			children = (
 				BC10B1D42EC4E2D60067C14E /* API */,
-				BC10B1D62EC4E2D60067C14E /* APIModel */,
 				BC10B1D82EC4E2D60067C14E /* Service */,
 			);
 			path = Network;
@@ -719,6 +711,17 @@
 				BC10B1BD2EC4E2D60067C14E /* MyHeaderView.swift */,
 			);
 			path = Conponents;
+			sourceTree = "<group>";
+		};
+		BCBF07D92EE04E18009ECE84 /* DTO */ = {
+			isa = PBXGroup;
+			children = (
+				BCBF07DA2EE04E30009ECE84 /* AnalyzeDTO.swift */,
+				BC10B2E62EC84F2C0067C14E /* ChecklistDTO.swift */,
+				BC10B1D72EC4E2D60067C14E /* LoginDTO.swift */,
+				BCF9E25D2ECCBD28004FB229 /* PropertyDTO.swift */,
+			);
+			path = DTO;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -871,7 +874,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BCF9E25E2ECCBD2F004FB229 /* PropertyRequest.swift in Sources */,
+				BCF9E25E2ECCBD2F004FB229 /* PropertyDTO.swift in Sources */,
 				BCBF07292ED8970D009ECE84 /* RiskSolutionView.swift in Sources */,
 				BC10B1E12EC4E2D60067C14E /* AppState.swift in Sources */,
 				BC10B1E22EC4E2D60067C14E /* JeepChakApp.swift in Sources */,
@@ -923,6 +926,7 @@
 				BC10B2E22EC841FA0067C14E /* SavedHeaderView.swift in Sources */,
 				BC10B2022EC4E2D60067C14E /* Property.swift in Sources */,
 				BC10B2032EC4E2D60067C14E /* RecentProperty.swift in Sources */,
+				BCBF07DB2EE04E43009ECE84 /* AnalyzeDTO.swift in Sources */,
 				BC10B2042EC4E2D60067C14E /* HomeCategorySectionView.swift in Sources */,
 				BC10B2052EC4E2D60067C14E /* HomeHeaderView.swift in Sources */,
 				BC10B2062EC4E2D60067C14E /* HomePopularSectionView.swift in Sources */,
@@ -938,7 +942,7 @@
 				BC10B20F2EC4E2D60067C14E /* LoginViewModel.swift in Sources */,
 				BC10B2D12EC83CA30067C14E /* SavedView.swift in Sources */,
 				BC10B2102EC4E2D60067C14E /* MapView.swift in Sources */,
-				BC10B2E72EC84F310067C14E /* ChecklistRequest.swift in Sources */,
+				BC10B2E72EC84F310067C14E /* ChecklistDTO.swift in Sources */,
 				BCBF07322EDAE822009ECE84 /* AppleSignInStyledButton.swift in Sources */,
 				BC10B22A2EC4EC160067C14E /* PropertyService.swift in Sources */,
 				BC10B2112EC4E2D60067C14E /* MapViewModel.swift in Sources */,
@@ -963,7 +967,7 @@
 				BC10B2202EC4E2D60067C14E /* Date+Extensions.swift in Sources */,
 				BC10B2212EC4E2D60067C14E /* AuthAPI.swift in Sources */,
 				BC10B2222EC4E2D60067C14E /* ChecklistAPI.swift in Sources */,
-				BC10B2242EC4E2D60067C14E /* LoginResponse.swift in Sources */,
+				BC10B2242EC4E2D60067C14E /* LoginDTO.swift in Sources */,
 				BC10B2E52EC84D5F0067C14E /* SavedMdoel.swift in Sources */,
 				BC10B2252EC4E2D60067C14E /* ImagePicker.swift in Sources */,
 				BCBF066D2ED601E9009ECE84 /* DocumentUploadCard.swift in Sources */,

@@ -28,8 +28,12 @@ struct RecommendationBanner: View {
                 .scaledToFit()
                 .frame(width: 134, height: 125)
         }
-        .padding(20)
+        .padding(.horizontal, 20)
+        .padding(10)
         .background(Color.customWhite)
         .cornerRadius(12)
     }
+}
+#Preview {
+    RecommendationBanner()
 }
