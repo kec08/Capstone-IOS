@@ -8,5 +8,5 @@ import Foundation
 import Moya
 
 enum AuthAPI {
-    
+    case login(username: String, password: String)
 }

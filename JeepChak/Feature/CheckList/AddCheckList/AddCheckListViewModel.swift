@@ -44,13 +44,22 @@ final class AddCheckListViewModel: ObservableObject {
     }
     
     // MARK: - 서버 업로드
-    func uploadChecklist(to propertyId: Int) {
+    func uploadChecklist(_ propertyId: Int) {
         showAILoading = true
+
+        let request = ChecklistGenerateRequest(propertyId: propertyId)
         
-        checklistService.generateChecklist(propertyId: propertyId)
-            .sink { [weak self] (completion: Subscribers.Completion<Error>) in
+        if let data = try? JSONEncoder().encode(request),
+               let jsonString = String(data: data, encoding: .utf8) {
+                print(jsonString)
+            }
+
+
+        checklistService.generateChecklist(request: request)
+            .sink { [weak self] completion in
                 guard let self = self else { return }
                 self.showAILoading = false
+
                 switch completion {
                 case .finished:
                     print("체크리스트 생성 완료")
@@ -64,4 +73,9 @@ final class AddCheckListViewModel: ObservableObject {
             }
             .store(in: &cancellables)
     }
+    
+    func generateChecklist(_ propertyId: Int) {
+        uploadChecklist(propertyId)
+    }
+
 }

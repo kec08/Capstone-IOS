@@ -8,9 +8,8 @@
 import Foundation
 
 // MARK: - Request Models
-struct ChecklistRequest: Codable {
+struct ChecklistGenerateRequest: Codable {
     let propertyId: Int
-    let items: [ChecklistItemRequest]
 }
 
 struct ChecklistItemRequest: Codable {

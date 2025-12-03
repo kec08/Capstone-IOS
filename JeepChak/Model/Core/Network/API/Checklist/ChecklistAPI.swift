@@ -10,8 +10,7 @@ import Moya
 internal import Alamofire
 
 enum ChecklistAPI {
-    case createChecklist(request: ChecklistRequest)
-    case generateChecklist(propertyId: Int)
+    case generateChecklist(request: ChecklistGenerateRequest)
     case getChecklists
     case getChecklistDetail(id: Int)
     case updateChecklist(id: Int, items: [ChecklistItemRequest])
@@ -26,8 +25,6 @@ extension ChecklistAPI: TargetType {
 
     var path: String {
         switch self {
-        case .createChecklist:
-            return "/api/checklist"
         case .generateChecklist:
             return "/api/checklist/generate"
         case .getChecklists:
@@ -41,7 +38,7 @@ extension ChecklistAPI: TargetType {
 
     var method: Moya.Method {
         switch self {
-        case .createChecklist, .generateChecklist: return .post
+        case .generateChecklist: return .post
         case .getChecklists, .getChecklistDetail: return .get
         case .updateChecklist: return .put
         case .deleteChecklist: return .delete
@@ -50,14 +47,8 @@ extension ChecklistAPI: TargetType {
 
     var task: Task {
         switch self {
-        case .createChecklist(let request):
+        case .generateChecklist(let request):
             return .requestJSONEncodable(request)
-
-        case .generateChecklist(let propertyId):
-            return .requestParameters(
-                parameters: ["propertyId": propertyId],
-                encoding: JSONEncoding.default
-            )
 
         case .getChecklists, .getChecklistDetail, .deleteChecklist:
             return .requestPlain
@@ -68,6 +59,7 @@ extension ChecklistAPI: TargetType {
     }
 
     var headers: [String : String]? {
-        ["Content-Type": "application/json", "Accept": "application/json"]
+        ["Content-Type": "application/json",
+         "Accept": "application/json"]
     }
 }

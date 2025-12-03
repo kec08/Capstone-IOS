@@ -11,33 +11,35 @@ import Moya
 import CombineMoya
 
 final class ChecklistService {
-    private let provider = MoyaProvider<ChecklistAPI>(plugins: [NetworkLoggerPlugin()])
+    private let provider = MoyaProvider<ChecklistAPI>(
+        plugins: [
+            NetworkLoggerPlugin(configuration: .init(logOptions: .verbose))
+        ]
+    )
     
-    func uploadChecklist(request: ChecklistRequest) -> AnyPublisher<ChecklistResponse, Error> {
-        provider.requestPublisher(.createChecklist(request: request))
-            .filterSuccessfulStatusCodes()
+    func generateChecklist(request: ChecklistGenerateRequest) -> AnyPublisher<[GeneratedChecklistResponse], Error> {
+        provider.requestPublisher(.generateChecklist(request: request))
             .tryMap { response in
-                let decoded = try JSONDecoder().decode(
-                    ApiResponse<ChecklistResponse>.self,
-                    from: response.data
-                )
-                return decoded.data
-            }
-            .eraseToAnyPublisher()
-    }
-    
-    func generateChecklist(propertyId: Int) -> AnyPublisher<[GeneratedChecklistResponse], Error> {
-        provider.requestPublisher(.generateChecklist(propertyId: propertyId))
-            .filterSuccessfulStatusCodes()
-            .tryMap { response in
+                print("status:", response.statusCode)
                 print(String(data: response.data, encoding: .utf8) ?? "nil")
 
                 let decoded = try JSONDecoder().decode(
                     ApiResponse<[GeneratedChecklistResponse]>.self,
                     from: response.data
                 )
-                return decoded.data
+                
+                if (200...299).contains(response.statusCode) {
+                    return decoded.data
+                }
+                
+                let msg = decoded.message
+                throw NSError(
+                    domain: "ChecklistService",
+                    code: response.statusCode,
+                    userInfo: [NSLocalizedDescriptionKey: msg]
+                )
             }
+            .mapError { $0 as Error }
             .eraseToAnyPublisher()
     }
 }

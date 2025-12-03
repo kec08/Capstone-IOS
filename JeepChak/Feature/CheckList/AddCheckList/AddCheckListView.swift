@@ -141,7 +141,7 @@ struct AddCheckListView: View {
                 addCheckListItem(newItem)
 
                 // 서버에 업로드
-                viewModel.uploadChecklist(to: propertyId)
+                viewModel.uploadChecklist(propertyId)
 
                 // AI 로딩 화면 전환
                 viewModel.showAILoading = true

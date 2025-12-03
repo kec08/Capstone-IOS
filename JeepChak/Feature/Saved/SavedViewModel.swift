@@ -102,7 +102,6 @@ final class SavedViewModel: ObservableObject {
             .store(in: &cancellables)
     }
 
-    // 서버 enum에 맞게 수정 필요
     private func mapPropertyType(_ raw: String) -> String {
         switch raw {
         case "아파트": return "APARTMENT"
