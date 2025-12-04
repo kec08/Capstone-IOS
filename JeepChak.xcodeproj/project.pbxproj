@@ -72,7 +72,7 @@
 		BC10B2202EC4E2D60067C14E /* Date+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC10B1CE2EC4E2D60067C14E /* Date+Extensions.swift */; };
 		BC10B2212EC4E2D60067C14E /* AuthAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC10B1D02EC4E2D60067C14E /* AuthAPI.swift */; };
 		BC10B2222EC4E2D60067C14E /* ChecklistAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC10B1D22EC4E2D60067C14E /* ChecklistAPI.swift */; };
-		BC10B2242EC4E2D60067C14E /* LoginDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC10B1D72EC4E2D60067C14E /* LoginDTO.swift */; };
+		BC10B2242EC4E2D60067C14E /* AuthDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC10B1D72EC4E2D60067C14E /* AuthDTO.swift */; };
 		BC10B2252EC4E2D60067C14E /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC10B1DB2EC4E2D60067C14E /* ImagePicker.swift */; };
 		BC10B2262EC4E2D60067C14E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BC10B1DD2EC4E2D60067C14E /* Assets.xcassets */; };
 		BC10B2282EC4E2D60067C14E /* AIGeneratedListView.swift in Resources */ = {isa = PBXBuildFile; fileRef = BC10B1852EC4E2D60067C14E /* AIGeneratedListView.swift */; };
@@ -105,6 +105,8 @@
 		BCBF072F2ED899ED009ECE84 /* ResourceCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCBF072E2ED899EC009ECE84 /* ResourceCard.swift */; };
 		BCBF07322EDAE822009ECE84 /* AppleSignInStyledButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCBF07312EDAE821009ECE84 /* AppleSignInStyledButton.swift */; };
 		BCBF07DB2EE04E43009ECE84 /* AnalyzeDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCBF07DA2EE04E30009ECE84 /* AnalyzeDTO.swift */; };
+		BCBF08812EE09FD2009ECE84 /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCBF08802EE09FC7009ECE84 /* AuthService.swift */; };
+		BCBF08842EE10445009ECE84 /* MoyaProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCBF08832EE1043F009ECE84 /* MoyaProvider.swift */; };
 		BCC987B82EC40456002AE0F8 /* CombineMoya in Frameworks */ = {isa = PBXBuildFile; productRef = BCC987B72EC40456002AE0F8 /* CombineMoya */; };
 		BCC987BA2EC40456002AE0F8 /* Moya in Frameworks */ = {isa = PBXBuildFile; productRef = BCC987B92EC40456002AE0F8 /* Moya */; };
 		BCC987BC2EC40456002AE0F8 /* ReactiveMoya in Frameworks */ = {isa = PBXBuildFile; productRef = BCC987BB2EC40456002AE0F8 /* ReactiveMoya */; };
@@ -195,7 +197,7 @@
 		BC10B1CE2EC4E2D60067C14E /* Date+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extensions.swift"; sourceTree = "<group>"; };
 		BC10B1D02EC4E2D60067C14E /* AuthAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthAPI.swift; sourceTree = "<group>"; };
 		BC10B1D22EC4E2D60067C14E /* ChecklistAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChecklistAPI.swift; sourceTree = "<group>"; };
-		BC10B1D72EC4E2D60067C14E /* LoginDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginDTO.swift; sourceTree = "<group>"; };
+		BC10B1D72EC4E2D60067C14E /* AuthDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthDTO.swift; sourceTree = "<group>"; };
 		BC10B1DB2EC4E2D60067C14E /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
 		BC10B1DD2EC4E2D60067C14E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		BC10B1DE2EC4E2D60067C14E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -232,6 +234,8 @@
 		BCBF072E2ED899EC009ECE84 /* ResourceCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResourceCard.swift; sourceTree = "<group>"; };
 		BCBF07312EDAE821009ECE84 /* AppleSignInStyledButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleSignInStyledButton.swift; sourceTree = "<group>"; };
 		BCBF07DA2EE04E30009ECE84 /* AnalyzeDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyzeDTO.swift; sourceTree = "<group>"; };
+		BCBF08802EE09FC7009ECE84 /* AuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
+		BCBF08832EE1043F009ECE84 /* MoyaProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoyaProvider.swift; sourceTree = "<group>"; };
 		BCF9E25D2ECCBD28004FB229 /* PropertyDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PropertyDTO.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -552,6 +556,8 @@
 		BC10B1D82EC4E2D60067C14E /* Service */ = {
 			isa = PBXGroup;
 			children = (
+				BCBF08822EE10431009ECE84 /* MoyaAsync */,
+				BCBF08802EE09FC7009ECE84 /* AuthService.swift */,
 				BC10B2E82EC84FD30067C14E /* ChecklistService.swift */,
 				BC10B2292EC4EC080067C14E /* PropertyService.swift */,
 			);
@@ -718,10 +724,18 @@
 			children = (
 				BCBF07DA2EE04E30009ECE84 /* AnalyzeDTO.swift */,
 				BC10B2E62EC84F2C0067C14E /* ChecklistDTO.swift */,
-				BC10B1D72EC4E2D60067C14E /* LoginDTO.swift */,
+				BC10B1D72EC4E2D60067C14E /* AuthDTO.swift */,
 				BCF9E25D2ECCBD28004FB229 /* PropertyDTO.swift */,
 			);
 			path = DTO;
+			sourceTree = "<group>";
+		};
+		BCBF08822EE10431009ECE84 /* MoyaAsync */ = {
+			isa = PBXGroup;
+			children = (
+				BCBF08832EE1043F009ECE84 /* MoyaProvider.swift */,
+			);
+			path = MoyaAsync;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -899,6 +913,7 @@
 				BC10B1F12EC4E2D60067C14E /* DetailItem.swift in Sources */,
 				BC10B1F22EC4E2D60067C14E /* AddCheckItemSheet.swift in Sources */,
 				BCBF067B2ED6D656009ECE84 /* PropertyUploadLoadingView.swift in Sources */,
+				BCBF08842EE10445009ECE84 /* MoyaProvider.swift in Sources */,
 				BC10B2D92EC83DB40067C14E /* SavedPropertyCard.swift in Sources */,
 				BC10B1F32EC4E2D60067C14E /* CheckListDetailHeaderView.swift in Sources */,
 				BC10B1F42EC4E2D60067C14E /* CheckListFinalHeaderView.swift in Sources */,
@@ -967,10 +982,11 @@
 				BC10B2202EC4E2D60067C14E /* Date+Extensions.swift in Sources */,
 				BC10B2212EC4E2D60067C14E /* AuthAPI.swift in Sources */,
 				BC10B2222EC4E2D60067C14E /* ChecklistAPI.swift in Sources */,
-				BC10B2242EC4E2D60067C14E /* LoginDTO.swift in Sources */,
+				BC10B2242EC4E2D60067C14E /* AuthDTO.swift in Sources */,
 				BC10B2E52EC84D5F0067C14E /* SavedMdoel.swift in Sources */,
 				BC10B2252EC4E2D60067C14E /* ImagePicker.swift in Sources */,
 				BCBF066D2ED601E9009ECE84 /* DocumentUploadCard.swift in Sources */,
+				BCBF08812EE09FD2009ECE84 /* AuthService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

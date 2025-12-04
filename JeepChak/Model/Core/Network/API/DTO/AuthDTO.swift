@@ -18,14 +18,12 @@ struct LoginResponse: Codable {
     let accessToken: String
 }
 
-
 // 회원가입 Request
 struct SignUpRequest: Codable {
-    let email: String
-    let password: String
     let firstName: String
     let lastName: String
-    let phone: String
+    let email: String
+    let password: String
 }
 
 // 회원가입 Response

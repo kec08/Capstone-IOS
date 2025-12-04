@@ -12,59 +12,62 @@ struct LoginView: View {
     @Environment(\.dismiss) var dismiss
 
     var body: some View {
-        VStack(spacing: 0) {
-            AuthHeaderView(onBackTapped: {
-                dismiss()
-            })
-            .padding(.bottom, 20)
+        NavigationStack{
+            VStack(spacing: 0) {
+                AuthHeaderView(onBackTapped: {
+                    dismiss()
+                })
+                .padding(.bottom, 20)
+                
+                VStack(spacing: 32) {
+                    titleSection
 
-            // MARK: - 메인 콘텐츠
-            VStack(spacing: 32) {
-                titleSection
+                    // Apple 로그인
+                    AppleSignInStyledButton {
+                        viewModel.signInWithApple()
+                    }
+                    .padding(.horizontal, 8)
 
-                // Apple 로그인
-                AppleSignInStyledButton {
-                    viewModel.signInWithApple()
+
+                    Divider()
+                        .padding(.horizontal, 40)
+
+                    loginFormSection
+
+                    autoLoginToggle
+
+                    loginButton
+
+                    signUpLink
                 }
-                .padding(.horizontal, 8)
+                .padding(.horizontal, 32)
+                .padding(.top, 20)
 
-
-                Divider()
-                    .padding(.horizontal, 40)
-
-                loginFormSection
-
-                autoLoginToggle
-
-                loginButton
-
-                signUpLink
+                Spacer()
             }
-            .padding(.horizontal, 32)
-            .padding(.top, 20)
-
-            Spacer()
+            .background(Color.white.ignoresSafeArea())
+            .navigationBarHidden(true)
         }
-        .background(Color.white.ignoresSafeArea())
-        .navigationBarHidden(true)
-    }
+        }
+        
 
     // 타이틀
     private var titleSection: some View {
         VStack(alignment: .leading, spacing: 10) {
             Text("로그인")
                 .font(.system(size: 26, weight: .bold))
-                .foregroundColor(.black)
+                .foregroundColor(.customBlack)
+                .padding(.bottom, 7)
 
             Text("간편하게 애플계정으로 로그인하여\n빠르게 서비스를 이용해보세요.")
                 .font(.system(size: 14))
-                .foregroundColor(.gray)
+                .foregroundColor(.customDarkGray)
                 .lineSpacing(4)
         }
         .frame(maxWidth: .infinity, alignment: .leading)
     }
 
-    // MARK: - 로그인 폼
+    // MARK: - 로그인
     private var loginFormSection: some View {
         VStack(spacing: 24) {
             Text("회원 로그인")
@@ -112,10 +115,10 @@ struct LoginView: View {
         }) {
             Text("로그인")
                 .font(.system(size: 16, weight: .bold))
-                .foregroundColor(viewModel.isLoginEnabled ? .black : .gray)
+                .foregroundColor(viewModel.isLoginEnabled ? .customWhite : .customBlack)
                 .frame(maxWidth: .infinity)
                 .padding()
-                .background(viewModel.isLoginEnabled ? Color(UIColor.customBlack) : Color(UIColor.customGray100))
+                .background(viewModel.isLoginEnabled ? Color(UIColor.customBlue) : Color(UIColor.customGray100))
                 .cornerRadius(10)
         }
         .disabled(!viewModel.isLoginEnabled)
@@ -125,13 +128,15 @@ struct LoginView: View {
     private var signUpLink: some View {
         NavigationLink(destination: SignUpView()) {
             Text("회원가입")
-                .font(.system(size: 14))
-                .foregroundColor(.black)
-                .underline()
+                .font(.system(size: 14, weight: .semibold))
+                .foregroundColor(.customBlue)
+                .frame(maxWidth: .infinity)
         }
     }
 }
 
-#Preview{
-    LoginView()
+#Preview {
+    NavigationStack {
+        LoginView()
+    }
 }
