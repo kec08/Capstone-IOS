@@ -95,7 +95,7 @@ extension SignUpView {
                 .foregroundColor(viewModel.isSignUpEnabled ? .customWhite : .customBlack)
                 .frame(maxWidth: .infinity)
                 .padding()
-                .background(viewModel.isSignUpEnabled ? Color(UIColor.customBlack) : Color(UIColor.customGray100))
+                .background(viewModel.isSignUpEnabled ? Color(UIColor.customBlue) : Color(UIColor.customGray100))
                 .cornerRadius(12)
         }
         .disabled(!viewModel.isSignUpEnabled)

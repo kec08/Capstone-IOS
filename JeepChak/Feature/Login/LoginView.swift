@@ -9,6 +9,7 @@ import SwiftUI
 
 struct LoginView: View {
     @StateObject private var viewModel = LoginViewModel()
+    @EnvironmentObject var appState: AppState
     @Environment(\.dismiss) var dismiss
 
     var body: some View {
@@ -28,16 +29,12 @@ struct LoginView: View {
                     }
                     .padding(.horizontal, 8)
 
-
                     Divider()
                         .padding(.horizontal, 40)
 
                     loginFormSection
-
                     autoLoginToggle
-
                     loginButton
-
                     signUpLink
                 }
                 .padding(.horizontal, 32)
@@ -47,9 +44,14 @@ struct LoginView: View {
             }
             .background(Color.white.ignoresSafeArea())
             .navigationBarHidden(true)
+            .alert("로그인 실패",
+                   isPresented: $viewModel.showErrorAlert) {
+                Button("확인", role: .cancel) {}
+            } message: {
+                Text(viewModel.errorMessage)
+            }
         }
-        }
-        
+    }
 
     // 타이틀
     private var titleSection: some View {
@@ -111,7 +113,9 @@ struct LoginView: View {
     // MARK: - 로그인 버튼
     private var loginButton: some View {
         Button(action: {
-            viewModel.login()
+            viewModel.login {
+                appState.isLoggedIn = true
+            }
         }) {
             Text("로그인")
                 .font(.system(size: 16, weight: .bold))
@@ -138,5 +142,6 @@ struct LoginView: View {
 #Preview {
     NavigationStack {
         LoginView()
+            .environmentObject(AppState())
     }
 }
