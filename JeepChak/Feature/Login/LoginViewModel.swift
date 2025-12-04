@@ -1,14 +1,3 @@
-//
-//  LoginViewModel.swift
-//  Eodigo
-//
-//  Created by 김은찬 on 9/8/25.
-//
-
-//
-//  LoginViewModel.swift
-//
-
 import SwiftUI
 import Combine
 
@@ -32,14 +21,13 @@ final class LoginViewModel: ObservableObject {
             .assign(to: &$isLoginEnabled)
     }
 
-    // apple 로그인
     func signInWithApple() {
         print("Apple 로그인 시도")
     }
 
     // MARK: - 로그인 API
     @MainActor
-    func login() {
+    func login(onSuccess: @escaping () -> Void) {
         guard isLoginEnabled else { return }
 
         Task {
@@ -48,13 +36,19 @@ final class LoginViewModel: ObservableObject {
 
                 print("로그인 성공:", response.accessToken)
 
-                // 자동 로그인
+                // 토큰 저장
+                UserDefaults.standard.set(response.accessToken, forKey: "accessToken")
+                UserDefaults.standard.set(response.refreshToken, forKey: "refreshToken")
+
+                // 자동 로그인 선택 시
                 if autoLogin {
                     UserDefaults.standard.set(true, forKey: "autoLogin")
                     UserDefaults.standard.set(userId, forKey: "savedUserId")
                 }
 
                 isLoggedIn = true
+                
+                onSuccess()
 
             } catch {
                 showErrorAlert = true
@@ -77,5 +71,7 @@ final class LoginViewModel: ObservableObject {
         autoLogin = false
         UserDefaults.standard.removeObject(forKey: "autoLogin")
         UserDefaults.standard.removeObject(forKey: "savedUserId")
+        UserDefaults.standard.removeObject(forKey: "accessToken")
+        UserDefaults.standard.removeObject(forKey: "refreshToken")
     }
 }

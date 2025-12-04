@@ -9,14 +9,23 @@ import SwiftUI
 
 struct SplashView: View {
     var body: some View {
-        Spacer()
-            .frame(height: 285)
-        Image("Splash_img")
-            .resizable()
-            .scaledToFit()
-            .frame(width: 220, height: 231)
-        Spacer()
-            .frame(height: 340)
+        ZStack {
+            Color.customWhite
+                .ignoresSafeArea()
+
+            VStack {
+                Spacer()
+                    .frame(height: 285)
+
+                Image("Splash_img")
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 220, height: 231)
+
+                Spacer()
+                    .frame(height: 340)
+            }
+        }
     }
 }
 
