@@ -87,6 +87,7 @@
 		BC10B2E72EC84F310067C14E /* ChecklistDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC10B2E62EC84F2C0067C14E /* ChecklistDTO.swift */; };
 		BC10B2E92EC84FDC0067C14E /* ChecklistService.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC10B2E82EC84FD30067C14E /* ChecklistService.swift */; };
 		BC10B2EC2EC8528A0067C14E /* PropertyAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC10B2EB2EC852870067C14E /* PropertyAPI.swift */; };
+		BC74B08F2EE1EA2D00719F32 /* TokenStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC74B08E2EE1EA2C00719F32 /* TokenStorage.swift */; };
 		BCBF066B2ED601DE009ECE84 /* AnalyzeHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCBF066A2ED601DD009ECE84 /* AnalyzeHeaderView.swift */; };
 		BCBF066D2ED601E9009ECE84 /* DocumentUploadCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCBF066C2ED601E9009ECE84 /* DocumentUploadCard.swift */; };
 		BCBF066F2ED601F0009ECE84 /* PropertyUploadCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCBF066E2ED601EF009ECE84 /* PropertyUploadCard.swift */; };
@@ -216,6 +217,7 @@
 		BC3D529D2EA37C4800BD9E2B /* JeepChak.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = JeepChak.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BC3D52AA2EA37C4A00BD9E2B /* JeepChakTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = JeepChakTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		BC3D52B42EA37C4A00BD9E2B /* JeepChakUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = JeepChakUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		BC74B08E2EE1EA2C00719F32 /* TokenStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenStorage.swift; sourceTree = "<group>"; };
 		BCBF066A2ED601DD009ECE84 /* AnalyzeHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyzeHeaderView.swift; sourceTree = "<group>"; };
 		BCBF066C2ED601E9009ECE84 /* DocumentUploadCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentUploadCard.swift; sourceTree = "<group>"; };
 		BCBF066E2ED601EF009ECE84 /* PropertyUploadCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PropertyUploadCard.swift; sourceTree = "<group>"; };
@@ -545,6 +547,7 @@
 		BC10B1D42EC4E2D60067C14E /* API */ = {
 			isa = PBXGroup;
 			children = (
+				BC74B08D2EE1EA2600719F32 /* Token */,
 				BCBF07D92EE04E18009ECE84 /* DTO */,
 				BC10B2EA2EC8527E0067C14E /* Property */,
 				BC10B1D12EC4E2D60067C14E /* Auth */,
@@ -669,6 +672,14 @@
 				BC3D52B42EA37C4A00BD9E2B /* JeepChakUITests.xctest */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		BC74B08D2EE1EA2600719F32 /* Token */ = {
+			isa = PBXGroup;
+			children = (
+				BC74B08E2EE1EA2C00719F32 /* TokenStorage.swift */,
+			);
+			path = Token;
 			sourceTree = "<group>";
 		};
 		BCBF06692ED60160009ECE84 /* Components */ = {
@@ -975,6 +986,7 @@
 				BC10B21A2EC4E2D60067C14E /* StatisticsSection.swift in Sources */,
 				BC10B21B2EC4E2D60067C14E /* MyViewModel.swift in Sources */,
 				BC10B21C2EC4E2D60067C14E /* SignUpView.swift in Sources */,
+				BC74B08F2EE1EA2D00719F32 /* TokenStorage.swift in Sources */,
 				BCBF06772ED6D636009ECE84 /* PropertyUploadHeaderView.swift in Sources */,
 				BC10B21D2EC4E2D60067C14E /* SignUpViewModel.swift in Sources */,
 				BC10B21E2EC4E2D60067C14E /* SplashView.swift in Sources */,
