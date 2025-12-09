@@ -17,6 +17,7 @@ enum ChecklistAPI {
     case deleteChecklist(id: Int)
 }
 
+
 extension ChecklistAPI: TargetType {
 
     var baseURL: URL {
@@ -59,7 +60,15 @@ extension ChecklistAPI: TargetType {
     }
 
     var headers: [String : String]? {
-        ["Content-Type": "application/json",
-         "Accept": "application/json"]
-    }
+            var headers: [String: String] = [
+                "Content-Type": "application/json",
+                "Accept": "application/json"
+            ]
+            
+            if let token = TokenStorage.accessToken {
+                headers["Authorization"] = "Bearer \(token)"
+            }
+            
+            return headers
+        }
 }

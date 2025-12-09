@@ -78,7 +78,7 @@ struct LoginView: View {
 
             VStack(spacing: 20) {
                 CustomTextField(
-                    placeholder: "아이디",
+                    placeholder: "이메일",
                     text: $viewModel.userId
                 )
 

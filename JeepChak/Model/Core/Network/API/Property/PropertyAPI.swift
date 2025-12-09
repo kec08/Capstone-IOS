@@ -57,12 +57,22 @@ extension PropertyAPI: TargetType {
     }
     
     var headers: [String: String]? {
+        var headers: [String: String] = [:]
+
         switch self {
         case .getProperties, .getPropertyDetail, .deleteProperty:
-            return ["Accept": "application/json"]
+            headers["Accept"] = "application/json"
+
         case .createProperty:
-            return ["Content-Type": "application/json",
-                    "Accept": "application/json"]
+            headers["Content-Type"] = "application/json"
+            headers["Accept"] = "application/json"
         }
+
+        if let token = TokenStorage.accessToken {
+            headers["Authorization"] = "Bearer \(token)"
+        }
+
+        return headers
     }
+
 }
