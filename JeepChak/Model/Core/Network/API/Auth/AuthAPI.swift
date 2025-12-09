@@ -12,7 +12,7 @@ internal import Alamofire
 enum AuthAPI {
     case login(email: String, password: String)
     case signup(email: String, password: String, firstName: String, lastName: String)
-    case refresh
+    case refresh(refreshToken: String)
 }
 
 extension AuthAPI: TargetType {
@@ -61,10 +61,10 @@ extension AuthAPI: TargetType {
             ]
             return .requestParameters(parameters: params, encoding: JSONEncoding.default)
             
-        case .refresh:
-            // 토큰 넣기
-            return .requestPlain
-        }
+        case let .refresh(refreshToken):
+                    let body = RefreshRequest(refreshToken: refreshToken)
+                    return .requestJSONEncodable(body)
+                }
     }
     
     var headers: [String : String]? {

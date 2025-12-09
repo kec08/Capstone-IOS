@@ -14,27 +14,27 @@ final class AppState: ObservableObject {
     init() {
         restoreLoginState()
     }
-    
-    /// UserDefaults에서 로그인 상태를 복원
+
     func restoreLoginState() {
-        let hasToken = (UserDefaults.standard.string(forKey: "accessToken") ?? "").isEmpty == false
         let autoLogin = UserDefaults.standard.bool(forKey: "autoLogin")
-        
-        // 자동로그인 ON + accessToken 상태 판단
-        isLoggedIn = hasToken && autoLogin
+
+        // 자동로그인 ON + 토큰이 유효해야만 true
+        if autoLogin, TokenStorage.isAccessTokenValid() {
+            isLoggedIn = true
+        } else {
+            // 만료시 로그아웃
+            logout()
+        }
     }
-    
-    /// 로그인 성공 시 호출
+
     func setLoggedIn() {
         isLoggedIn = true
     }
-    
+
     func logout() {
         isLoggedIn = false
-        UserDefaults.standard.removeObject(forKey: "accessToken")
-        UserDefaults.standard.removeObject(forKey: "refreshToken")
+        TokenStorage.clear()
         UserDefaults.standard.removeObject(forKey: "autoLogin")
         UserDefaults.standard.removeObject(forKey: "savedUserId")
     }
 }
-

@@ -30,3 +30,14 @@ struct SignUpRequest: Codable {
 struct SignUpResponse: Codable {
     let message: String
 }
+
+// 토큰 재발급 Request
+struct RefreshRequest: Codable {
+    let refreshToken: String
+}
+
+// 토큰 재발급 Response
+struct RefreshResponse: Codable {
+    let refreshToken: String
+    let accessToken: String
+}
