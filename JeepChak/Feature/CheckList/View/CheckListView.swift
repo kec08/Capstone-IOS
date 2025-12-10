@@ -7,7 +7,7 @@ import SwiftUI
 
 struct CheckListView: View {
     @StateObject private var viewModel = CheckListViewModel()
-    @State private var showSavedView = false  // 추가
+    @State private var showSavedView = false
 
     var body: some View {
         NavigationView {
@@ -66,7 +66,7 @@ struct CheckListView: View {
                     onPropertySelected: { property in
                         viewModel.addItem(
                             title: property.name,
-                            date: property.createdAt,
+                            date: property.createdAt ?? "날짜 데이터가 없습니다",
                             image: property.image
                         )
                         showSavedView = false
