@@ -27,19 +27,19 @@ final class ChecklistService {
                     ApiResponse<[GeneratedChecklistResponse]>.self,
                     from: response.data
                 )
-                
-                if (200...299).contains(response.statusCode) {
-                    return decoded.data
+                if decoded.success, let list = decoded.data {
+                    return list
+                } else {
+                    let msg = decoded.message
+                    throw NSError(
+                        domain: "ChecklistService",
+                        code: response.statusCode,
+                        userInfo: [NSLocalizedDescriptionKey: msg]
+                    )
                 }
-                
-                let msg = decoded.message
-                throw NSError(
-                    domain: "ChecklistService",
-                    code: response.statusCode,
-                    userInfo: [NSLocalizedDescriptionKey: msg]
-                )
             }
             .mapError { $0 as Error }
             .eraseToAnyPublisher()
     }
+
 }

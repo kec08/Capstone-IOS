@@ -16,7 +16,7 @@ struct SavedProperty: Identifiable {
     let details: String
     let description: String
     let price: String
-    let createdAt: String
+    let createdAt: String?
 }
 
 extension SavedProperty {

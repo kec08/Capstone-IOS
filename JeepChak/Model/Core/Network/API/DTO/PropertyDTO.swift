@@ -23,8 +23,7 @@ struct PropertyListResponse: Codable {
     let propertyId: Int
     let name: String
     let address: String
-    let createdAt: String
-    // thumbnail은 multipart header로 별도 처리 필요
+    let createdAt: String?
 }
 
 struct PropertyResponse: Codable {
@@ -43,5 +42,5 @@ struct PropertyResponse: Codable {
 struct ApiResponse<T: Decodable>: Decodable {
     let success: Bool
     let message: String
-    let data: T
+    let data: T?
 }
