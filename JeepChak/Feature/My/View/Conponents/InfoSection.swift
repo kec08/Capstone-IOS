@@ -18,9 +18,7 @@ struct InfoSection: View {
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .padding(.bottom, 15)
 
-            InfoRow(icon: "My_user", title: "이름", value: userInfo.name)
-            InfoRow(icon: "My_id", title: "아이디", value: userInfo.userId)
-            InfoRow(icon: "My_phone", title: "전화번호", value: userInfo.phone)
+            InfoRow(icon: "My_user", title: "이름", value: userInfo.name) 
             InfoRow(icon: "My_email", title: "이메일", value: userInfo.email)
         }
         .padding(20)

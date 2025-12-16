@@ -10,7 +10,8 @@
 import SwiftUI
 
 struct MyView: View {
-    @StateObject private var viewModel = MyViewModel()
+    @StateObject private var viewModel = MyViewModel(appState: AppState())
+    @EnvironmentObject var appState: AppState
 
     var body: some View {
         NavigationStack {
@@ -27,7 +28,7 @@ struct MyView: View {
                         .padding(.bottom, 26)
 
                     RecommendationBanner()
-                        .padding(.horizontal, 20)
+                        .padding(.horizontal, 15)
                         .padding(.bottom, 40)
 
                     InfoSection(userInfo: viewModel.userInfo)
@@ -39,7 +40,8 @@ struct MyView: View {
                             .font(.system(size: 16).weight(.semibold))
                             .foregroundColor(.customRed)
                     }
-                    .padding(.bottom, 40)
+                    .padding(.top, 60)
+                    .padding(.bottom, 50)
                 }
             }
             .background(Color.customBackgroundBlue)

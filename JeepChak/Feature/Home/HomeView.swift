@@ -1,26 +1,25 @@
-//
-//  HomeView.swift
-//  Eodigo
-//
-//  Created by 김은찬 on 9/8/25.
-//
-
 import SwiftUI
 
 struct HomeView: View {
     @StateObject private var viewModel = HomeViewModel()
+    @State private var goAddProperty = false
 
     var body: some View {
-        NavigationView {
+        NavigationStack {
             ZStack {
-                Color.customBackgroundBlue
+                
+                Color.customWhite
                     .ignoresSafeArea()
+                
+                Color.customBackgroundBlue
+                    .frame(height: 720)
+                    .ignoresSafeArea(edges: .top)
+
                 ScrollView(.vertical, showsIndicators: false) {
                     VStack(spacing: 0) {
-                        // MARK: - 파란 배경 영역
                         VStack(spacing: 24) {
                             HomeHeaderView()
-                                .padding(.top, UIApplication.shared.windows.first?.safeAreaInsets.top ?? 10)
+                                .padding(.top, 10)
                                 .padding(.horizontal, 20)
                                 .padding(.trailing, 24)
 
@@ -28,24 +27,41 @@ struct HomeView: View {
                                 .padding(.horizontal, 20)
                                 .padding(.bottom, 28)
                         }
+                        .background(Color.customBackgroundBlue)
 
-                        // MARK: - 흰색 영역
                         VStack(spacing: 32) {
                             HomePopularSectionView(properties: viewModel.homepopularProperties)
                             HomeRecentSectionView(recentPropeties: viewModel.homerecentProperties)
                         }
                         .padding(.horizontal, 20)
                         .padding(.top, 24)
-                        .padding(.bottom, 80)
-                        .background(.customWhite)
+                        .padding(.bottom, 100)
+                        .background(Color.customWhite)
                     }
                 }
             }
             .navigationBarHidden(true)
+            .navigationDestination(isPresented: $goAddProperty) {
+                AddCheckListView(
+                    addCheckListItem: { _ in },
+                    onDismiss: { goAddProperty = false }
+                )
+            }
+            .overlay(alignment: .bottomTrailing) {
+                Button {
+                    goAddProperty = true
+                } label: {
+                    Image("AddButton")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 52, height: 52)
+                }
+                .padding(.trailing, 22)
+                .padding(.bottom, 30)
+            }
         }
     }
 }
 
-#Preview {
-    HomeView()
-}
+#Preview { HomeView() }
+

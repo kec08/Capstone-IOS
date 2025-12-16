@@ -7,18 +7,20 @@
 
 import Foundation
 
-// MARK: - Request Models
 struct PropertyRequest: Codable {
     let name: String
     let address: String
     let propertyType: String
     let floor: Int
     let builtYear: Int
-    let area: Double
-    let availableDate: String
+    let area: Int
+    let marketPrice: Int
+    let leaseType: String
+    let deposit: Int
+    let monthlyRent: Int
+    let memo: String
 }
 
-// MARK: - Response Models
 struct PropertyListResponse: Codable {
     let propertyId: Int
     let name: String
@@ -34,8 +36,7 @@ struct PropertyResponse: Codable {
     let floor: Int
     let builtYear: Int
     let area: Int
-    let availableDate: String
-    let thumbnail: String?
+    let availableDate: String?
     let createdAt: String
 }
 
