@@ -88,6 +88,7 @@
 		BC10B2E92EC84FDC0067C14E /* ChecklistService.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC10B2E82EC84FD30067C14E /* ChecklistService.swift */; };
 		BC10B2EC2EC8528A0067C14E /* PropertyAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC10B2EB2EC852870067C14E /* PropertyAPI.swift */; };
 		BC74B08F2EE1EA2D00719F32 /* TokenStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC74B08E2EE1EA2C00719F32 /* TokenStorage.swift */; };
+		BC74B0912EE99C7400719F32 /* RentType.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC74B0902EE99C7200719F32 /* RentType.swift */; };
 		BCBF066B2ED601DE009ECE84 /* AnalyzeHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCBF066A2ED601DD009ECE84 /* AnalyzeHeaderView.swift */; };
 		BCBF066D2ED601E9009ECE84 /* DocumentUploadCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCBF066C2ED601E9009ECE84 /* DocumentUploadCard.swift */; };
 		BCBF066F2ED601F0009ECE84 /* PropertyUploadCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCBF066E2ED601EF009ECE84 /* PropertyUploadCard.swift */; };
@@ -108,6 +109,7 @@
 		BCBF07DB2EE04E43009ECE84 /* AnalyzeDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCBF07DA2EE04E30009ECE84 /* AnalyzeDTO.swift */; };
 		BCBF08812EE09FD2009ECE84 /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCBF08802EE09FC7009ECE84 /* AuthService.swift */; };
 		BCBF08842EE10445009ECE84 /* MoyaProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCBF08832EE1043F009ECE84 /* MoyaProvider.swift */; };
+		BCC1EEB62EF16CE70065A89A /* MessageCompleteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCC1EEB52EF16CE60065A89A /* MessageCompleteView.swift */; };
 		BCC987B82EC40456002AE0F8 /* CombineMoya in Frameworks */ = {isa = PBXBuildFile; productRef = BCC987B72EC40456002AE0F8 /* CombineMoya */; };
 		BCC987BA2EC40456002AE0F8 /* Moya in Frameworks */ = {isa = PBXBuildFile; productRef = BCC987B92EC40456002AE0F8 /* Moya */; };
 		BCC987BC2EC40456002AE0F8 /* ReactiveMoya in Frameworks */ = {isa = PBXBuildFile; productRef = BCC987BB2EC40456002AE0F8 /* ReactiveMoya */; };
@@ -218,6 +220,7 @@
 		BC3D52AA2EA37C4A00BD9E2B /* JeepChakTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = JeepChakTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		BC3D52B42EA37C4A00BD9E2B /* JeepChakUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = JeepChakUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		BC74B08E2EE1EA2C00719F32 /* TokenStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenStorage.swift; sourceTree = "<group>"; };
+		BC74B0902EE99C7200719F32 /* RentType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RentType.swift; sourceTree = "<group>"; };
 		BCBF066A2ED601DD009ECE84 /* AnalyzeHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyzeHeaderView.swift; sourceTree = "<group>"; };
 		BCBF066C2ED601E9009ECE84 /* DocumentUploadCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentUploadCard.swift; sourceTree = "<group>"; };
 		BCBF066E2ED601EF009ECE84 /* PropertyUploadCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PropertyUploadCard.swift; sourceTree = "<group>"; };
@@ -238,6 +241,7 @@
 		BCBF07DA2EE04E30009ECE84 /* AnalyzeDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyzeDTO.swift; sourceTree = "<group>"; };
 		BCBF08802EE09FC7009ECE84 /* AuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
 		BCBF08832EE1043F009ECE84 /* MoyaProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoyaProvider.swift; sourceTree = "<group>"; };
+		BCC1EEB52EF16CE60065A89A /* MessageCompleteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageCompleteView.swift; sourceTree = "<group>"; };
 		BCF9E25D2ECCBD28004FB229 /* PropertyDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PropertyDTO.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -309,6 +313,7 @@
 		BC10B1832EC4E2D60067C14E /* AddCheckList */ = {
 			isa = PBXGroup;
 			children = (
+				BCC1EEB52EF16CE60065A89A /* MessageCompleteView.swift */,
 				BC10B2DE2EC83F4D0067C14E /* Components */,
 				BC10B2DC2EC83EF10067C14E /* AddChecklistSavedView.swift */,
 				BC10B1802EC4E2D60067C14E /* AddCheckListView.swift */,
@@ -733,6 +738,7 @@
 		BCBF07D92EE04E18009ECE84 /* DTO */ = {
 			isa = PBXGroup;
 			children = (
+				BC74B0902EE99C7200719F32 /* RentType.swift */,
 				BCBF07DA2EE04E30009ECE84 /* AnalyzeDTO.swift */,
 				BC10B2E62EC84F2C0067C14E /* ChecklistDTO.swift */,
 				BC10B1D72EC4E2D60067C14E /* AuthDTO.swift */,
@@ -955,10 +961,12 @@
 				BCBF07DB2EE04E43009ECE84 /* AnalyzeDTO.swift in Sources */,
 				BC10B2042EC4E2D60067C14E /* HomeCategorySectionView.swift in Sources */,
 				BC10B2052EC4E2D60067C14E /* HomeHeaderView.swift in Sources */,
+				BC74B0912EE99C7400719F32 /* RentType.swift in Sources */,
 				BC10B2062EC4E2D60067C14E /* HomePopularSectionView.swift in Sources */,
 				BCBF072B2ED89747009ECE84 /* ChecklistItem.swift in Sources */,
 				BC10B2072EC4E2D60067C14E /* HomeRecentSectionView.swift in Sources */,
 				BC10B2082EC4E2D60067C14E /* HomeView.swift in Sources */,
+				BCC1EEB62EF16CE70065A89A /* MessageCompleteView.swift in Sources */,
 				BC10B2092EC4E2D60067C14E /* HomeViewModel.swift in Sources */,
 				BC10B20B2EC4E2D60067C14E /* AuthHeaderView.swift in Sources */,
 				BC10B20C2EC4E2D60067C14E /* CustomSecureField.swift in Sources */,

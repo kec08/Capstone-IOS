@@ -9,26 +9,27 @@ import SwiftUI
 import Combine
 
 final class MyViewModel: ObservableObject {
+    private let appState: AppState
     @Published var userInfo: UserInfo
     @Published var showSettings: Bool = false
 
-    init() {
-        // 샘플
-        userInfo = UserInfo(
-            name: "김은찬",
-            email: "eunchan@example.com",
-            phone: "010-1234-5678",
-            userId: "kimeunchan",
-        )
-    }
+    init(appState: AppState) {
+            self.appState = appState
+            
+            userInfo = UserInfo(
+                name: "김은찬",
+                email: "eunchan@example.com",
+                phone: "010-1234-5678",
+                userId: "kimeunchan"
+            )
+        }
 
-    // MARK: - Actions
     func openSettings() {
         showSettings = true
     }
 
     func logout() {
-        // 로그아웃
+        appState.logout()
         print("로그아웃 실행")
     }
 }

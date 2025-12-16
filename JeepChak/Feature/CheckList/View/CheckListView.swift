@@ -57,7 +57,7 @@ struct CheckListView: View {
                         .frame(width: 52, height: 52)
                 }
                 .padding(.trailing, 22)
-                .padding(.bottom, 16)
+                .padding(.bottom, 27)
             }
             .background(Color.customWhite)
             .navigationBarBackButtonHidden(true)

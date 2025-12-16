@@ -26,13 +26,7 @@ struct SavedHeaderView: View {
                 .foregroundColor(.black)
             
             Spacer()
-                .frame(width: 65)
-            
-            Button(action: onAddTapped) {
-                Text("직접추가")
-                    .font(.system(size: 16))
-                    .foregroundColor(.customBlack)
-            }
+                .frame(width: 120)
             
         }
         .padding(.horizontal, 20)

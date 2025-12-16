@@ -61,7 +61,7 @@ final class AuthService {
             throw AuthError.noRefreshToken
         }
 
-        // 2) refresh 토큰을 넣어서 api 호출
+        // refresh 토큰을 넣어서 api 호출
         let result = await provider.requestAsync(.refresh(refreshToken: refresh))
         
         switch result {
@@ -76,7 +76,6 @@ final class AuthService {
             return decoded
 
         case .failure(let error):
-            // 실패시 에러
             TokenStorage.clear()
             throw error
         }

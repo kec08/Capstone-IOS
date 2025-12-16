@@ -29,13 +29,6 @@ struct AddChecklistFromWishlistView: View {
                 
                 Spacer()
                 
-                Button(action: {
-                    // 직접 추가
-                }) {
-                    Text("직접 추가")
-                        .font(.system(size: 14))
-                        .foregroundColor(.black)
-                }
             }
             .padding(.horizontal, 20)
             .padding(.vertical, 12)
@@ -76,11 +69,9 @@ struct AddChecklistFromWishlistView: View {
         .background(Color.white)
         .navigationBarHidden(true)
         .overlay(
-            // 하단 고정 버튼
             VStack {
                 Spacer()
                 Button(action: {
-                    // 추가하기
                 }) {
                     Text("추가하기")
                         .font(.system(size: 16, weight: .semibold))

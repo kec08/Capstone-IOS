@@ -12,20 +12,16 @@ import Combine
 final class SavedViewModel: ObservableObject {
     @Published var properties: [SavedProperty] = []
     @Published var isLoading = false
-    @Published var errorMessage: String?
+    @Published var errorMessage: String? = nil
 
     private let propertyService = PropertyService()
     private var cancellables = Set<AnyCancellable>()
 
-    init() {
-        fetchProperties()
-    }
-
-    init(mockProperties: [SavedProperty]) {
-        self.properties = mockProperties
-        self.isLoading = false
-        self.errorMessage = nil
-    }
+    init(mockProperties: [SavedProperty] = []) {
+            self.properties = mockProperties
+        }
+    
+    init() { fetchProperties() }
 
     // 전체 매물 조회
     func fetchProperties() {
@@ -35,44 +31,40 @@ final class SavedViewModel: ObservableObject {
         propertyService.getProperties()
             .receive(on: DispatchQueue.main)
             .sink { [weak self] completion in
-                guard let self = self else { return }
+                guard let self else { return }
                 self.isLoading = false
-
-                switch completion {
-                case .finished:
-                    print("매물 목록 조회 완료")
-                case .failure(let e):
+                if case .failure(let e) = completion {
                     self.errorMessage = e.localizedDescription
                     print("매물 목록 조회 실패:", e.localizedDescription)
                 }
             } receiveValue: { [weak self] responses in
-                guard let self = self else { return }
+                guard let self else { return }
                 self.properties = responses.map { SavedProperty.from($0) }
-                print("조회된 매물 개수:", self.properties.count)
             }
             .store(in: &cancellables)
     }
 
     // MARK: - 매물 생성
-    func createProperty(
-        from newItem: AddCheckListItem,
-        onSuccess: @escaping (SavedProperty) -> Void
-    ) {
-        let floorValue = Int(newItem.unit) ?? 0
+    func createProperty(from newItem: AddCheckListItem, onSuccess: @escaping (String) -> Void) {
 
-        let builtYearValue = 2000
-        let areaValue: Double = 30.0
+        // PropertyType -> 서버 코드(String)
+        let propertyTypeCode = newItem.propertyType.rawValue
 
-        let propertyTypeCode = mapPropertyType(newItem.propertyType)
+        // 전세면 monthlyRent는 0으로 강제
+        let monthly = (newItem.leaseType == .jeonse) ? 0 : newItem.monthlyRent
 
         let request = PropertyRequest(
-            name: newItem.title,
+            name: newItem.name,
             address: newItem.address,
             propertyType: propertyTypeCode,
-            floor: floorValue,
-            builtYear: builtYearValue,
-            area: areaValue,
-            availableDate: newItem.date
+            floor: newItem.floor,
+            builtYear: newItem.builtYear,
+            area: newItem.area,
+            marketPrice: newItem.marketPrice,
+            leaseType: newItem.leaseType.rawValue,
+            deposit: newItem.deposit,
+            monthlyRent: monthly,
+            memo: newItem.memo
         )
 
         propertyService.createProperty(request: request)
@@ -81,23 +73,8 @@ final class SavedViewModel: ObservableObject {
                 if case .failure(let e) = completion {
                     print("매물 생성 실패:", e.localizedDescription)
                 }
-            } receiveValue: { [weak self] res in
-                guard let self = self else { return }
-
-                let saved = SavedProperty(
-                    id: res.propertyId,
-                    propertyId: res.propertyId,
-                    image: newItem.image,
-                    type: newItem.propertyType,
-                    name: newItem.title,
-                    details: newItem.address,
-                    description: newItem.memo,
-                    price: newItem.unit,
-                    createdAt: res.createdAt
-                )
-
-                self.properties.append(saved)
-                onSuccess(saved)
+            } receiveValue: { message in
+                onSuccess(message) // message 내린거 받기
             }
             .store(in: &cancellables)
     }
