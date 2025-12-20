@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import Combine
 
 struct AnalyzeResultView: View {
     @Environment(\.dismiss) private var dismiss
@@ -14,6 +15,17 @@ struct AnalyzeResultView: View {
     let score: Int
     let summary: String
     let details: [RiskDetail]
+    let property: SavedProperty?
+    let analyzeResult: AnalyzeResponseDTO?
+    let fileURL: URL?
+    
+    @State private var showingRiskSolution = false
+    @State private var riskSolutionData: RiskSolutionResponseDTO?
+    @State private var isLoading = false
+    @State private var errorMessage: String?
+    
+    private let analyzeService = AnalyzeService()
+    @State private var cancellables = Set<AnyCancellable>()
     
     var body: some View {
         VStack(spacing: 0) {
@@ -121,22 +133,78 @@ struct AnalyzeResultView: View {
             Spacer()
             
             // 하단 버튼
-            NavigationLink {
-                RiskSolutionView()
+            Button {
+                loadRiskSolution()
             } label: {
-                Text("대처 방안 확인하기")
-                    .font(.system(size: 17, weight: .semibold))
-                    .frame(maxWidth: .infinity)
-                    .frame(height: 54)
-                    .foregroundColor(.customWhite)
-                    .background(Color.customBlue)
-                    .cornerRadius(12)
+                if isLoading {
+                    ProgressView()
+                        .progressViewStyle(CircularProgressViewStyle(tint: .white))
+                } else {
+                    Text("대처 방안 확인하기")
+                        .font(.system(size: 17, weight: .semibold))
+                }
             }
+            .frame(maxWidth: .infinity)
+            .frame(height: 54)
+            .foregroundColor(.customWhite)
+            .background(Color.customBlue)
+            .cornerRadius(12)
+            .disabled(isLoading)
             .padding(.horizontal, 22)
             .padding(.top, 10)
+            .sheet(isPresented: $showingRiskSolution) {
+                if let solutionData = riskSolutionData {
+                    NavigationView {
+                        RiskSolutionView(solutionData: solutionData)
+                    }
+                }
+            }
+            .alert("오류", isPresented: .constant(errorMessage != nil)) {
+                Button("확인") {
+                    errorMessage = nil
+                }
+            } message: {
+                if let error = errorMessage {
+                    Text(error)
+                }
+            }
         }
         .background(Color.customBackgroundGray)
         .navigationBarHidden(true)
+    }
+    
+    private func loadRiskSolution() {
+        guard let property = property else { return }
+        
+        let marketPrice = property.deposit ?? 0
+        let deposit = property.deposit ?? 0
+        let monthlyRent = property.monthlyRent ?? 0
+        
+        let request = RiskSolutionRequestDTO(
+            propertyId: property.propertyId,
+            marketPrice: marketPrice,
+            deposit: deposit,
+            monthlyRent: monthlyRent
+        )
+        
+        isLoading = true
+        errorMessage = nil
+        
+        // 파일 전달
+        let files = fileURL != nil ? [fileURL!] : []
+        analyzeService.riskSolution(request: request, files: files)
+            .receive(on: DispatchQueue.main)
+            .sink { completion in
+                isLoading = false
+                if case .failure(let error) = completion {
+                    errorMessage = error.localizedDescription
+                    print("대처 방안 로드 실패: \(error.localizedDescription)")
+                }
+            } receiveValue: { solution in
+                riskSolutionData = solution
+                showingRiskSolution = true
+            }
+            .store(in: &cancellables)
     }
 }
 
@@ -144,26 +212,34 @@ struct AnalyzeResultView: View {
 
 extension AnalyzeResultView {
     static var mock: AnalyzeResultView {
-        AnalyzeResultView(
+        let mockDetails = [
+            AnalyzeDetailItem(
+                original: "근저당권 설정: 채권최고액 240,000,000원, 채권자 ○○은행",
+                analysisText: "이 문구는 소유 부동산에 금융기관의 담보권이 걸려 있음을 의미합니다. 매수 전 반드시 말소 여부를 확인해야 합니다."
+            ),
+            AnalyzeDetailItem(
+                original: "가압류: ○○지방법원, 채권액 35,000,000원",
+                analysisText: "해당 부동산이 채권자의 임시적 압류 조치 대상입니다. 매수 시 인수 위험이 있으므로 주의가 필요합니다."
+            ),
+            AnalyzeDetailItem(
+                original: "대지권 미등기",
+                analysisText: "아파트·오피스텔 등에서 대지권이 없으면 소유권 보호가 제한되므로 매우 위험합니다."
+            )
+        ]
+        
+        let mockResult = AnalyzeResponseDTO(
+            totalRisk: 65,
+            details: mockDetails,
+            comment: "이 매물은 높은 위험도로 분류됩니다. 가압류가 설정되어 있고, 근저당권이 시세의 70%를 초과하며, 전세보증금 비율이 매우 높아 깡통 전세 위험이 있습니다. 최근 1년간 소유권이 3회 이상 이전된 것도 주의가 필요합니다. 계약을 진행하신다면 반드시 전세보증보험 가입과 법률 검토가 필요합니다."
+        )
+        
+        return AnalyzeResultView(
             score: 65,
-            summary:
-"""
-이 매물은 높은 위험도로 분류됩니다. 가압류가 설정되어 있고, 근저당권이 시세의 70%를 초과하며, 전세보증금 비율이 매우 높아 깡통 전세 위험이 있습니다. 최근 1년간 소유권이 3회 이상 이전된 것도 주의가 필요합니다. 계약을 진행하신다면 반드시 전세보증보험 가입과 법률 검토가 필요합니다.
-""",
-            details: [
-                RiskDetail(
-                    title: "근저당권 설정: 채권최고액 240,000,000원, 채권자 ○○은행",
-                    description: "이 문구는 소유 부동산에 금융기관의 담보권이 걸려 있음을 의미합니다. 매수 전 반드시 말소 여부를 확인해야 합니다."
-                ),
-                RiskDetail(
-                    title: "가압류: ○○지방법원, 채권액 35,000,000원",
-                    description: "해당 부동산이 채권자의 임시적 압류 조치 대상입니다. 매수 시 인수 위험이 있으므로 주의가 필요합니다."
-                ),
-                RiskDetail(
-                    title: "대지권 미등기",
-                    description: "아파트·오피스텔 등에서 대지권이 없으면 소유권 보호가 제한되므로 매우 위험합니다."
-                )
-            ]
+            summary: mockResult.comment,
+            details: mockResult.details.map { RiskDetail(title: $0.original, description: $0.analysisText) },
+            property: nil,
+            analyzeResult: mockResult,
+            fileURL: nil
         )
     }
 }

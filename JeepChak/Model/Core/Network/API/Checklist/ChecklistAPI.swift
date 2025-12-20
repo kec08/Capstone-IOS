@@ -13,7 +13,8 @@ enum ChecklistAPI {
     case generateChecklist(request: ChecklistGenerateRequest)
     case getChecklists
     case getChecklistDetail(id: Int)
-    case updateChecklist(id: Int, items: [ChecklistItemRequest])
+    case saveChecklist(request: ChecklistSaveRequest)
+    case updateChecklist(id: Int, items: [ChecklistUpdateRequest])
     case deleteChecklist(id: Int)
 }
 
@@ -28,7 +29,7 @@ extension ChecklistAPI: TargetType {
         switch self {
         case .generateChecklist:
             return "/api/checklist/generate"
-        case .getChecklists:
+        case .getChecklists, .saveChecklist:
             return "/api/checklist"
         case .getChecklistDetail(let id),
              .deleteChecklist(let id),
@@ -39,7 +40,7 @@ extension ChecklistAPI: TargetType {
 
     var method: Moya.Method {
         switch self {
-        case .generateChecklist: return .post
+        case .generateChecklist, .saveChecklist: return .post
         case .getChecklists, .getChecklistDetail: return .get
         case .updateChecklist: return .put
         case .deleteChecklist: return .delete
@@ -49,6 +50,9 @@ extension ChecklistAPI: TargetType {
     var task: Task {
         switch self {
         case .generateChecklist(let request):
+            return .requestJSONEncodable(request)
+            
+        case .saveChecklist(let request):
             return .requestJSONEncodable(request)
 
         case .getChecklists, .getChecklistDetail, .deleteChecklist:

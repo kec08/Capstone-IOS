@@ -64,13 +64,35 @@ final class PropertyService {
             .eraseToAnyPublisher()
     }
 
-    ///  매물 생성: 응답 형태가 뭐든 message를 안전하게 뽑음
+    /// 매물 생성: POST /api/properties
+    /// Request: { name, address, propertyType, floor, builtYear, area, marketPrice, leaseType, deposit, monthlyRent, memo }
+    /// Response: { message: "매물이 생성되었습니다." }
     func createProperty(request: PropertyRequest) -> AnyPublisher<String, Error> {
         provider.requestPublisher(.createProperty(request: request))
             .tryMap { response in
-                // 1) 제일 정상적인 형태: ApiResponse<PropertyResponse>
+                // 명세에 따른 응답: { message: "매물이 생성되었습니다." }
+                // 1) 단독 message 형태 (명세에 정확히 맞는 형태)
+                if let msgResponse = try? JSONDecoder().decode(CreatePropertyMessageResponse.self, from: response.data) {
+                    return msgResponse.message
+                }
+                
+                // 2) ApiResponse로 래핑된 경우
+                if let wrapped = try? JSONDecoder().decode(ApiResponse<String>.self, from: response.data) {
+                    if wrapped.success {
+                        return wrapped.message
+                    }
+                    throw NSError(
+                        domain: "PropertyService",
+                        code: response.statusCode,
+                        userInfo: [NSLocalizedDescriptionKey: wrapped.message]
+                    )
+                }
+                
+                // 3) ApiResponse<PropertyResponse> 형태
                 if let wrapped = try? JSONDecoder().decode(ApiResponse<PropertyResponse>.self, from: response.data) {
-                    if wrapped.success { return wrapped.message }
+                    if wrapped.success {
+                        return wrapped.message
+                    }
                     throw NSError(
                         domain: "PropertyService",
                         code: response.statusCode,
@@ -78,22 +100,7 @@ final class PropertyService {
                     )
                 }
 
-                // 2) data가 없는 래핑: ApiResponse<String> / ApiResponse<Empty>
-                if let wrappedMsg = try? JSONDecoder().decode(ApiResponse<String>.self, from: response.data) {
-                    if wrappedMsg.success { return wrappedMsg.message }
-                    throw NSError(
-                        domain: "PropertyService",
-                        code: response.statusCode,
-                        userInfo: [NSLocalizedDescriptionKey: wrappedMsg.message]
-                    )
-                }
-
-                // 3) 혹시 단독 message 형태면
-                if let msg = try? JSONDecoder().decode(CreatePropertyMessageResponse.self, from: response.data) {
-                    return msg.message
-                }
-
-                // 4) 다 실패하면 원문 찍고 실패
+                // 파싱 실패
                 let raw = String(data: response.data, encoding: .utf8) ?? "nil"
                 throw NSError(
                     domain: "PropertyService",

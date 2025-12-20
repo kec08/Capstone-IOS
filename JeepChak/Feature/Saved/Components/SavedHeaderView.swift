@@ -21,7 +21,7 @@ struct SavedHeaderView: View {
             
             Spacer()
             
-            Text("체크리스트 추가")
+            Text("관심매물")
                 .font(.system(size: 18, weight: .semibold))
                 .foregroundColor(.black)
             

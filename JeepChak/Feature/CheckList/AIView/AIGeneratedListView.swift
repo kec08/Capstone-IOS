@@ -10,15 +10,19 @@ import SwiftUI
 struct AIGeneratedListView: View {
     var onConfirm: () -> Void
 
-    @State private var checklistItems: [AICheckItem] = [
-        AICheckItem(name: "창문 틀에 곰팡이 여부 확인"),
-        AICheckItem(name: "화장실 누수 흔적 확인"),
-        AICheckItem(name: "보일러 작동 테스트"),
-        AICheckItem(name: "주변 소음 확인")
-    ]
-
+    @State private var items: [AICheckItem]
     @State private var showAddSheet = false
     @State private var newItem = ""
+    
+    init(checklistItems: [AICheckItem] = [], onConfirm: @escaping () -> Void) {
+        self.onConfirm = onConfirm
+        self._items = State(initialValue: checklistItems.isEmpty ? [
+            AICheckItem(name: "창문 틀에 곰팡이 여부 확인"),
+            AICheckItem(name: "화장실 누수 흔적 확인"),
+            AICheckItem(name: "보일러 작동 테스트"),
+            AICheckItem(name: "주변 소음 확인")
+        ] : checklistItems)
+    }
 
     var body: some View {
         VStack(spacing: 20) {
@@ -30,7 +34,7 @@ struct AIGeneratedListView: View {
 
             ScrollView {
                 VStack(alignment: .leading, spacing: 16) {
-                    ForEach($checklistItems) { $item in
+                    ForEach($items) { $item in
                         HStack(spacing: 10) {
                             Button(action: {
                                 withAnimation(.easeInOut(duration: 0.15)) {
@@ -92,7 +96,7 @@ struct AIGeneratedListView: View {
                 newItem: $newItem,
                 onAdd: {
                     if !newItem.isEmpty {
-                        checklistItems.append(AICheckItem(name: newItem))
+                        items.append(AICheckItem(name: newItem))
                         newItem = ""
                     }
                     showAddSheet = false

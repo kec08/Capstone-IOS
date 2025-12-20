@@ -10,15 +10,18 @@ import SwiftUI
 struct RiskSolutionView: View {
     @Environment(\.dismiss) private var dismiss
     
-    @State private var checklist: [ChecklistItem] = [
-        ChecklistItem(text: "공인중개사 자격증 및 중개업 등록증 확인", checked: true),
-        ChecklistItem(text: "임대인 신분증과 등기부 소유자 일치 여부 대면 확인", checked: true),
-        ChecklistItem(text: "잔금 지급 직전 등기부등본 재발급 및 변동사항 체크", checked: false),
-        ChecklistItem(text: "전입신고 + 확정일자 반드시 받기", checked: false),
-        ChecklistItem(text: "전세보증금 반환보증 가입", checked: false),
-        ChecklistItem(text: "계약서 특약사항 꼼꼼히 확인", checked: false),
-        ChecklistItem(text: "위임장 사용 시 인감증명서 진위 확인", checked: false)
-    ]
+    let solutionData: RiskSolutionResponseDTO?
+    
+    @State private var checklist: [ChecklistItem] = []
+    
+    init(solutionData: RiskSolutionResponseDTO? = nil) {
+        self.solutionData = solutionData
+        if let data = solutionData {
+            _checklist = State(initialValue: data.checklist.map { ChecklistItem(text: $0, checked: false) })
+        } else {
+            _checklist = State(initialValue: [])
+        }
+    }
     
     var body: some View {
         VStack(spacing: 0) {
@@ -54,35 +57,45 @@ struct RiskSolutionView: View {
                         .foregroundColor(.customBlack)
                         .padding(.top, 18)
                     
-                    RiskSolutionCard(
-                        title: "가압류 설정",
-                        items: [
-                            "임대인에게 가압류 해제 계획 확인",
-                            "가압류 채권액과 채권자 정보 확인",
-                            "변호사 상담을 통한 법적 검토",
-                            "계약 보류 또는 가압류 해제 후 계약 진행 권장"
-                        ]
-                    )
-                    
-                    RiskSolutionCard(
-                        title: "높은 근저당권 비율",
-                        items: [
-                            "전세보증보험 가입 필수",
-                            "HUG(주택도시보증공사) 보증 가능 여부 확인",
-                            "임대인의 대출 상환 계획서 요청",
-                            "선순위 채권 규모 정확히 파악"
-                        ]
-                    )
-                    
-                    RiskSolutionCard(
-                        title: "잦은 소유권 이전",
-                        items: [
-                            "소유권 이전 사유 확인 (상속, 증여, 매매 등)",
-                            "현 소유자의 보유 기간 확인",
-                            "투기 목적 여부 파악",
-                            "중개사를 통한 매물 이력 조회"
-                        ]
-                    )
+                    if let data = solutionData {
+                        ForEach(data.coping, id: \.title) { copingItem in
+                            RiskSolutionCard(
+                                title: copingItem.title,
+                                items: copingItem.list
+                            )
+                        }
+                    } else {
+                        // 기본 데이터 (API 응답이 없을 경우)
+                        RiskSolutionCard(
+                            title: "가압류 설정",
+                            items: [
+                                "임대인에게 가압류 해제 계획 확인",
+                                "가압류 채권액과 채권자 정보 확인",
+                                "변호사 상담을 통한 법적 검토",
+                                "계약 보류 또는 가압류 해제 후 계약 진행 권장"
+                            ]
+                        )
+                        
+                        RiskSolutionCard(
+                            title: "높은 근저당권 비율",
+                            items: [
+                                "전세보증보험 가입 필수",
+                                "HUG(주택도시보증공사) 보증 가능 여부 확인",
+                                "임대인의 대출 상환 계획서 요청",
+                                "선순위 채권 규모 정확히 파악"
+                            ]
+                        )
+                        
+                        RiskSolutionCard(
+                            title: "잦은 소유권 이전",
+                            items: [
+                                "소유권 이전 사유 확인 (상속, 증여, 매매 등)",
+                                "현 소유자의 보유 기간 확인",
+                                "투기 목적 여부 파악",
+                                "중개사를 통한 매물 이력 조회"
+                            ]
+                        )
+                    }
                     
                     VStack(alignment: .leading, spacing: 12) {
                         Text("필수 안전 수칙 체크리스트")

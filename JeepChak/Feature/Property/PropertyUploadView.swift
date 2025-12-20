@@ -108,7 +108,12 @@ private extension PropertyUploadView {
                     details: "서울 성동구 성수동1가",
                     description: "채광 좋고 주변 조용함",
                     price: "월세 80/10",
-                    createdAt: "2025-11-15"
+                    createdAt: "2025-11-15",
+                    floor: 3,
+                    area: 20,
+                    leaseType: "MONTHLY_RENT",
+                    deposit: 80,
+                    monthlyRent: 10
                 ),
                 SavedProperty(
                     id: 2,
@@ -119,7 +124,12 @@ private extension PropertyUploadView {
                     details: "서울 강남구 역삼동",
                     description: "회사와 가까움",
                     price: "전세 4.5억",
-                    createdAt: "2025-11-10"
+                    createdAt: "2025-11-10",
+                    floor: 5,
+                    area: 30,
+                    leaseType: "JEONSE",
+                    deposit: 450000000,
+                    monthlyRent: 0
                 )
             ]
         ) { _ in }

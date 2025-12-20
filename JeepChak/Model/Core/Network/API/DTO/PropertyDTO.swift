@@ -25,6 +25,12 @@ struct PropertyListResponse: Codable {
     let propertyId: Int
     let name: String
     let address: String
+    let propertyType: String?
+    let floor: Int?
+    let area: Int?
+    let leaseType: String?
+    let deposit: Int?
+    let monthlyRent: Int?
     let createdAt: String?
 }
 
@@ -36,6 +42,11 @@ struct PropertyResponse: Codable {
     let floor: Int
     let builtYear: Int
     let area: Int
+    let marketPrice: Int?
+    let leaseType: String?
+    let deposit: Int?
+    let monthlyRent: Int?
+    let memo: String?
     let availableDate: String?
     let createdAt: String
 }

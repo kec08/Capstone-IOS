@@ -26,7 +26,7 @@ struct CheckListGridView: View {
                 if isEditing {
                     cardView(for: item)
                 } else {
-                    NavigationLink(destination: CheckListDetailView(title: item.title)) {
+                    NavigationLink(destination: CheckListDetailView(checkItem: item, items: $items)) {
                         cardView(for: item)
                     }
                     .buttonStyle(PlainButtonStyle())
@@ -36,40 +36,52 @@ struct CheckListGridView: View {
         .padding(.bottom, 20)
     }
     
+    // 날짜 포맷팅 함수
+    private func formatDate(_ dateString: String) -> String {
+        // ISO 8601 형식 (2025-12-20T15:58:18.375109) 또는 일반 날짜 형식 처리
+        if dateString.contains("T") {
+            // ISO 8601 형식인 경우
+            let components = dateString.components(separatedBy: "T")
+            if let datePart = components.first {
+                return datePart
+            }
+        }
+        // 이미 날짜만 있는 경우 그대로 반환
+        return dateString
+    }
+    
     @ViewBuilder
     func cardView(for item: CheckItem) -> some View {
         VStack(alignment: .leading, spacing: 6) {
             ZStack(alignment: .topTrailing) {
-                if let uiImage = item.image {
-                    Image(uiImage: uiImage)
-                        .resizable()
-                        .scaledToFill()
-                        .frame(width: 158, height: 158)
-                        .clipped()
-                        .cornerRadius(8)
-                } else if let imageName = item.imageName, !imageName.isEmpty {
-                    Image(imageName)
-                        .resizable()
-                        .scaledToFill()
-                        .frame(width: 158, height: 158)
-                        .clipped()
-                        .cornerRadius(8)
-                } else {
-                    RoundedRectangle(cornerRadius: 12)
-                        .fill(Color.customGray100)
-                        .frame(width: 160, height: 158)
-                        .overlay(
-                            VStack {
-                                Image(systemName: "photo")
-                                    .font(.system(size: 28))
-                                    .foregroundColor(Color.customDarkGray)
-                                    .padding(.bottom, 6)
-                                Text("사진을 추가해 보세요")
-                                    .font(.system(size: 13))
-                                    .foregroundColor(.gray)
-                            }
-                        )
+                Group {
+                    if let uiImage = item.image {
+                        Image(uiImage: uiImage)
+                            .resizable()
+                            .scaledToFill()
+                    } else if let imageName = item.imageName, !imageName.isEmpty {
+                        Image(imageName)
+                            .resizable()
+                            .scaledToFill()
+                    } else {
+                        RoundedRectangle(cornerRadius: 12)
+                            .fill(Color.customGray100)
+                            .overlay(
+                                VStack {
+                                    Image(systemName: "photo")
+                                        .font(.system(size: 28))
+                                        .foregroundColor(Color.customDarkGray)
+                                        .padding(.bottom, 6)
+                                    Text("사진을 추가해 보세요")
+                                        .font(.system(size: 13))
+                                        .foregroundColor(.gray)
+                                }
+                            )
+                    }
                 }
+                .frame(width: 158, height: 158)
+                .clipped()
+                .cornerRadius(8)
                 
                 if isEditing {
                     Button {
@@ -87,7 +99,7 @@ struct CheckListGridView: View {
                 .font(.system(size: 14, weight: .semibold))
                 .foregroundColor(.customBlack)
 
-            Text(item.date)
+            Text(formatDate(item.date))
                 .font(.system(size: 12))
                 .foregroundColor(.customDarkGray)
                 .padding(.bottom, 16)

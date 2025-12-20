@@ -74,7 +74,12 @@ struct SavedView: View {
                         details: item.address,
                         description: item.memo,
                         price: item.displayPrice,
-                        createdAt: item.date
+                        createdAt: item.date,
+                        floor: item.floor,
+                        area: item.area,
+                        leaseType: item.leaseType.rawValue,
+                        deposit: item.deposit,
+                        monthlyRent: item.monthlyRent
                     )
                     onPropertySelected?(saved)
                     pendingNewItem = nil
@@ -92,8 +97,9 @@ struct SavedView: View {
                     SavedPropertyCard(property: property)
                         .padding(.horizontal, 10)
                         .onTapGesture {
-                            // 기존 매물 선택도 그대로
-                            showAILoading = true
+                            // 매물 선택 시 CheckListView에 추가
+                            onPropertySelected?(property)
+                            dismiss()
                         }
                 }
             }

@@ -41,5 +41,117 @@ final class ChecklistService {
             .mapError { $0 as Error }
             .eraseToAnyPublisher()
     }
+    
+    // 체크리스트 삭제: DELETE /api/checklist/{id}
+    func deleteChecklist(id: Int) -> AnyPublisher<String, Error> {
+        provider.requestPublisher(.deleteChecklist(id: id))
+            .tryMap { response in
+                // 응답: { message: "Checklist deleted successfully" }
+                let decoded = try JSONDecoder().decode(
+                    ApiResponse<String>.self,
+                    from: response.data
+                )
+                
+                if decoded.success {
+                    return decoded.message
+                } else {
+                    throw NSError(
+                        domain: "ChecklistService",
+                        code: response.statusCode,
+                        userInfo: [NSLocalizedDescriptionKey: decoded.message]
+                    )
+                }
+            }
+            .mapError { $0 as Error }
+            .eraseToAnyPublisher()
+    }
+    
+    // 체크리스트 저장: POST /api/checklist
+    func saveChecklist(request: ChecklistSaveRequest) -> AnyPublisher<ChecklistResponse, Error> {
+        provider.requestPublisher(.saveChecklist(request: request))
+            .tryMap { response in
+                let decoded = try JSONDecoder().decode(
+                    ApiResponse<ChecklistResponse>.self,
+                    from: response.data
+                )
+                if decoded.success, let data = decoded.data {
+                    return data
+                } else {
+                    throw NSError(
+                        domain: "ChecklistService",
+                        code: response.statusCode,
+                        userInfo: [NSLocalizedDescriptionKey: decoded.message]
+                    )
+                }
+            }
+            .mapError { $0 as Error }
+            .eraseToAnyPublisher()
+    }
+    
+    // 체크리스트 수정: PUT /api/checklist/{id}
+    func updateChecklist(id: Int, items: [ChecklistUpdateRequest]) -> AnyPublisher<ChecklistUpdateResponse, Error> {
+        provider.requestPublisher(.updateChecklist(id: id, items: items))
+            .tryMap { response in
+                let decoded = try JSONDecoder().decode(
+                    ApiResponse<ChecklistUpdateResponse>.self,
+                    from: response.data
+                )
+                if decoded.success, let data = decoded.data {
+                    return data
+                } else {
+                    throw NSError(
+                        domain: "ChecklistService",
+                        code: response.statusCode,
+                        userInfo: [NSLocalizedDescriptionKey: decoded.message]
+                    )
+                }
+            }
+            .mapError { $0 as Error }
+            .eraseToAnyPublisher()
+    }
+    
+    // 전체 체크리스트 조회: GET /api/checklist
+    func getChecklists() -> AnyPublisher<[ChecklistListResponse], Error> {
+        provider.requestPublisher(.getChecklists)
+            .tryMap { response in
+                let decoded = try JSONDecoder().decode(
+                    ApiResponse<[ChecklistListResponse]>.self,
+                    from: response.data
+                )
+                if decoded.success, let data = decoded.data {
+                    return data
+                } else {
+                    throw NSError(
+                        domain: "ChecklistService",
+                        code: response.statusCode,
+                        userInfo: [NSLocalizedDescriptionKey: decoded.message]
+                    )
+                }
+            }
+            .mapError { $0 as Error }
+            .eraseToAnyPublisher()
+    }
+    
+    // 체크리스트 상세 조회: GET /api/checklist/{id}
+    func getChecklistDetail(id: Int) -> AnyPublisher<ChecklistDetailResponse, Error> {
+        provider.requestPublisher(.getChecklistDetail(id: id))
+            .tryMap { response in
+                let decoded = try JSONDecoder().decode(
+                    ApiResponse<ChecklistDetailResponse>.self,
+                    from: response.data
+                )
+                if decoded.success, let data = decoded.data {
+                    return data
+                } else {
+                    throw NSError(
+                        domain: "ChecklistService",
+                        code: response.statusCode,
+                        userInfo: [NSLocalizedDescriptionKey: decoded.message]
+                    )
+                }
+            }
+            .mapError { $0 as Error }
+            .eraseToAnyPublisher()
+    }
 
 }
