@@ -22,7 +22,7 @@ struct HomeHeaderView: View {
             HStack {
                 TextField("찾으시는 방을 검색해보세요", text: $searchText)
                     .font(.system(size: 12))
-                    .foregroundColor(.customGray300)
+                    .foregroundColor(.customBlack)
                     .padding(.vertical, 12)
                     .padding(.leading, 10)
                     .disableAutocorrection(true)

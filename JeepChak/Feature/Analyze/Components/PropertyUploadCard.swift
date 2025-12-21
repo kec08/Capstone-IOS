@@ -18,6 +18,16 @@ struct PropertyUploadCard: View {
                     SavedPropertyCard(property: property)
                         .padding(.horizontal, 16)
                         .padding(.top, 16)
+                    
+                    Button {
+                        showingSheet = true
+                    } label: {
+                        Text("매물 다시 선택하기")
+                            .font(.system(size: 16, weight: .semibold))
+                            .foregroundColor(.blue)
+                    }
+                    .padding(.horizontal, 40)
+                    .padding(.bottom, 16)
                 } else {
                     Image("Analyz_home")
                         .resizable()
@@ -25,22 +35,17 @@ struct PropertyUploadCard: View {
                         .frame(width: 128, height: 128)
                         .padding(.top, 5)
                         .padding(.bottom, -10)
+                    
+                    Button {
+                        showingSheet = true
+                    } label: {
+                        Text("매물 업로드 하기")
+                            .font(.system(size: 18, weight: .semibold))
+                            .foregroundColor(.blue)
+                    }
+                    .padding(.horizontal, 40)
+                    .padding(.bottom, 26)
                 }
-                
-                Text("관심매물에서 간편하게 매물 업로드!")
-                    .font(.system(size: 16, weight: .semibold))
-                    .foregroundColor(.customBlack)
-                    .padding(.bottom, 10)
-                
-                Button {
-                    showingSheet = true
-                } label: {
-                    Text("매물 업로드 하기")
-                        .font(.system(size: 18, weight: .semibold))
-                        .foregroundColor(.blue)
-                }
-                .padding(.horizontal, 40)
-                .padding(.bottom, 26)
             }
             .frame(maxWidth: 350)
             .background(Color.white)

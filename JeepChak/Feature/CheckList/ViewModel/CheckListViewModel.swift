@@ -19,6 +19,9 @@ final class CheckListViewModel: ObservableObject {
     @Published var showDeleteAlert = false
     @Published var itemToDelete: CheckItem?
     @Published var showAddSheet = false
+    
+    private let checklistService = ChecklistService()
+    private var cancellables = Set<AnyCancellable>()
 
     // 추가
     func addItem(title: String, date: String, image: UIImage? = nil) {
@@ -30,9 +33,29 @@ final class CheckListViewModel: ObservableObject {
 
     // 삭제
     func deleteItem(_ item: CheckItem) {
+        // TODO: item에 checklistId가 있으면 서버 삭제 API 호출
+        // 현재는 로컬에서만 삭제
         withAnimation {
             checkItems.removeAll { $0.id == item.id }
         }
+    }
+    
+    // 서버에서 체크리스트 삭제
+    func deleteChecklistFromServer(checklistId: Int, item: CheckItem) {
+        checklistService.deleteChecklist(id: checklistId)
+            .receive(on: DispatchQueue.main)
+            .sink { completion in
+                if case .failure(let error) = completion {
+                    print("체크리스트 삭제 실패: \(error.localizedDescription)")
+                }
+            } receiveValue: { message in
+                print("체크리스트 삭제 성공: \(message)")
+                // 로컬에서도 삭제
+                withAnimation {
+                    self.checkItems.removeAll { $0.id == item.id }
+                }
+            }
+            .store(in: &cancellables)
     }
 
     // 편집 모드

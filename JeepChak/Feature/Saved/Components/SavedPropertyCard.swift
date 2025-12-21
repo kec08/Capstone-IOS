@@ -56,10 +56,23 @@ struct SavedPropertyCard: View {
                 
                 HStack {
                     Spacer()
-                    Text(property.price)
-                        .font(.system(size: 16, weight: .bold))
-                        .foregroundColor(.customBlack)
-                        .padding(.horizontal, 10)
+                    // 가격 정보 표시 (price가 비어있으면 deposit/monthlyRent로 생성)
+                    if !property.price.isEmpty {
+                        Text(property.price)
+                            .font(.system(size: 16, weight: .bold))
+                            .foregroundColor(.customBlack)
+                            .padding(.horizontal, 10)
+                    } else if let deposit = property.deposit, let monthlyRent = property.monthlyRent {
+                        Text("월세 \(SavedProperty.formatNumber(deposit))/\(SavedProperty.formatNumber(monthlyRent))")
+                            .font(.system(size: 16, weight: .bold))
+                            .foregroundColor(.customBlack)
+                            .padding(.horizontal, 10)
+                    } else if let deposit = property.deposit, property.leaseType == "JEONSE" {
+                        Text("전세 \(SavedProperty.formatNumber(deposit))")
+                            .font(.system(size: 16, weight: .bold))
+                            .foregroundColor(.customBlack)
+                            .padding(.horizontal, 10)
+                    }
                 }
             }
             .padding(.vertical, 4)
@@ -81,7 +94,12 @@ struct SavedPropertyCard: View {
             details: "서울특별시 성동구 성수동1가 123-4",
             description: "채광 좋고 주변이 조용함",
             price: "월세 80 / 10",
-            createdAt: "2025-11-15"
+            createdAt: "2025-11-15",
+            floor: 1,
+            area: 15,
+            leaseType: "MONTHLY_RENT",
+            deposit: 1000,
+            monthlyRent: 60
         )
     )
 }

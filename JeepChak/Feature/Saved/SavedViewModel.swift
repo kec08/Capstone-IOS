@@ -29,6 +29,18 @@ final class SavedViewModel: ObservableObject {
         errorMessage = nil
 
         propertyService.getProperties()
+            .map { responses -> [SavedProperty] in
+                // PropertyListResponse에 필요한 정보가 있으면 바로 사용, 없으면 상세 조회
+                responses.map { response -> SavedProperty in
+                    // PropertyListResponse에 가격 정보가 있으면 바로 사용
+                    if response.propertyType != nil || response.deposit != nil {
+                        return SavedProperty.from(response)
+                    } else {
+                        // 정보가 없으면 임시로 반환 (나중에 상세 조회로 업데이트 가능)
+                        return SavedProperty.from(response)
+                    }
+                }
+            }
             .receive(on: DispatchQueue.main)
             .sink { [weak self] completion in
                 guard let self else { return }
@@ -37,9 +49,9 @@ final class SavedViewModel: ObservableObject {
                     self.errorMessage = e.localizedDescription
                     print("매물 목록 조회 실패:", e.localizedDescription)
                 }
-            } receiveValue: { [weak self] responses in
+            } receiveValue: { [weak self] properties in
                 guard let self else { return }
-                self.properties = responses.map { SavedProperty.from($0) }
+                self.properties = properties
             }
             .store(in: &cancellables)
     }

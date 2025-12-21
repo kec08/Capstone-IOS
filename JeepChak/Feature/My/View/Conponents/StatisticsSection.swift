@@ -18,8 +18,8 @@ struct StatisticsSection: View {
                 SavedView()
             } label: {
                 StatCard(
-                    icon: "My_wish",
-                    title: "관심 매물",
+                    icon: "My_property",
+                    title: "내 매물",
                     imageWidth: 48,
                     imageHeight: 52
                 )

@@ -8,17 +8,28 @@
 import SwiftUI
 
 struct CheckListDetailView: View {
-    let title: String
-    @State private var items: [DetailItem] = [
-        .init(name: "화장실 곰팡이 확인하기"),
-        .init(name: "벽과 바닥 상태 확인하기"),
-        .init(name: "창문 틈새 확인하기"),
-        .init(name: "수압 확인하기"),
-        .init(name: "보일러 확인하기")
-    ]
+    let checkItem: CheckItem
+    @Binding var items: [CheckItem]
+    @State private var detailItems: [DetailItem]
     @State private var showAddItemSheet = false
     @State private var newItemName = ""
     @Environment(\.dismiss) var dismiss
+    
+    init(checkItem: CheckItem, items: Binding<[CheckItem]>) {
+        self.checkItem = checkItem
+        self._items = items
+        if checkItem.detailItems.isEmpty {
+            self._detailItems = State(initialValue: [
+                .init(name: "화장실 곰팡이 확인하기"),
+                .init(name: "벽과 바닥 상태 확인하기"),
+                .init(name: "창문 틈새 확인하기"),
+                .init(name: "수압 확인하기"),
+                .init(name: "보일러 확인하기")
+            ])
+        } else {
+            self._detailItems = State(initialValue: checkItem.detailItems)
+        }
+    }
 
     var body: some View {
         VStack(spacing: 0) {
@@ -29,7 +40,7 @@ struct CheckListDetailView: View {
             .fixedSize(horizontal: false, vertical: true)
             
             // 타이틀
-            Text("\(title) 체크리스트")
+            Text("\(checkItem.title) 체크리스트")
                 .font(.system(size: 18, weight: .bold))
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .padding(.horizontal, 20)
@@ -39,7 +50,7 @@ struct CheckListDetailView: View {
             // 스크롤 가능한 리스트
             ScrollView {
                 VStack(spacing: 12) {
-                    ForEach($items) { $item in
+                    ForEach($detailItems) { $item in
                         VStack(alignment: .leading, spacing: 12) {
                             HStack(spacing: 12) {
                                 Text(item.name)
@@ -53,7 +64,7 @@ struct CheckListDetailView: View {
                                 .padding(12)
                                 .cornerRadius(8)
                                 .font(.system(size: 14))
-                                .foregroundColor(.gray)
+                                .foregroundColor(.black)
                                 .overlay(
                                     RoundedRectangle(cornerRadius: 8)
                                         .stroke(Color.gray.opacity(0.2), lineWidth: 1)
@@ -92,7 +103,11 @@ struct CheckListDetailView: View {
                 Divider()
                     .background(Color.gray.opacity(0.2))
                 
-                NavigationLink(destination: CheckListFinalView(title: title, items: items)) {
+                NavigationLink(destination: CheckListFinalView(
+                    checkItem: checkItem,
+                    detailItems: detailItems,
+                    items: $items
+                )) {
                     Text("확인")
                         .font(.system(size: 16, weight: .semibold))
                         .frame(maxWidth: .infinity)
@@ -102,7 +117,8 @@ struct CheckListDetailView: View {
                         .cornerRadius(10)
                 }
                 .padding(.horizontal, 20)
-                .padding(.vertical, 20)
+                .padding(.top, 16)
+                .padding(.bottom, 30)
                 .background(Color.white)
                 .shadow(color: Color.black.opacity(0.05), radius: 4, x: 0, y: -2)
             }
@@ -114,7 +130,7 @@ struct CheckListDetailView: View {
                 newItemName: $newItemName,
                 onAdd: {
                     if !newItemName.isEmpty {
-                        items.append(DetailItem(name: newItemName))
+                        detailItems.append(DetailItem(name: newItemName))
                         newItemName = ""
                         showAddItemSheet = false
                     }
@@ -131,6 +147,9 @@ struct CheckListDetailView: View {
 
 #Preview {
     NavigationView {
-        CheckListDetailView(title: "봉양면 ㅇㅇ주택")
+        CheckListDetailView(
+            checkItem: CheckItem(title: "봉양면 ㅇㅇ주택", date: "2025-09-16", imageName: "CheckListHouse1", image: nil),
+            items: .constant([])
+        )
     }
 }

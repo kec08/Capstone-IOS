@@ -26,18 +26,6 @@ struct RiskSolutionRequestDTO: Codable {
 // Response
 struct AnalyzeResponseDTO: Codable {
     let totalRisk: Int
-    let details: [AnalyzeDetail]
-    let comment: String
-}
-
-struct AnalyzeDetail: Codable {
-    let original: String
-    let analysis: String
-}
-
-// Get Response
-struct AnalyzeDetailResponseDTO: Codable {
-    let totalRisk: Int
     let details: [AnalyzeDetailItem]
     let comment: String
 }
@@ -45,4 +33,15 @@ struct AnalyzeDetailResponseDTO: Codable {
 struct AnalyzeDetailItem: Codable {
     let original: String
     let analysisText: String
+}
+
+// 대처 방안 Response
+struct RiskSolutionResponseDTO: Codable {
+    let coping: [CopingItem]
+    let checklist: [String]
+}
+
+struct CopingItem: Codable {
+    let title: String
+    let list: [String]
 }

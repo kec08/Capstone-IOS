@@ -17,6 +17,24 @@ struct ChecklistItemRequest: Codable {
     let severity: String
 }
 
+// 체크리스트 저장 요청
+struct ChecklistSaveRequest: Codable {
+    let propertyId: Int
+    let items: [ChecklistSaveItem]
+}
+
+struct ChecklistSaveItem: Codable {
+    let content: String
+    let severity: String
+}
+
+// 체크리스트 수정 요청
+struct ChecklistUpdateRequest: Codable {
+    let itemId: Int?
+    let memo: String?
+    let severity: String?
+}
+
 struct GenerateChecklistRequest: Codable {
     let propertyId: Int
 }
@@ -29,8 +47,16 @@ struct ChecklistResponse: Codable {
     let createdAt: String
 }
 
+// 체크리스트 목록 조회 응답
+struct ChecklistListResponse: Codable {
+    let checklistId: Int
+    let propertyId: Int
+    let createdAt: String
+    let itemCount: Int
+}
+
 struct GeneratedChecklistResponse: Codable {
-    let content: String
+    let content: String?
 }
 
 struct ChecklistDetailResponse: Codable {
@@ -42,6 +68,14 @@ struct ChecklistDetailResponse: Codable {
 struct ChecklistItemDetail: Codable {
     let itemId: Int
     let content: String
-    let severity: Int
+    let severity: Int  // 0: none, 1: normal, 2: warning, 3: danger
     let memo: String?
+}
+
+// 체크리스트 수정 응답
+struct ChecklistUpdateResponse: Codable {
+    let checklistId: Int
+    let propertyId: Int
+    let updatedItemCount: Int
+    let updatedAt: String
 }

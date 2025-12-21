@@ -14,4 +14,5 @@ struct CheckItem: Identifiable {
     let date: String
     let imageName: String?
     var image: UIImage?
+    var detailItems: [DetailItem] = []
 }
