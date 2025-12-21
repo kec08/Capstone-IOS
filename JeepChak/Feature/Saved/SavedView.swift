@@ -156,7 +156,7 @@ struct SavedView: View {
     private var emptyStateView: some View {
         VStack(spacing: 16) {
             Spacer()
-            Text("관심 매물이 없습니다.")
+            Text("매물이 없습니다.")
                 .font(.system(size: 20, weight: .bold))
                 .foregroundColor(.black)
             Text("홈에서 +버튼을 눌러 매물을 추가해보세요!")

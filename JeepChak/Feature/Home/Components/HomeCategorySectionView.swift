@@ -17,26 +17,39 @@ struct HomeCategorySectionView: View {
     var body: some View {
         VStack(spacing: 24) {
             HStack(spacing: 12) {
-                categoryCard(categories[0])
-                categoryCard(categories[1])
+                categoryCard(categories[0], isLoanGuide: false)
+                categoryCard(categories[1], isLoanGuide: false)
             }
-            categoryCard(categories[2])
+            categoryCard(categories[2], isLoanGuide: true)
         }
     }
 
     @ViewBuilder
-    private func categoryCard(_ item: (title: String, subtitle: String, detail: String, imageName: String, imageWidth: CGFloat, imageHeight: CGFloat)) -> some View {
+    private func categoryCard(_ item: (title: String, subtitle: String, detail: String, imageName: String, imageWidth: CGFloat, imageHeight: CGFloat), isLoanGuide: Bool) -> some View {
+        if isLoanGuide {
+            NavigationLink {
+                LoanGuideIntroView()
+            } label: {
+                cardContent(item)
+            }
+        } else {
+            cardContent(item)
+        }
+    }
+    
+    @ViewBuilder
+    private func cardContent(_ item: (title: String, subtitle: String, detail: String, imageName: String, imageWidth: CGFloat, imageHeight: CGFloat)) -> some View {
         HStack {
             VStack(alignment: .leading, spacing: 5) {
                 Text(item.title)
                     .font(.system(size: 16, weight: .bold))
-                    .foregroundColor(.customBlack)
+                    .foregroundColor(Color("customBlack"))
                 Text(item.subtitle)
                     .font(.system(size: 10))
-                    .foregroundColor(.customDarkGray)
+                    .foregroundColor(Color("customDarkGray"))
                 Text(item.detail)
                     .font(.system(size: 9))
-                    .foregroundColor(.customGray300)
+                    .foregroundColor(Color("customGray_300"))
             }
             Spacer()
             Image(item.imageName)
@@ -44,7 +57,7 @@ struct HomeCategorySectionView: View {
                 .frame(width: item.imageWidth, height: item.imageHeight)
         }
         .padding()
-        .background(.customWhite)
+        .background(Color("customWhite"))
         .cornerRadius(12)
     }
 }

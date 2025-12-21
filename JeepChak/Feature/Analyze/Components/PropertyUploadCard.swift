@@ -18,7 +18,16 @@ struct PropertyUploadCard: View {
                     SavedPropertyCard(property: property)
                         .padding(.horizontal, 16)
                         .padding(.top, 16)
-                        .padding(.bottom, 16)
+                    
+                    Button {
+                        showingSheet = true
+                    } label: {
+                        Text("매물 다시 선택하기")
+                            .font(.system(size: 16, weight: .semibold))
+                            .foregroundColor(.blue)
+                    }
+                    .padding(.horizontal, 40)
+                    .padding(.bottom, 16)
                 } else {
                     Image("Analyz_home")
                         .resizable()

@@ -110,18 +110,29 @@ struct AddChecklistFromWishlistView: View {
     private func requestAIChecklist(propertyId: Int) {
         let request = ChecklistGenerateRequest(propertyId: propertyId)
         showAILoading = true
+        generatedChecklistItems = [] // 초기화
         
         checklistService.generateChecklist(request: request)
             .receive(on: DispatchQueue.main)
             .sink { completion in
+                showAILoading = false
                 if case .failure(let error) = completion {
                     print("체크리스트 생성 실패: \(error.localizedDescription)")
-                    showAILoading = false
+                    // 오류 발생 시에도 결과 화면을 표시하여 사용자가 직접 추가할 수 있도록 함
                     generatedChecklistItems = []
                     showAIResult = true
                 }
             } receiveValue: { items in
+                // API 응답 처리
                 generatedChecklistItems = items
+                print("생성된 체크리스트 항목 수: \(items.count)")
+                
+                // content가 null인 항목 필터링 및 로그
+                let validItems = items.filter { $0.content != nil && !($0.content?.isEmpty ?? true) }
+                if validItems.count != items.count {
+                    print("경고: \(items.count - validItems.count)개의 null 또는 빈 content 항목이 필터링되었습니다.")
+                }
+                
                 // 로딩 완료 후 결과 화면 표시
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                     showAILoading = false
