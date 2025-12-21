@@ -90,7 +90,11 @@ struct AddChecklistFromWishlistView: View {
         }
         .sheet(isPresented: $showAIResult) {
             AIGeneratedListView(
-                checklistItems: generatedChecklistItems.map { AICheckItem(name: $0.content) },
+                checklistItems: generatedChecklistItems
+                    .compactMap { item -> AICheckItem? in
+                        guard let content = item.content, !content.isEmpty else { return nil }
+                        return AICheckItem(name: content)
+                    },
                 onConfirm: {
                     showAIResult = false
                     // 체크리스트에 추가

@@ -21,6 +21,24 @@ final class AnalyzeService {
     func analyze(request: AnalyzeRequestDTO, files: [URL]) -> AnyPublisher<AnalyzeResponseDTO, Error> {
         provider.requestPublisher(.analyze(request: request, files: files))
             .tryMap { response in
+                // 403 오류나 빈 응답 body 처리
+                if response.statusCode == 403 {
+                    throw NSError(
+                        domain: "AnalyzeService",
+                        code: 403,
+                        userInfo: [NSLocalizedDescriptionKey: "권한이 없습니다. 로그인 상태를 확인해주세요."]
+                    )
+                }
+                
+                // 응답 body가 비어있는 경우 처리
+                guard !response.data.isEmpty else {
+                    throw NSError(
+                        domain: "AnalyzeService",
+                        code: response.statusCode,
+                        userInfo: [NSLocalizedDescriptionKey: "서버 응답이 비어있습니다."]
+                    )
+                }
+                
                 let decoded = try JSONDecoder().decode(
                     ApiResponse<AnalyzeResponseDTO>.self,
                     from: response.data

@@ -105,6 +105,16 @@ extension AnalyzeAPI: TargetType {
             "Accept": "application/json"
         ]
         
+        // multipart 요청의 경우 Content-Type은 Moya가 자동으로 설정하므로 명시하지 않음
+        // 단, 파일이 없는 경우에만 Content-Type을 설정
+        switch self {
+        case .analyze(_, let files), .riskSolution(_, let files):
+            // 파일이 있는 경우 multipart/form-data이므로 Content-Type을 설정하지 않음
+            break
+        default:
+            headers["Content-Type"] = "application/json"
+        }
+        
         if let token = TokenStorage.accessToken {
             headers["Authorization"] = "Bearer \(token)"
         }

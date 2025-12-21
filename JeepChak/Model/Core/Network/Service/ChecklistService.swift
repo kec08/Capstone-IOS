@@ -23,12 +23,20 @@ final class ChecklistService {
                 print("status:", response.statusCode)
                 print(String(data: response.data, encoding: .utf8) ?? "nil")
 
+                // 응답이 배열 또는 단일 객체일 수 있으므로 두 가지 경우를 모두 처리
                 let decoded = try JSONDecoder().decode(
-                    ApiResponse<[GeneratedChecklistResponse]>.self,
+                    ApiResponse<GeneratedChecklistResponse>.self,
                     from: response.data
                 )
-                if decoded.success, let list = decoded.data {
-                    return list
+                
+                if decoded.success {
+                    // 단일 객체인 경우 배열로 변환
+                    if let data = decoded.data {
+                        return [data]
+                    } else {
+                        // data가 null인 경우 빈 배열 반환
+                        return []
+                    }
                 } else {
                     let msg = decoded.message
                     throw NSError(

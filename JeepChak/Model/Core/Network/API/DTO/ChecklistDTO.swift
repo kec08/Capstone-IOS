@@ -56,7 +56,7 @@ struct ChecklistListResponse: Codable {
 }
 
 struct GeneratedChecklistResponse: Codable {
-    let content: String
+    let content: String?
 }
 
 struct ChecklistDetailResponse: Codable {
