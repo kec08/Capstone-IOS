@@ -19,7 +19,7 @@ struct AppleSignInStyledButton: View {
                 Text("Apple 계정으로 로그인/회원가입")
                     .font(.system(size: 15, weight: .semibold))
             }
-            .foregroundColor(.black)
+            .foregroundColor(.customBlack)
             .frame(maxWidth: .infinity)
             .frame(height: 52)
             .background(

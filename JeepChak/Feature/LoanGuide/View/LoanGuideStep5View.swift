@@ -11,23 +11,34 @@ struct LoanGuideStep5View: View {
     @Environment(\.dismiss) private var dismiss
     @StateObject private var viewModel = LoanGuideViewModel.shared
     @State private var navigateToLoading = false
+    let source: LoanGuideSource
     
     @State private var hasLeaseAgreement: Bool? = nil
     @State private var selectedFixedDateStatus: FixedDateStatus? = nil
+    
+    init(source: LoanGuideSource = .home) {
+        self.source = source
+    }
     
     var body: some View {
         NavigationStack {
             ScrollView {
                 VStack(spacing: 0) {
-                    // 헤더
+                    // 헤더 (흰색 배경)
                     HStack {
                         Button(action: {
                             dismiss()
                         }) {
                             Image(systemName: "chevron.left")
                                 .font(.system(size: 18, weight: .semibold))
-                                .foregroundColor(.black)
+                                .foregroundColor(.customBlack)
                         }
+                        
+                        Spacer()
+                        
+                        Text("계약 정보")
+                            .font(.system(size: 18, weight: .bold))
+                            .foregroundColor(.customBlack)
                         
                         Spacer()
                         
@@ -39,18 +50,23 @@ struct LoanGuideStep5View: View {
                             ProgressView(value: 1.0)
                                 .frame(width: 60)
                                 .tint(Color("customBlue"))
+                            
+                            Text("100%")
+                                .font(.system(size: 12, weight: .medium))
+                                .foregroundColor(.gray)
                         }
                     }
                     .padding(.horizontal, 20)
                     .padding(.top, 10)
-                    .padding(.bottom, 30)
+                    .padding(.bottom, 20)
+                    .background(Color.customWhite)
                     
                     // 콘텐츠
                     VStack(alignment: .leading, spacing: 24) {
                         VStack(alignment: .leading, spacing: 8) {
                             Text("계약 정보를 입력해주세요")
                                 .font(.system(size: 20, weight: .bold))
-                                .foregroundColor(.black)
+                                .foregroundColor(.customBlack)
                             
                             Text("선택 사항이지만 입력하시면 더 정확한 안내가 가능합니다")
                                 .font(.system(size: 14))
@@ -63,7 +79,7 @@ struct LoanGuideStep5View: View {
                         VStack(alignment: .leading, spacing: 12) {
                             Text("임대차계약서 유무")
                                 .font(.system(size: 16, weight: .medium))
-                                .foregroundColor(.black)
+                                .foregroundColor(.customBlack)
                             
                             HStack(spacing: 12) {
                                 SegmentedButton(
@@ -87,7 +103,7 @@ struct LoanGuideStep5View: View {
                         VStack(alignment: .leading, spacing: 12) {
                             Text("확정일자 여부")
                                 .font(.system(size: 16, weight: .medium))
-                                .foregroundColor(.black)
+                                .foregroundColor(.customBlack)
                             
                             HStack(spacing: 12) {
                                 ForEach(FixedDateStatus.allCases, id: \.self) { status in
@@ -106,7 +122,7 @@ struct LoanGuideStep5View: View {
                         VStack(alignment: .leading, spacing: 12) {
                             Text("계약 관련 체크리스트")
                                 .font(.system(size: 16, weight: .semibold))
-                                .foregroundColor(.black)
+                                .foregroundColor(.customBlack)
                             
                             VStack(alignment: .leading, spacing: 8) {
                                 LoanGuideChecklistItem(text: "예상 대출 가능 금액")
@@ -132,35 +148,34 @@ struct LoanGuideStep5View: View {
                         }
                         .padding(.horizontal, 20)
                         .padding(.top, 8)
+                        
+                        // 결과 확인 버튼 (스크롤 뷰 안에)
+                        Button(action: {
+                            // 데이터 저장
+                            viewModel.data.hasLeaseAgreement = hasLeaseAgreement
+                            viewModel.data.fixedDateStatus = selectedFixedDateStatus
+                            viewModel.saveData()
+                            
+                            navigateToLoading = true
+                        }) {
+                            Text("결과 확인")
+                                .font(.system(size: 17, weight: .semibold))
+                                .foregroundColor(.white)
+                                .frame(maxWidth: .infinity)
+                                .frame(height: 54)
+                                .background(Color("customBlue"))
+                                .cornerRadius(12)
+                        }
+                        .padding(.horizontal, 20)
+                        .padding(.top, 20)
+                        .padding(.bottom, 40)
                     }
-                    .padding(.bottom, 100)
                 }
             }
             .background(Color.white)
             .navigationBarHidden(true)
             .navigationDestination(isPresented: $navigateToLoading) {
-                LoanGuideLoadingView()
-            }
-            .safeAreaInset(edge: .bottom) {
-                Button(action: {
-                    // 데이터 저장
-                    viewModel.data.hasLeaseAgreement = hasLeaseAgreement
-                    viewModel.data.fixedDateStatus = selectedFixedDateStatus
-                    viewModel.saveData()
-                    
-                    navigateToLoading = true
-                }) {
-                    Text("결과 확인")
-                        .font(.system(size: 17, weight: .semibold))
-                        .foregroundColor(.white)
-                        .frame(maxWidth: .infinity)
-                        .frame(height: 54)
-                        .background(Color("customBlue"))
-                        .cornerRadius(12)
-                }
-                .padding(.horizontal, 20)
-                .padding(.bottom, 30)
-                .background(Color.white)
+                LoanGuideLoadingView(source: source)
             }
         }
     }
@@ -177,7 +192,7 @@ struct LoanGuideChecklistItem: View {
             
             Text(text)
                 .font(.system(size: 14))
-                .foregroundColor(.black)
+                .foregroundColor(.customBlack)
             
             Spacer()
         }

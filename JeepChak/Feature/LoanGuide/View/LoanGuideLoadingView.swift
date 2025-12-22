@@ -12,6 +12,11 @@ struct LoanGuideLoadingView: View {
     @StateObject private var viewModel = LoanGuideViewModel.shared
     @State private var navigateToResult = false
     @State private var isLoading = true
+    let source: LoanGuideSource
+    
+    init(source: LoanGuideSource = .home) {
+        self.source = source
+    }
     
     var body: some View {
         NavigationStack {
@@ -48,7 +53,7 @@ struct LoanGuideLoadingView: View {
                         
                         Text("AI가 최적의 대출 가이드를\n생성하는 중입니다...")
                             .font(.system(size: 18, weight: .medium))
-                            .foregroundColor(.black)
+                            .foregroundColor(.customBlack)
                             .multilineTextAlignment(.center)
                             .lineSpacing(4)
                     }
@@ -59,7 +64,7 @@ struct LoanGuideLoadingView: View {
             }
             .navigationBarHidden(true)
             .navigationDestination(isPresented: $navigateToResult) {
-                LoanGuideResultView()
+                LoanGuideResultView(source: source)
             }
             .onAppear {
                 // 3초 후 로딩 완료

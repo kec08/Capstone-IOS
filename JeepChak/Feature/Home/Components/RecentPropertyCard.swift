@@ -22,9 +22,9 @@ struct RecentPropertyCard: View {
                 .overlay(
                     LinearGradient(
                         gradient: Gradient(colors: [
-                            Color.black.opacity(0.0),
-                            Color.black.opacity(0.3),
-                            Color.black.opacity(0.5)
+                            Color.customBlack.opacity(0.0),
+                            Color.customBlack.opacity(0.3),
+                            Color.customBlack.opacity(0.5)
                         ]),
                         startPoint: .top,
                         endPoint: .bottom

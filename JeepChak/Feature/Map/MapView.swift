@@ -36,7 +36,7 @@ struct MapView: View {
                     }) {
                         Image(systemName: "location.circle.fill")
                             .font(.title)
-                            .foregroundColor(.blue)
+                            .foregroundColor(.customBlue)
                             .padding()
                             .background(Color.white)
                             .clipShape(Circle())

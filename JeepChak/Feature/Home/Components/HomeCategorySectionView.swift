@@ -28,7 +28,7 @@ struct HomeCategorySectionView: View {
     private func categoryCard(_ item: (title: String, subtitle: String, detail: String, imageName: String, imageWidth: CGFloat, imageHeight: CGFloat), isLoanGuide: Bool) -> some View {
         if isLoanGuide {
             NavigationLink {
-                LoanGuideIntroView()
+                LoanGuideIntroView(source: .home)
             } label: {
                 cardContent(item)
             }

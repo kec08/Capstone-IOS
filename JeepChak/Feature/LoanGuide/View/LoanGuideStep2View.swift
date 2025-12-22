@@ -11,25 +11,36 @@ struct LoanGuideStep2View: View {
     @Environment(\.dismiss) private var dismiss
     @StateObject private var viewModel = LoanGuideViewModel.shared
     @State private var navigateToStep3 = false
+    let source: LoanGuideSource
     
     @State private var annualIncome: String = ""
     @State private var monthlyIncome: String = ""
     @State private var selectedIncomeType: IncomeType? = nil
     @State private var selectedIncomeCategory: IncomeCategory? = nil
     
+    init(source: LoanGuideSource = .home) {
+        self.source = source
+    }
+    
     var body: some View {
         NavigationStack {
             ScrollView {
                 VStack(spacing: 0) {
-                    // 헤더
+                    // 헤더 (흰색 배경)
                     HStack {
                         Button(action: {
                             dismiss()
                         }) {
                             Image(systemName: "chevron.left")
                                 .font(.system(size: 18, weight: .semibold))
-                                .foregroundColor(.black)
+                                .foregroundColor(.customBlack)
                         }
+                        
+                        Spacer()
+                        
+                        Text("소득 정보")
+                            .font(.system(size: 18, weight: .bold))
+                            .foregroundColor(.customBlack)
                         
                         Spacer()
                         
@@ -40,19 +51,24 @@ struct LoanGuideStep2View: View {
                             
                             ProgressView(value: 0.4)
                                 .frame(width: 60)
-                                .tint(.customBlue)
+                                .tint(Color("customBlue"))
+                            
+                            Text("40%")
+                                .font(.system(size: 12, weight: .medium))
+                                .foregroundColor(.gray)
                         }
                     }
                     .padding(.horizontal, 20)
                     .padding(.top, 10)
-                    .padding(.bottom, 30)
+                    .padding(.bottom, 20)
+                    .background(Color.customWhite)
                     
                     // 콘텐츠
                     VStack(alignment: .leading, spacing: 24) {
                         VStack(alignment: .leading, spacing: 8) {
                             Text("소득 정보를 입력해주세요")
                                 .font(.system(size: 20, weight: .bold))
-                                .foregroundColor(.black)
+                                .foregroundColor(.customBlack)
                             
                             Text("대출 한도 산정을 위한 정보입니다")
                                 .font(.system(size: 14))
@@ -65,13 +81,14 @@ struct LoanGuideStep2View: View {
                         VStack(alignment: .leading, spacing: 12) {
                             Text("연소득 (만원)")
                                 .font(.system(size: 16, weight: .medium))
-                                .foregroundColor(.black)
+                                .foregroundColor(.customBlack)
                             
                             TextField("예: 5000", text: $annualIncome)
                                 .keyboardType(.numberPad)
                                 .padding(16)
                                 .background(Color.gray.opacity(0.1))
                                 .cornerRadius(12)
+                                .foregroundColor(.customBlack)
                         }
                         .padding(.horizontal, 20)
                         
@@ -79,13 +96,14 @@ struct LoanGuideStep2View: View {
                         VStack(alignment: .leading, spacing: 12) {
                             Text("월 소득 (만원)")
                                 .font(.system(size: 16, weight: .medium))
-                                .foregroundColor(.black)
+                                .foregroundColor(.customBlack)
                             
                             TextField("예: 300", text: $monthlyIncome)
                                 .keyboardType(.numberPad)
                                 .padding(16)
                                 .background(Color.gray.opacity(0.1))
                                 .cornerRadius(12)
+                                .foregroundColor(.customBlack)
                         }
                         .padding(.horizontal, 20)
                         
@@ -93,7 +111,7 @@ struct LoanGuideStep2View: View {
                         VStack(alignment: .leading, spacing: 12) {
                             Text("소득 형태")
                                 .font(.system(size: 16, weight: .medium))
-                                .foregroundColor(.black)
+                                .foregroundColor(.customBlack)
                             
                             HStack(spacing: 12) {
                                 ForEach(IncomeType.allCases, id: \.self) { type in
@@ -112,7 +130,7 @@ struct LoanGuideStep2View: View {
                         VStack(alignment: .leading, spacing: 12) {
                             Text("소득 종류")
                                 .font(.system(size: 16, weight: .medium))
-                                .foregroundColor(.black)
+                                .foregroundColor(.customBlack)
                             
                             HStack(spacing: 12) {
                                 ForEach(IncomeCategory.allCases, id: \.self) { category in
@@ -139,41 +157,40 @@ struct LoanGuideStep2View: View {
                         }
                         .padding(.horizontal, 20)
                         .padding(.top, 8)
+                        
+                        // 다음 버튼 (스크롤 뷰 안에)
+                        Button(action: {
+                            // 데이터 저장
+                            if let annual = Int(annualIncome) {
+                                viewModel.data.annualIncome = annual
+                            }
+                            if let monthly = Int(monthlyIncome) {
+                                viewModel.data.monthlyIncome = monthly
+                            }
+                            viewModel.data.incomeType = selectedIncomeType
+                            viewModel.data.incomeCategory = selectedIncomeCategory
+                            
+                            navigateToStep3 = true
+                        }) {
+                            Text("다음")
+                                .font(.system(size: 17, weight: .semibold))
+                                .foregroundColor(.customWhite)
+                                .frame(maxWidth: .infinity)
+                                .frame(height: 54)
+                                .background(isFormValid ? Color("customBlue") : Color.gray.opacity(0.3))
+                                .cornerRadius(12)
+                        }
+                        .disabled(!isFormValid)
+                        .padding(.horizontal, 20)
+                        .padding(.top, 20)
+                        .padding(.bottom, 40)
                     }
-                    .padding(.bottom, 100)
                 }
             }
             .background(Color.white)
             .navigationBarHidden(true)
             .navigationDestination(isPresented: $navigateToStep3) {
-                LoanGuideStep3View()
-            }
-            .safeAreaInset(edge: .bottom) {
-                Button(action: {
-                    // 데이터 저장
-                    if let annual = Int(annualIncome) {
-                        viewModel.data.annualIncome = annual
-                    }
-                    if let monthly = Int(monthlyIncome) {
-                        viewModel.data.monthlyIncome = monthly
-                    }
-                    viewModel.data.incomeType = selectedIncomeType
-                    viewModel.data.incomeCategory = selectedIncomeCategory
-                    
-                    navigateToStep3 = true
-                }) {
-                    Text("다음")
-                        .font(.system(size: 17, weight: .semibold))
-                        .foregroundColor(.white)
-                        .frame(maxWidth: .infinity)
-                        .frame(height: 54)
-                        .background(isFormValid ? Color.customBlue : Color.gray.opacity(0.3))
-                        .cornerRadius(12)
-                }
-                .disabled(!isFormValid)
-                .padding(.horizontal, 20)
-                .padding(.bottom, 30)
-                .background(Color.white)
+                LoanGuideStep3View(source: source)
             }
         }
     }

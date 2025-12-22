@@ -11,24 +11,35 @@ struct LoanGuideStep1View: View {
     @Environment(\.dismiss) private var dismiss
     @StateObject private var viewModel = LoanGuideViewModel.shared
     @State private var navigateToStep2 = false
+    let source: LoanGuideSource
     
     @State private var age: String = ""
     @State private var isHeadOfHousehold: Bool? = nil
     @State private var selectedFamilyComposition: FamilyComposition? = nil
     
+    init(source: LoanGuideSource = .home) {
+        self.source = source
+    }
+    
     var body: some View {
         NavigationStack {
             ScrollView {
                 VStack(spacing: 0) {
-                    // 헤더
+                    // 헤더 (흰색 배경)
                     HStack {
                         Button(action: {
                             dismiss()
                         }) {
                             Image(systemName: "chevron.left")
                                 .font(.system(size: 18, weight: .semibold))
-                                .foregroundColor(.black)
+                                .foregroundColor(.customBlack)
                         }
+                        
+                        Spacer()
+                        
+                        Text("사용자 정보")
+                            .font(.system(size: 18, weight: .bold))
+                            .foregroundColor(.customBlack)
                         
                         Spacer()
                         
@@ -39,19 +50,24 @@ struct LoanGuideStep1View: View {
                             
                             ProgressView(value: 0.2)
                                 .frame(width: 60)
-                                .tint(.customBlue)
+                                .tint(Color("customBlue"))
+                            
+                            Text("20%")
+                                .font(.system(size: 12, weight: .medium))
+                                .foregroundColor(.gray)
                         }
                     }
                     .padding(.horizontal, 20)
                     .padding(.top, 10)
-                    .padding(.bottom, 30)
+                    .padding(.bottom, 20)
+                    .background(Color.customWhite)
                     
                     // 콘텐츠
                     VStack(alignment: .leading, spacing: 24) {
                         VStack(alignment: .leading, spacing: 8) {
                             Text("기본 정보를 입력해주세요")
                                 .font(.system(size: 20, weight: .bold))
-                                .foregroundColor(.black)
+                                .foregroundColor(.customBlack)
                             
                             Text("정확한 대출 가이드를 위해 필요한 정보입니다")
                                 .font(.system(size: 14))
@@ -64,13 +80,14 @@ struct LoanGuideStep1View: View {
                         VStack(alignment: .leading, spacing: 12) {
                             Text("나이")
                                 .font(.system(size: 16, weight: .medium))
-                                .foregroundColor(.black)
+                                .foregroundColor(.customBlack)
                             
                             TextField("만 나이를 입력해주세요", text: $age)
                                 .keyboardType(.numberPad)
                                 .padding(16)
                                 .background(Color.gray.opacity(0.1))
                                 .cornerRadius(12)
+                                .foregroundColor(.customBlack)
                         }
                         .padding(.horizontal, 20)
                         
@@ -78,7 +95,7 @@ struct LoanGuideStep1View: View {
                         VStack(alignment: .leading, spacing: 12) {
                             Text("세대주 여부")
                                 .font(.system(size: 16, weight: .medium))
-                                .foregroundColor(.black)
+                                .foregroundColor(.customBlack)
                             
                             HStack(spacing: 12) {
                                 SegmentedButton(
@@ -102,7 +119,7 @@ struct LoanGuideStep1View: View {
                         VStack(alignment: .leading, spacing: 12) {
                             Text("가족 구성")
                                 .font(.system(size: 16, weight: .medium))
-                                .foregroundColor(.black)
+                                .foregroundColor(.customBlack)
                             
                             LazyVGrid(columns: [
                                 GridItem(.flexible()),
@@ -132,38 +149,37 @@ struct LoanGuideStep1View: View {
                         }
                         .padding(.horizontal, 20)
                         .padding(.top, 8)
+                        
+                        // 다음 버튼 (스크롤 뷰 안에)
+                        Button(action: {
+                            // 데이터 저장
+                            if let ageInt = Int(age) {
+                                viewModel.data.age = ageInt
+                            }
+                            viewModel.data.isHeadOfHousehold = isHeadOfHousehold
+                            viewModel.data.familyComposition = selectedFamilyComposition
+                            
+                            navigateToStep2 = true
+                        }) {
+                            Text("다음")
+                                .font(.system(size: 17, weight: .semibold))
+                                .foregroundColor(.customWhite)
+                                .frame(maxWidth: .infinity)
+                                .frame(height: 54)
+                                .background(isFormValid ? Color("customBlue") : Color.gray.opacity(0.3))
+                                .cornerRadius(12)
+                        }
+                        .disabled(!isFormValid)
+                        .padding(.horizontal, 20)
+                        .padding(.top, 20)
+                        .padding(.bottom, 40)
                     }
-                    .padding(.bottom, 100)
                 }
             }
             .background(Color.white)
             .navigationBarHidden(true)
             .navigationDestination(isPresented: $navigateToStep2) {
-                LoanGuideStep2View()
-            }
-            .safeAreaInset(edge: .bottom) {
-                Button(action: {
-                    // 데이터 저장
-                    if let ageInt = Int(age) {
-                        viewModel.data.age = ageInt
-                    }
-                    viewModel.data.isHeadOfHousehold = isHeadOfHousehold
-                    viewModel.data.familyComposition = selectedFamilyComposition
-                    
-                    navigateToStep2 = true
-                }) {
-                    Text("다음")
-                        .font(.system(size: 17, weight: .semibold))
-                        .foregroundColor(.white)
-                        .frame(maxWidth: .infinity)
-                        .frame(height: 54)
-                        .background(isFormValid ? Color.customBlue : Color.gray.opacity(0.3))
-                        .cornerRadius(12)
-                }
-                .disabled(!isFormValid)
-                .padding(.horizontal, 20)
-                .padding(.bottom, 30)
-                .background(Color.white)
+                LoanGuideStep2View(source: source)
             }
         }
     }
@@ -182,7 +198,7 @@ struct SegmentedButton: View {
         Button(action: action) {
             Text(title)
                 .font(.system(size: 16, weight: .medium))
-                .foregroundColor(isSelected ? .white : .black)
+                .foregroundColor(isSelected ? .white : .customBlack)
                 .frame(maxWidth: .infinity)
                 .frame(height: 48)
                 .background(isSelected ? Color.customBlue : Color.gray.opacity(0.1))
@@ -200,7 +216,7 @@ struct SelectableButton: View {
         Button(action: action) {
             Text(title)
                 .font(.system(size: 15, weight: .medium))
-                .foregroundColor(isSelected ? .white : .black)
+                .foregroundColor(isSelected ? .white : .customBlack)
                 .frame(maxWidth: .infinity)
                 .frame(height: 44)
                 .background(isSelected ? Color.customBlue : Color.gray.opacity(0.1))
@@ -212,4 +228,3 @@ struct SelectableButton: View {
 #Preview {
     LoanGuideStep1View()
 }
-

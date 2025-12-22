@@ -31,7 +31,7 @@ struct StatusButtonView: View {
                     Image(selectedStatus == status.id ? status.large : status.small)
                         .resizable()
                         .frame(width: 33, height: 33)
-                        .shadow(color: selectedStatus == status.id ? Color.black.opacity(0.15) : .clear, radius: 3, x: 0, y: 2)
+                        .shadow(color: selectedStatus == status.id ? Color.customBlack.opacity(0.15) : .clear, radius: 3, x: 0, y: 2)
                         .scaleEffect(selectedStatus == status.id ? 1.2 : 1.0)
                         .animation(.easeInOut(duration: 0.15), value: selectedStatus)
                 }

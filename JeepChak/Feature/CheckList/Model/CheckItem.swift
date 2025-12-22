@@ -15,4 +15,5 @@ struct CheckItem: Identifiable {
     let imageName: String?
     var image: UIImage?
     var detailItems: [DetailItem] = []
+    let propertyId: Int? // 매물 ID 추가
 }

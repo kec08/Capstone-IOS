@@ -29,7 +29,7 @@ struct AIResultView: View {
                     Label("3일 내 확인 필요", systemImage: "exclamationmark.circle.fill")
                         .foregroundColor(.orange)
                     Label("양호", systemImage: "checkmark.circle.fill")
-                        .foregroundColor(.blue)
+                        .foregroundColor(.customBlue)
                 }
                 .padding()
                 .background(Color.white)

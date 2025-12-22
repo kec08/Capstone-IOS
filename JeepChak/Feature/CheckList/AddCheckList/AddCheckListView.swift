@@ -27,7 +27,7 @@ struct AddCheckListView: View {
             ToolbarItem(placement: .principal) {
                 Text("매물추가")
                     .font(.system(size: 18, weight: .bold))
-                    .foregroundColor(.black)
+                    .foregroundColor(.customBlack)
             }
         }
     }
@@ -122,7 +122,7 @@ struct AddCheckListView: View {
                     Text("표시 가격: ")
                         .foregroundColor(.gray)
                     Text(viewModel.displayPriceText)
-                        .foregroundColor(.black)
+                        .foregroundColor(.customBlack)
                         .fontWeight(.semibold)
                     Spacer()
                 }
@@ -178,7 +178,7 @@ struct AddCheckListView: View {
                 .scrollContentBackground(.hidden)
                 .background(Color.customWhite)
                 .font(.system(size: 16))
-                .foregroundColor(.black)
+                .foregroundColor(.customBlack)
                 .frame(height: 120)
                 .padding(12)
                 .overlay(

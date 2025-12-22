@@ -9,12 +9,12 @@ import SwiftUI
 
 struct RecommendationBanner: View {
     var body: some View {
-        NavigationLink(destination: LoanGuideIntroView()) {
+        NavigationLink(destination: LoanGuideIntroView(source: .my)) {
             HStack(spacing: 14) {
                 VStack(alignment: .leading, spacing: 8) {
                     Text("대출 가이드")
                         .font(.system(size: 18, weight: .bold))
-                        .foregroundColor(.black)
+                        .foregroundColor(.customBlack)
 
                     Text("짧은 설문만으로 최적의\n대출 정보를 찾아보세요!")
                         .font(.system(size: 13))
@@ -31,7 +31,7 @@ struct RecommendationBanner: View {
             }
             .padding(.horizontal, 20)
             .padding(10)
-            .background(Color.customWhite)
+            .background(Color("customWhite"))
             .cornerRadius(12)
         }
         .buttonStyle(.plain)

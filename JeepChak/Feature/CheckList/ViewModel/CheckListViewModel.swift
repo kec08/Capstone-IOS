@@ -10,9 +10,9 @@ import Combine
 
 final class CheckListViewModel: ObservableObject {
     @Published var checkItems: [CheckItem] = [
-        CheckItem(title: "봉양면 ㅇㅇ주택", date: "2025-09-16", imageName: "CheckListHouse1", image: nil),
-        CheckItem(title: "봉양면 ㅇㅇ주택", date: "2025-09-16", imageName: "CheckListHouse2", image: nil),
-        CheckItem(title: "봉양면 ㅇㅇ주택", date: "2025-09-16", imageName: "CheckListHouse3", image: nil)
+        CheckItem(title: "봉양면 ㅇㅇ주택", date: "2025-09-16", imageName: "CheckListHouse1", image: nil, propertyId: nil),
+        CheckItem(title: "봉양면 ㅇㅇ주택", date: "2025-09-16", imageName: "CheckListHouse2", image: nil, propertyId: nil),
+        CheckItem(title: "봉양면 ㅇㅇ주택", date: "2025-09-16", imageName: "CheckListHouse3", image: nil, propertyId: nil)
     ]
     
     @Published var isEditing = false
@@ -24,8 +24,8 @@ final class CheckListViewModel: ObservableObject {
     private var cancellables = Set<AnyCancellable>()
 
     // 추가
-    func addItem(title: String, date: String, image: UIImage? = nil) {
-        let newItem = CheckItem(title: title, date: date, imageName: nil, image: image)
+    func addItem(title: String, date: String, image: UIImage? = nil, propertyId: Int? = nil) {
+        let newItem = CheckItem(title: title, date: date, imageName: nil, image: image, propertyId: propertyId)
         withAnimation {
             checkItems.append(newItem)
         }

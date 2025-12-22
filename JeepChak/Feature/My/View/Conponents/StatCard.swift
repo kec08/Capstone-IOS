@@ -23,7 +23,7 @@ struct StatCard: View {
             
             Text(title)
                 .font(.system(size: 14, weight: .semibold))
-                .foregroundColor(.black)
+                .foregroundColor(.customBlack)
         }
         .frame(maxWidth: .infinity)
         .padding(.vertical, 20)

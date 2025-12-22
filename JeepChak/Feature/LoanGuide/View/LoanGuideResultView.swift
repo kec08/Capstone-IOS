@@ -9,7 +9,13 @@ import SwiftUI
 
 struct LoanGuideResultView: View {
     @Environment(\.dismiss) private var dismiss
+    @Environment(\.presentationMode) var presentationMode
     @StateObject private var viewModel = LoanGuideViewModel.shared
+    let source: LoanGuideSource
+    
+    init(source: LoanGuideSource = .home) {
+        self.source = source
+    }
     
     // 임시 데이터 (나중에 API 연동 시 실제 데이터로 교체)
     private let mockResult = LoanGuideResult(
@@ -96,21 +102,21 @@ struct LoanGuideResultView: View {
         NavigationStack {
             ScrollView {
                 VStack(spacing: 0) {
-                    // 헤더
+                    // 헤더 (흰색 배경)
                     HStack {
                         Button(action: {
                             dismiss()
                         }) {
                             Image(systemName: "chevron.left")
                                 .font(.system(size: 18, weight: .semibold))
-                                .foregroundColor(.black)
+                                .foregroundColor(.customBlack)
                         }
                         
                         Spacer()
                         
                         Text("대출 가이드 결과")
                             .font(.system(size: 18, weight: .bold))
-                            .foregroundColor(.black)
+                            .foregroundColor(.customBlack)
                         
                         Spacer()
                         
@@ -124,13 +130,14 @@ struct LoanGuideResultView: View {
                     .padding(.horizontal, 20)
                     .padding(.top, 10)
                     .padding(.bottom, 20)
+                    .background(Color.customWhite)
                     
                     VStack(spacing: 24) {
                         // 맞춤 대출 가이드 결과 (상단 박스)
                         VStack(alignment: .leading, spacing: 12) {
                             Text("맞춤 대출 가이드 결과")
                                 .font(.system(size: 18, weight: .bold))
-                                .foregroundColor(.white)
+                                .foregroundColor(.customWhite)
                             
                             HStack {
                                 VStack(alignment: .leading, spacing: 4) {
@@ -139,7 +146,7 @@ struct LoanGuideResultView: View {
                                         .foregroundColor(.white.opacity(0.9))
                                     Text("\(formatNumber(mockResult.estimatedLoanAmount))만원")
                                         .font(.system(size: 20, weight: .bold))
-                                        .foregroundColor(.white)
+                                        .foregroundColor(.customWhite)
                                 }
                                 
                                 Spacer()
@@ -150,7 +157,7 @@ struct LoanGuideResultView: View {
                                         .foregroundColor(.white.opacity(0.9))
                                     Text("연 \(mockResult.estimatedInterestRate)%")
                                         .font(.system(size: 20, weight: .bold))
-                                        .foregroundColor(.white)
+                                        .foregroundColor(.customWhite)
                                 }
                             }
                         }
@@ -166,10 +173,10 @@ struct LoanGuideResultView: View {
                             HStack(spacing: 8) {
                                 Image(systemName: "calculator")
                                     .font(.system(size: 16))
-                                    .foregroundColor(.black)
+                                    .foregroundColor(.customBlack)
                                 Text("예상 지불 비용")
                                     .font(.system(size: 16, weight: .semibold))
-                                    .foregroundColor(.black)
+                                    .foregroundColor(.customBlack)
                             }
                             
                             VStack(spacing: 12) {
@@ -182,11 +189,11 @@ struct LoanGuideResultView: View {
                                 HStack {
                                     Text("월 총 부담 금액")
                                         .font(.system(size: 16, weight: .semibold))
-                                        .foregroundColor(.black)
+                                        .foregroundColor(.customBlack)
                                     Spacer()
                                     Text("약 \(mockResult.totalMonthlyPayment)만원")
                                         .font(.system(size: 16, weight: .bold))
-                                        .foregroundColor(Color("customBlue"))
+                                        .foregroundColor(Color.customBlue)
                                 }
                             }
                         }
@@ -200,10 +207,10 @@ struct LoanGuideResultView: View {
                             HStack(spacing: 8) {
                                 Image(systemName: "doc.text")
                                     .font(.system(size: 16))
-                                    .foregroundColor(.black)
+                                    .foregroundColor(.customBlack)
                                 Text("추천 대출 상품")
                                     .font(.system(size: 16, weight: .semibold))
-                                    .foregroundColor(.black)
+                                    .foregroundColor(.customBlack)
                             }
                             
                             ForEach(mockResult.recommendedProducts, id: \.title) { product in
@@ -211,7 +218,7 @@ struct LoanGuideResultView: View {
                             }
                         }
                         .padding(20)
-                        .background(Color.white)
+                        .background(Color.customWhite)
                         .cornerRadius(12)
                         .padding(.horizontal, 20)
                         
@@ -220,10 +227,10 @@ struct LoanGuideResultView: View {
                             HStack(spacing: 8) {
                                 Image(systemName: "doc.text")
                                     .font(.system(size: 16))
-                                    .foregroundColor(.black)
+                                    .foregroundColor(.customBlack)
                                 Text("신청 절차 및 방법")
                                     .font(.system(size: 16, weight: .semibold))
-                                    .foregroundColor(.black)
+                                    .foregroundColor(.customBlack)
                             }
                             
                             VStack(spacing: 16) {
@@ -241,7 +248,7 @@ struct LoanGuideResultView: View {
                         VStack(alignment: .leading, spacing: 16) {
                             Text("신청 가능 채널")
                                 .font(.system(size: 16, weight: .semibold))
-                                .foregroundColor(.black)
+                                .foregroundColor(.customBlack)
                             
                             VStack(alignment: .leading, spacing: 12) {
                                 ForEach(mockResult.applicationChannels, id: \.self) { channel in
@@ -251,13 +258,13 @@ struct LoanGuideResultView: View {
                                             .foregroundColor(Color("customBlue"))
                                         Text(channel)
                                             .font(.system(size: 14))
-                                            .foregroundColor(.black)
+                                            .foregroundColor(.customBlack)
                                     }
                                 }
                             }
                         }
                         .padding(20)
-                        .background(Color.white)
+                        .background(Color.customBlack)
                         .cornerRadius(12)
                         .padding(.horizontal, 20)
                         
@@ -265,7 +272,7 @@ struct LoanGuideResultView: View {
                         VStack(alignment: .leading, spacing: 16) {
                             Text("선행 조건 체크리스트")
                                 .font(.system(size: 16, weight: .semibold))
-                                .foregroundColor(.black)
+                                .foregroundColor(.customBlack)
                             
                             VStack(alignment: .leading, spacing: 12) {
                                 ForEach(mockResult.prerequisiteChecklist, id: \.title) { item in
@@ -277,10 +284,10 @@ struct LoanGuideResultView: View {
                                         VStack(alignment: .leading, spacing: 4) {
                                             Text(item.title)
                                                 .font(.system(size: 14, weight: .medium))
-                                                .foregroundColor(.black)
+                                                .foregroundColor(.customBlack)
                                             Text(item.description)
                                                 .font(.system(size: 12))
-                                                .foregroundColor(.gray)
+                                                .foregroundColor(.customGray300)
                                         }
                                     }
                                 }
@@ -299,7 +306,7 @@ struct LoanGuideResultView: View {
                                     .foregroundColor(.orange)
                                 Text("유의사항")
                                     .font(.system(size: 16, weight: .semibold))
-                                    .foregroundColor(.black)
+                                    .foregroundColor(.customBlack)
                             }
                             
                             VStack(alignment: .leading, spacing: 8) {
@@ -309,17 +316,77 @@ struct LoanGuideResultView: View {
                                 Text("• 대출 조건은 2025년 12월 기준이며 변동될 수 있습니다.")
                             }
                             .font(.system(size: 13))
-                            .foregroundColor(.gray)
+                            .foregroundColor(.customGray300)
                         }
                         .padding(16)
                         .background(Color.yellow.opacity(0.1))
                         .cornerRadius(12)
                         .padding(.horizontal, 20)
                         .padding(.bottom, 30)
+                        
+                        // 결과 확인 버튼 (스크롤 뷰 안에)
+                        Button(action: {
+                            // 홈에서 왔으면 홈으로, 마이에서 왔으면 마이로
+                            // NavigationStack을 모두 pop하기 위해 dismiss를 여러 번 호출
+                            if source == .home {
+                                // 홈으로 돌아가기
+                                presentationMode.wrappedValue.dismiss()
+                                DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                                    presentationMode.wrappedValue.dismiss()
+                                }
+                                DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+                                    presentationMode.wrappedValue.dismiss()
+                                }
+                                DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+                                    presentationMode.wrappedValue.dismiss()
+                                }
+                                DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
+                                    presentationMode.wrappedValue.dismiss()
+                                }
+                                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                                    presentationMode.wrappedValue.dismiss()
+                                }
+                                DispatchQueue.main.asyncAfter(deadline: .now() + 0.6) {
+                                    presentationMode.wrappedValue.dismiss()
+                                }
+                            } else {
+                                // 마이로 돌아가기
+                                presentationMode.wrappedValue.dismiss()
+                                DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                                    presentationMode.wrappedValue.dismiss()
+                                }
+                                DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+                                    presentationMode.wrappedValue.dismiss()
+                                }
+                                DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+                                    presentationMode.wrappedValue.dismiss()
+                                }
+                                DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
+                                    presentationMode.wrappedValue.dismiss()
+                                }
+                                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                                    presentationMode.wrappedValue.dismiss()
+                                }
+                                DispatchQueue.main.asyncAfter(deadline: .now() + 0.6) {
+                                    presentationMode.wrappedValue.dismiss()
+                                }
+                            }
+                        }) {
+                            Text("결과 확인")
+                                .font(.system(size: 17, weight: .semibold))
+                                .foregroundColor(.white)
+                                .frame(maxWidth: .infinity)
+                                .frame(height: 54)
+                                .background(Color("customBlue"))
+                                .cornerRadius(12)
+                        }
+                        .padding(.horizontal, 20)
+                        .padding(.top, 20)
+                        .padding(.bottom, 40)
                     }
                 }
             }
-            .background(Color.gray.opacity(0.05))
+            .background(Color.white)
             .navigationBarHidden(true)
         }
     }
@@ -343,7 +410,7 @@ struct CostRow: View {
             Spacer()
             Text(amount)
                 .font(.system(size: 14, weight: .medium))
-                .foregroundColor(.black)
+                .foregroundColor(.customBlack)
         }
     }
 }
@@ -356,7 +423,7 @@ struct RecommendedProductCard: View {
             HStack {
                 Text(product.title)
                     .font(.system(size: 15, weight: .semibold))
-                    .foregroundColor(.black)
+                    .foregroundColor(.customBlack)
                 
                 if product.isRecommended {
                     Text("추천")
@@ -414,13 +481,13 @@ struct ApplicationStepRow: View {
                 
                 Text("\(step.number)")
                     .font(.system(size: 14, weight: .bold))
-                    .foregroundColor(.white)
+                    .foregroundColor(.customWhite)
             }
             
             VStack(alignment: .leading, spacing: 4) {
                 Text(step.title)
                     .font(.system(size: 14, weight: .medium))
-                    .foregroundColor(.black)
+                    .foregroundColor(.customBlack)
                 
                 Text(step.description)
                     .font(.system(size: 12))
