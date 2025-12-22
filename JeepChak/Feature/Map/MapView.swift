@@ -6,10 +6,16 @@ struct MapView: View {
     var body: some View {
         VStack(spacing: 0) {
             // 헤더
-            HomeHeaderView()
-                .padding(.horizontal, 20)
-                .padding(.top, 10)
-                .background(Color.customBackgroundBlue)
+            VStack(spacing: 0) {
+                HomeHeaderView()
+                    .padding(.horizontal, 20)
+                    .padding(.top, 10)
+                    .background(Color.customBackgroundBlue)
+                
+                // 헤더 하단 여백 추가
+                Color.customBackgroundBlue
+                    .frame(height: 16)
+            }
             
             // 지도 레이어
             ZStack {

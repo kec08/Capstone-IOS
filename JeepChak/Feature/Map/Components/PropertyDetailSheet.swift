@@ -19,7 +19,7 @@ struct PropertyDetailSheet: View {
                 Image(imageName)
                     .resizable()
                     .scaledToFill()
-                    .frame(width: UIScreen.main.bounds.width, height: 200)
+                    .frame(width: UIScreen.main.bounds.width, height: 280)
                     .clipped()
                 
                 VStack(alignment: .leading, spacing: 20) {
