@@ -48,25 +48,73 @@ extension AnalyzeAPI: TargetType {
         case .analyze(let request, let files):
             var formData: [Moya.MultipartFormData] = []
             
-            // propertyId, marketPrice, deposit, monthlyRent를 개별 필드로 추가
-            formData.append(Moya.MultipartFormData(provider: .data("\(request.propertyId)".data(using: .utf8)!), name: "propertyId"))
-            formData.append(Moya.MultipartFormData(provider: .data("\(request.marketPrice)".data(using: .utf8)!), name: "marketPrice"))
-            formData.append(Moya.MultipartFormData(provider: .data("\(request.deposit)".data(using: .utf8)!), name: "deposit"))
-            formData.append(Moya.MultipartFormData(provider: .data("\(request.monthlyRent)".data(using: .utf8)!), name: "monthlyRent"))
+            // API 명세에 따라 propertyId, marketPrice, deposit, monthlyRent를 개별 필드로 추가
+            formData.append(Moya.MultipartFormData(
+                provider: .data("\(request.propertyId)".data(using: .utf8)!),
+                name: "propertyId"
+            ))
+            formData.append(Moya.MultipartFormData(
+                provider: .data("\(request.marketPrice)".data(using: .utf8)!),
+                name: "marketPrice"
+            ))
+            formData.append(Moya.MultipartFormData(
+                provider: .data("\(request.deposit)".data(using: .utf8)!),
+                name: "deposit"
+            ))
+            formData.append(Moya.MultipartFormData(
+                provider: .data("\(request.monthlyRent)".data(using: .utf8)!),
+                name: "monthlyRent"
+            ))
             
-            // 파일들을 form-data로 추가
             for fileURL in files {
-                if let fileData = try? Data(contentsOf: fileURL) {
+                let hasAccess = fileURL.startAccessingSecurityScopedResource()
+                
+                do {
+                    // 파일이 실제로 존재하는지 확인
+                    guard FileManager.default.fileExists(atPath: fileURL.path) else {
+                        print("파일이 존재하지 않음: \(fileURL.path)")
+                        if hasAccess {
+                            fileURL.stopAccessingSecurityScopedResource()
+                        }
+                        continue
+                    }
+                    
+                    // 파일 데이터 읽기
+                    let fileData = try Data(contentsOf: fileURL)
                     let fileName = fileURL.lastPathComponent
-                    let mimeType = mimeType(for: fileURL)
+                    
+                    // 접근 권한 해제 (데이터를 이미 읽었으므로)
+                    if hasAccess {
+                        fileURL.stopAccessingSecurityScopedResource()
+                    }
+                    
                     formData.append(Moya.MultipartFormData(
                         provider: .data(fileData),
                         name: "files",
                         fileName: fileName,
-                        mimeType: mimeType
+                        mimeType: "application/pdf"
                     ))
+                    print("파일 추가 성공: \(fileName), 크기: \(fileData.count) bytes, mimeType: application/pdf")
+                } catch {
+                    print("파일 읽기 실패: \(fileURL.lastPathComponent), 오류: \(error.localizedDescription)")
+                    if hasAccess {
+                        fileURL.stopAccessingSecurityScopedResource()
+                    }
                 }
             }
+            
+            // 파일이 하나도 추가되지 않았으면 오류
+            let fileCount = formData.filter { $0.name == "files" }.count
+            print("=== Multipart Form Data 구성 ===")
+            print("전체 필드 수: \(formData.count)")
+            print("파일 필드 수: \(fileCount)")
+            print("데이터 필드: propertyId, marketPrice, deposit, monthlyRent")
+            if fileCount == 0 {
+                print("경고: 업로드할 파일이 없습니다.")
+            } else {
+                print("파일이 성공적으로 추가되었습니다.")
+            }
+            print("==============================")
             
             return .uploadMultipart(formData)
             
@@ -79,17 +127,35 @@ extension AnalyzeAPI: TargetType {
             formData.append(Moya.MultipartFormData(provider: .data("\(request.deposit)".data(using: .utf8)!), name: "deposit"))
             formData.append(Moya.MultipartFormData(provider: .data("\(request.monthlyRent)".data(using: .utf8)!), name: "monthlyRent"))
             
-            // 파일들을 form-data로 추가
             for fileURL in files {
-                if let fileData = try? Data(contentsOf: fileURL) {
+                // 파일 접근 권한 확인 및 획득
+                let hasAccess = fileURL.startAccessingSecurityScopedResource()
+                
+                do {
+                    guard FileManager.default.fileExists(atPath: fileURL.path) else {
+                        if hasAccess {
+                            fileURL.stopAccessingSecurityScopedResource()
+                        }
+                        continue
+                    }
+                    
+                    let fileData = try Data(contentsOf: fileURL)
                     let fileName = fileURL.lastPathComponent
-                    let mimeType = mimeType(for: fileURL)
+                    
+                    if hasAccess {
+                        fileURL.stopAccessingSecurityScopedResource()
+                    }
+                    
                     formData.append(Moya.MultipartFormData(
                         provider: .data(fileData),
                         name: "files",
                         fileName: fileName,
-                        mimeType: mimeType
+                        mimeType: "application/pdf"
                     ))
+                } catch {
+                    if hasAccess {
+                        fileURL.stopAccessingSecurityScopedResource()
+                    }
                 }
             }
             
@@ -105,11 +171,8 @@ extension AnalyzeAPI: TargetType {
             "Accept": "application/json"
         ]
         
-        // multipart 요청의 경우 Content-Type은 Moya가 자동으로 설정하므로 명시하지 않음
-        // 단, 파일이 없는 경우에만 Content-Type을 설정
         switch self {
         case .analyze(_, let files), .riskSolution(_, let files):
-            // 파일이 있는 경우 multipart/form-data이므로 Content-Type을 설정하지 않음
             break
         default:
             headers["Content-Type"] = "application/json"
@@ -136,4 +199,5 @@ extension AnalyzeAPI: TargetType {
         }
     }
 }
+
 

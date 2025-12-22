@@ -1,50 +1,48 @@
-//
-//  GoMapView.swift
-//  Eodigo
-//
-//  Created by 김은찬 on 9/8/25.
-//
-
 import SwiftUI
-import MapKit
 
 struct MapView: View {
-    @State private var position: MapCameraPosition = .region(
-        MKCoordinateRegion(
-            center: CLLocationCoordinate2D(latitude: 37.5665, longitude: 126.9780),
-            span: MKCoordinateSpan(latitudeDelta: 0.05, longitudeDelta: 0.05)
-        )
-    )
-    
+    @StateObject private var viewModel = MapViewModel()
+
     var body: some View {
-        ZStack {
-            Map(position: $position)
-                .mapStyle(.standard)
+        VStack(spacing: 0) {
+            // 헤더
+            HomeHeaderView()
+                .padding(.horizontal, 20)
+                .padding(.top, 10)
+                .background(Color.customBackgroundBlue)
             
-            VStack {
-                HStack {
-                    
-                    Spacer()
-                    
-                    Button(action: {
-                        position = .region(
-                            MKCoordinateRegion(
-                                center: CLLocationCoordinate2D(latitude: 37.5665, longitude: 126.9780),
-                                span: MKCoordinateSpan(latitudeDelta: 0.05, longitudeDelta: 0.05)
-                            )
-                        )
-                    }) {
-                        Image(systemName: "location.circle.fill")
-                            .font(.title)
-                            .foregroundColor(.customBlue)
-                            .padding()
-                            .background(Color.white)
-                            .clipShape(Circle())
-                    }
-                    .padding()
+            // 지도 레이어
+            ZStack {
+                if ProcessInfo.processInfo.environment["XCODE_RUNNING_FOR_PREVIEWS"] == "1" {
+                    Color.gray.opacity(0.15).ignoresSafeArea()
+                } else {
+                    NaverMapViewRepresentable(
+                        centerLat: .init(
+                            get: { viewModel.centerLat },
+                            set: { viewModel.centerLat = $0 }
+                        ),
+                        centerLng: .init(
+                            get: { viewModel.centerLng },
+                            set: { viewModel.centerLng = $0 }
+                        ),
+                        properties: viewModel.properties,
+                        onTapProperty: { property in
+                            viewModel.selectProperty(property)
+                        }
+                    )
+                    .ignoresSafeArea()
                 }
-                
-                Spacer()
+            }
+        }
+        .sheet(isPresented: .init(
+            get: { viewModel.isDetailPresented },
+            set: { viewModel.isDetailPresented = $0 }
+        )) {
+            if let property = viewModel.selectedProperty {
+                PropertyDetailSheet(
+                    property: property,
+                    onClose: { viewModel.closeDetail() }
+                )
             }
         }
     }

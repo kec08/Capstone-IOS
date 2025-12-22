@@ -6,9 +6,14 @@
 //
 
 import SwiftUI
+import NMapsMap
 
 @main
 struct JeepChakApp: App {
+    init() {
+            NMFAuthManager.shared().ncpKeyId = "5senpkgczx"
+        }
+    
     var body: some Scene {
         WindowGroup {
             RootView()
