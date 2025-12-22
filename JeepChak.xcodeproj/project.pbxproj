@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		BC012C8C2EF994FD00C69910 /* NMapsMap in Frameworks */ = {isa = PBXBuildFile; productRef = BC012C8B2EF994FD00C69910 /* NMapsMap */; };
 		BC10B1E12EC4E2D60067C14E /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC10B1782EC4E2D60067C14E /* AppState.swift */; };
 		BC10B1E22EC4E2D60067C14E /* JeepChakApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC10B1792EC4E2D60067C14E /* JeepChakApp.swift */; };
 		BC10B1E32EC4E2D60067C14E /* MainTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC10B17A2EC4E2D60067C14E /* MainTabView.swift */; };
@@ -53,8 +54,6 @@
 		BC10B20D2EC4E2D60067C14E /* CustomTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC10B1B12EC4E2D60067C14E /* CustomTextField.swift */; };
 		BC10B20E2EC4E2D60067C14E /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC10B1B32EC4E2D60067C14E /* LoginView.swift */; };
 		BC10B20F2EC4E2D60067C14E /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC10B1B42EC4E2D60067C14E /* LoginViewModel.swift */; };
-		BC10B2102EC4E2D60067C14E /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC10B1B62EC4E2D60067C14E /* MapView.swift */; };
-		BC10B2112EC4E2D60067C14E /* MapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC10B1B72EC4E2D60067C14E /* MapViewModel.swift */; };
 		BC10B2122EC4E2D60067C14E /* UserInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC10B1B92EC4E2D60067C14E /* UserInfo.swift */; };
 		BC10B2132EC4E2D60067C14E /* InfoRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC10B1BB2EC4E2D60067C14E /* InfoRow.swift */; };
 		BC10B2142EC4E2D60067C14E /* InfoSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC10B1BC2EC4E2D60067C14E /* InfoSection.swift */; };
@@ -126,6 +125,16 @@
 		BCF777662EF82F78002F9EEF /* LoanGuideStep5View.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCF777652EF82F6B002F9EEF /* LoanGuideStep5View.swift */; };
 		BCF777682EF82F91002F9EEF /* LoanGuideLoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCF777672EF82F8E002F9EEF /* LoanGuideLoadingView.swift */; };
 		BCF7776A2EF82FBE002F9EEF /* LoanGuideResultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCF777692EF82FB9002F9EEF /* LoanGuideResultView.swift */; };
+		BCF7778E2EF976AF002F9EEF /* GoMapBottomBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCF7777E2EF976AF002F9EEF /* GoMapBottomBar.swift */; };
+		BCF7778F2EF976AF002F9EEF /* StoreDetailSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCF777862EF976AF002F9EEF /* StoreDetailSheet.swift */; };
+		BCF777902EF976AF002F9EEF /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCF7778A2EF976AF002F9EEF /* MapView.swift */; };
+		BCF777922EF976AF002F9EEF /* NaverMapViewRepresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCF7778C2EF976AF002F9EEF /* NaverMapViewRepresentable.swift */; };
+		BCF777942EF976AF002F9EEF /* MapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCF7778B2EF976AF002F9EEF /* MapViewModel.swift */; };
+		BCF777982EF976AF002F9EEF /* TourSpot.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCF777882EF976AF002F9EEF /* TourSpot.swift */; };
+		BCF7779C2EF976AF002F9EEF /* MapProperty.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCF7779D2EF976AF002F9EEF /* MapProperty.swift */; };
+		BCF7779E2EF976AF002F9EEF /* PropertyDetailSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCF7779F2EF976AF002F9EEF /* PropertyDetailSheet.swift */; };
+		BCF7779A2EF976AF002F9EEF /* TourSpotCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCF777842EF976AF002F9EEF /* TourSpotCard.swift */; };
+		BCF7779B2EF976AF002F9EEF /* PlaceDetailSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCF777852EF976AF002F9EEF /* PlaceDetailSheet.swift */; };
 		BCF9E25E2ECCBD2F004FB229 /* PropertyDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCF9E25D2ECCBD28004FB229 /* PropertyDTO.swift */; };
 /* End PBXBuildFile section */
 
@@ -193,8 +202,6 @@
 		BC10B1B12EC4E2D60067C14E /* CustomTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextField.swift; sourceTree = "<group>"; };
 		BC10B1B32EC4E2D60067C14E /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		BC10B1B42EC4E2D60067C14E /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
-		BC10B1B62EC4E2D60067C14E /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
-		BC10B1B72EC4E2D60067C14E /* MapViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewModel.swift; sourceTree = "<group>"; };
 		BC10B1B92EC4E2D60067C14E /* UserInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfo.swift; sourceTree = "<group>"; };
 		BC10B1BB2EC4E2D60067C14E /* InfoRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoRow.swift; sourceTree = "<group>"; };
 		BC10B1BC2EC4E2D60067C14E /* InfoSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoSection.swift; sourceTree = "<group>"; };
@@ -266,6 +273,16 @@
 		BCF777652EF82F6B002F9EEF /* LoanGuideStep5View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoanGuideStep5View.swift; sourceTree = "<group>"; };
 		BCF777672EF82F8E002F9EEF /* LoanGuideLoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoanGuideLoadingView.swift; sourceTree = "<group>"; };
 		BCF777692EF82FB9002F9EEF /* LoanGuideResultView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoanGuideResultView.swift; sourceTree = "<group>"; };
+		BCF7777E2EF976AF002F9EEF /* GoMapBottomBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoMapBottomBar.swift; sourceTree = "<group>"; };
+		BCF777842EF976AF002F9EEF /* TourSpotCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TourSpotCard.swift; sourceTree = "<group>"; };
+		BCF777852EF976AF002F9EEF /* PlaceDetailSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceDetailSheet.swift; sourceTree = "<group>"; };
+		BCF777862EF976AF002F9EEF /* StoreDetailSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreDetailSheet.swift; sourceTree = "<group>"; };
+		BCF777882EF976AF002F9EEF /* TourSpot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TourSpot.swift; sourceTree = "<group>"; };
+		BCF7778A2EF976AF002F9EEF /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
+		BCF7778B2EF976AF002F9EEF /* MapViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewModel.swift; sourceTree = "<group>"; };
+		BCF7778C2EF976AF002F9EEF /* NaverMapViewRepresentable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NaverMapViewRepresentable.swift; sourceTree = "<group>"; };
+		BCF7779D2EF976AF002F9EEF /* MapProperty.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapProperty.swift; sourceTree = "<group>"; };
+		BCF7779F2EF976AF002F9EEF /* PropertyDetailSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PropertyDetailSheet.swift; sourceTree = "<group>"; };
 		BCF9E25D2ECCBD28004FB229 /* PropertyDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PropertyDTO.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -288,6 +305,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				BCC987BA2EC40456002AE0F8 /* Moya in Frameworks */,
+				BC012C8C2EF994FD00C69910 /* NMapsMap in Frameworks */,
 				BCC987B82EC40456002AE0F8 /* CombineMoya in Frameworks */,
 				BCC987BE2EC40456002AE0F8 /* RxMoya in Frameworks */,
 				BCC987BC2EC40456002AE0F8 /* ReactiveMoya in Frameworks */,
@@ -478,15 +496,6 @@
 			path = Login;
 			sourceTree = "<group>";
 		};
-		BC10B1B82EC4E2D60067C14E /* Map */ = {
-			isa = PBXGroup;
-			children = (
-				BC10B1B62EC4E2D60067C14E /* MapView.swift */,
-				BC10B1B72EC4E2D60067C14E /* MapViewModel.swift */,
-			);
-			path = Map;
-			sourceTree = "<group>";
-		};
 		BC10B1BA2EC4E2D60067C14E /* Model */ = {
 			isa = PBXGroup;
 			children = (
@@ -534,6 +543,7 @@
 		BC10B1CC2EC4E2D60067C14E /* Feature */ = {
 			isa = PBXGroup;
 			children = (
+				BCF7778D2EF976AF002F9EEF /* Map */,
 				BC3C60482EF8242A0025896C /* LoanGuide */,
 				BCBF06722ED6D5DD009ECE84 /* Property */,
 				BC10B2CF2EC83C0C0067C14E /* Saved */,
@@ -541,7 +551,6 @@
 				BC10B19F2EC4E2D60067C14E /* CheckList */,
 				BC10B1AD2EC4E2D60067C14E /* Home */,
 				BC10B1B52EC4E2D60067C14E /* Login */,
-				BC10B1B82EC4E2D60067C14E /* Map */,
 				BC10B1C62EC4E2D60067C14E /* My */,
 				BC10B1C92EC4E2D60067C14E /* SignUp */,
 				BC10B1CB2EC4E2D60067C14E /* Splash */,
@@ -831,6 +840,39 @@
 			path = MoyaAsync;
 			sourceTree = "<group>";
 		};
+		BCF777872EF976AF002F9EEF /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				BCF7777E2EF976AF002F9EEF /* GoMapBottomBar.swift */,
+				BCF777842EF976AF002F9EEF /* TourSpotCard.swift */,
+				BCF777852EF976AF002F9EEF /* PlaceDetailSheet.swift */,
+				BCF777862EF976AF002F9EEF /* StoreDetailSheet.swift */,
+				BCF7779F2EF976AF002F9EEF /* PropertyDetailSheet.swift */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
+		BCF777892EF976AF002F9EEF /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				BCF777882EF976AF002F9EEF /* TourSpot.swift */,
+				BCF7779D2EF976AF002F9EEF /* MapProperty.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		BCF7778D2EF976AF002F9EEF /* Map */ = {
+			isa = PBXGroup;
+			children = (
+				BCF777872EF976AF002F9EEF /* Components */,
+				BCF777892EF976AF002F9EEF /* Model */,
+				BCF7778A2EF976AF002F9EEF /* MapView.swift */,
+				BCF7778B2EF976AF002F9EEF /* MapViewModel.swift */,
+				BCF7778C2EF976AF002F9EEF /* NaverMapViewRepresentable.swift */,
+			);
+			path = Map;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -852,6 +894,7 @@
 				BCC987B92EC40456002AE0F8 /* Moya */,
 				BCC987BB2EC40456002AE0F8 /* ReactiveMoya */,
 				BCC987BD2EC40456002AE0F8 /* RxMoya */,
+				BC012C8B2EF994FD00C69910 /* NMapsMap */,
 			);
 			productName = JeepChak;
 			productReference = BC3D529D2EA37C4800BD9E2B /* JeepChak.app */;
@@ -874,8 +917,6 @@
 				BC3D52AD2EA37C4A00BD9E2B /* JeepChakTests */,
 			);
 			name = JeepChakTests;
-			packageProductDependencies = (
-			);
 			productName = JeepChakTests;
 			productReference = BC3D52AA2EA37C4A00BD9E2B /* JeepChakTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
@@ -897,8 +938,6 @@
 				BC3D52B72EA37C4A00BD9E2B /* JeepChakUITests */,
 			);
 			name = JeepChakUITests;
-			packageProductDependencies = (
-			);
 			productName = JeepChakUITests;
 			productReference = BC3D52B42EA37C4A00BD9E2B /* JeepChakUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
@@ -937,6 +976,7 @@
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
 				BCC987B62EC40456002AE0F8 /* XCRemoteSwiftPackageReference "Moya" */,
+				BC012C8A2EF994FD00C69910 /* XCRemoteSwiftPackageReference "SPM-NMapsMap" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = BC3D529E2EA37C4800BD9E2B /* Products */;
@@ -982,6 +1022,16 @@
 			buildActionMask = 2147483647;
 			files = (
 				BCF9E25E2ECCBD2F004FB229 /* PropertyDTO.swift in Sources */,
+				BCF7778E2EF976AF002F9EEF /* GoMapBottomBar.swift in Sources */,
+				BCF7778F2EF976AF002F9EEF /* StoreDetailSheet.swift in Sources */,
+				BCF777902EF976AF002F9EEF /* MapView.swift in Sources */,
+				BCF777922EF976AF002F9EEF /* NaverMapViewRepresentable.swift in Sources */,
+				BCF777942EF976AF002F9EEF /* MapViewModel.swift in Sources */,
+				BCF777982EF976AF002F9EEF /* TourSpot.swift in Sources */,
+				BCF7779C2EF976AF002F9EEF /* MapProperty.swift in Sources */,
+				BCF7779E2EF976AF002F9EEF /* PropertyDetailSheet.swift in Sources */,
+				BCF7779A2EF976AF002F9EEF /* TourSpotCard.swift in Sources */,
+				BCF7779B2EF976AF002F9EEF /* PlaceDetailSheet.swift in Sources */,
 				BCBF07292ED8970D009ECE84 /* RiskSolutionView.swift in Sources */,
 				BC10B1E12EC4E2D60067C14E /* AppState.swift in Sources */,
 				BC10B1E22EC4E2D60067C14E /* JeepChakApp.swift in Sources */,
@@ -1056,13 +1106,11 @@
 				BC10B2D32EC83CAE0067C14E /* SavedViewModel.swift in Sources */,
 				BC10B20F2EC4E2D60067C14E /* LoginViewModel.swift in Sources */,
 				BC10B2D12EC83CA30067C14E /* SavedView.swift in Sources */,
-				BC10B2102EC4E2D60067C14E /* MapView.swift in Sources */,
 				BC3C603E2EF7297C0025896C /* AnalyzeService.swift in Sources */,
 				BC10B2E72EC84F310067C14E /* ChecklistDTO.swift in Sources */,
 				BCBF07322EDAE822009ECE84 /* AppleSignInStyledButton.swift in Sources */,
 				BCF777602EF82916002F9EEF /* LoanGuideStep1View.swift in Sources */,
 				BC10B22A2EC4EC160067C14E /* PropertyService.swift in Sources */,
-				BC10B2112EC4E2D60067C14E /* MapViewModel.swift in Sources */,
 				BC10B2122EC4E2D60067C14E /* UserInfo.swift in Sources */,
 				BC10B2132EC4E2D60067C14E /* InfoRow.swift in Sources */,
 				BC10B2142EC4E2D60067C14E /* InfoSection.swift in Sources */,
@@ -1259,9 +1307,13 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = QLF22M2925;
 				ENABLE_PREVIEWS = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
+				ENABLE_USER_SELECTED_FILES = "";
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = JeepChak/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = JeepChak;
 				INFOPLIST_KEY_LSApplicationCategoryType = "";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "위치 정보를 받기위현 설정입니다";
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "이미지를 불러오기 위한 라이브러리 입니다.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -1274,7 +1326,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = ListNavDemo.JeepChak;
+				PRODUCT_BUNDLE_IDENTIFIER = com.kimeunchan.jeepchak;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -1300,9 +1352,13 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = QLF22M2925;
 				ENABLE_PREVIEWS = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
+				ENABLE_USER_SELECTED_FILES = "";
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = JeepChak/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = JeepChak;
 				INFOPLIST_KEY_LSApplicationCategoryType = "";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "위치 정보를 받기위현 설정입니다";
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "이미지를 불러오기 위한 라이브러리 입니다.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -1315,7 +1371,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = ListNavDemo.JeepChak;
+				PRODUCT_BUNDLE_IDENTIFIER = com.kimeunchan.jeepchak;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -1457,6 +1513,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		BC012C8A2EF994FD00C69910 /* XCRemoteSwiftPackageReference "SPM-NMapsMap" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/navermaps/SPM-NMapsMap";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 3.23.0;
+			};
+		};
 		BCC987B62EC40456002AE0F8 /* XCRemoteSwiftPackageReference "Moya" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/Moya/Moya";
@@ -1468,6 +1532,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		BC012C8B2EF994FD00C69910 /* NMapsMap */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = BC012C8A2EF994FD00C69910 /* XCRemoteSwiftPackageReference "SPM-NMapsMap" */;
+			productName = NMapsMap;
+		};
 		BCC987B72EC40456002AE0F8 /* CombineMoya */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = BCC987B62EC40456002AE0F8 /* XCRemoteSwiftPackageReference "Moya" */;

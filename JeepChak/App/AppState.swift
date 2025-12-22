@@ -8,12 +8,12 @@ final class AppState: ObservableObject {
         restoreLoginState()
     }
 
-    /// UserDefaults에서 로그인 상태 복원 + 토큰 만료면 자동 refresh
+    /// UserDefaults에서 로그인 상태 복원 및 토큰 만료면 자동 refresh
     func restoreLoginState() {
         let autoLogin = UserDefaults.standard.bool(forKey: "autoLogin")
         let access = UserDefaults.standard.string(forKey: "accessToken") ?? ""
 
-        // 자동로그인 OFF 또는 토큰 없을 때
+        // 자동로그인 OFF
         guard autoLogin, !access.isEmpty else {
             isLoggedIn = false
             return
