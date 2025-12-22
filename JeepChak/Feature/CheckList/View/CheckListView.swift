@@ -63,15 +63,22 @@ struct CheckListView: View {
             .navigationBarBackButtonHidden(true)
             .sheet(isPresented: $showSavedView) {
                 AddChecklistFromWishlistView(
-                    onPropertiesSelected: { properties in
+                    onPropertiesSelected: { properties, detailItems in
                         for property in properties {
-                            // 날짜 포맷팅 (T15:... 제거)
                             let formattedDate = formatDate(property.createdAt ?? "날짜 데이터가 없습니다")
-                            viewModel.addItem(
+                            
+                            let newItem = CheckItem(
                                 title: property.name,
                                 date: formattedDate,
-                                image: property.image
+                                imageName: nil,
+                                image: property.image,
+                                detailItems: detailItems,
+                                propertyId: property.propertyId
                             )
+                            
+                            withAnimation {
+                                viewModel.checkItems.append(newItem)
+                            }
                         }
                         showSavedView = false
                     }
@@ -92,15 +99,12 @@ struct CheckListView: View {
     
     // 날짜 포맷팅 함수
     private func formatDate(_ dateString: String) -> String {
-        // ISO 8601 형식 (2025-12-20T15:58:18.375109) 또는 일반 날짜 형식 처리
         if dateString.contains("T") {
-            // ISO 8601 형식인 경우
             let components = dateString.components(separatedBy: "T")
             if let datePart = components.first {
                 return datePart
             }
         }
-        // 이미 날짜만 있는 경우 그대로 반환
         return dateString
     }
 }

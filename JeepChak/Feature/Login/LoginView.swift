@@ -104,7 +104,7 @@ struct LoginView: View {
 
                 Text("자동로그인")
                     .font(.system(size: 14))
-                    .foregroundColor(.black)
+                    .foregroundColor(.customBlack)
             }
         }
         .frame(maxWidth: .infinity, alignment: .leading)

@@ -20,15 +20,6 @@ struct PropertyCard: View {
                     .frame(width: 160, height: 160)
                     .cornerRadius(6)
                     .clipped()
-
-                // 좋아요 버튼
-                Button(action: {}) {
-                    Image("Home_heart")
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: 15, height: 14)
-                }
-                .padding(10)
             }
 
             // 매물 정보

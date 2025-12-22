@@ -23,7 +23,7 @@ struct SavedHeaderView: View {
             
             Text("내 매물")
                 .font(.system(size: 18, weight: .semibold))
-                .foregroundColor(.black)
+                .foregroundColor(.customBlack)
             
             Spacer()
                 .frame(width: 150)

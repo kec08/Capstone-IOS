@@ -23,7 +23,7 @@ struct MessageCompleteView: View {
 
                 Text(message.isEmpty ? "완료되었습니다" : message)
                     .font(.system(size: 22, weight: .bold))
-                    .foregroundColor(.black)
+                    .foregroundColor(.customBlack)
                     .multilineTextAlignment(.center)
             }
 

@@ -56,7 +56,17 @@ struct ChecklistListResponse: Codable {
 }
 
 struct GeneratedChecklistResponse: Codable {
-    let content: String?
+    let contents: [String]?
+    
+    // 기존 content 필드와의 호환성을 위한 계산 속성
+    var content: String? {
+        return contents?.first
+    }
+    
+    // 이니셜라이저 추가
+    init(contents: [String]?) {
+        self.contents = contents
+    }
 }
 
 struct ChecklistDetailResponse: Codable {

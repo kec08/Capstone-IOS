@@ -11,6 +11,7 @@ struct LoanGuideStep3View: View {
     @Environment(\.dismiss) private var dismiss
     @StateObject private var viewModel = LoanGuideViewModel.shared
     @State private var navigateToStep4 = false
+    let source: LoanGuideSource
     
     @State private var rentalArea: String = ""
     @State private var selectedHouseType: HouseType? = nil
@@ -19,19 +20,29 @@ struct LoanGuideStep3View: View {
     @State private var managementFee: String = ""
     @State private var isLoanEligible: Bool? = nil
     
+    init(source: LoanGuideSource = .home) {
+        self.source = source
+    }
+    
     var body: some View {
         NavigationStack {
             ScrollView {
                 VStack(spacing: 0) {
-                    // 헤더
+                    // 헤더 (흰색 배경)
                     HStack {
                         Button(action: {
                             dismiss()
                         }) {
                             Image(systemName: "chevron.left")
                                 .font(.system(size: 18, weight: .semibold))
-                                .foregroundColor(.black)
+                                .foregroundColor(.customBlack)
                         }
+                        
+                        Spacer()
+                        
+                        Text("주거 정보")
+                            .font(.system(size: 18, weight: .bold))
+                            .foregroundColor(.customBlack)
                         
                         Spacer()
                         
@@ -43,18 +54,23 @@ struct LoanGuideStep3View: View {
                             ProgressView(value: 0.6)
                                 .frame(width: 60)
                                 .tint(Color("customBlue"))
+                            
+                            Text("60%")
+                                .font(.system(size: 12, weight: .medium))
+                                .foregroundColor(.gray)
                         }
                     }
                     .padding(.horizontal, 20)
                     .padding(.top, 10)
-                    .padding(.bottom, 30)
+                    .padding(.bottom, 20)
+                    .background(Color.customWhite)
                     
                     // 콘텐츠
                     VStack(alignment: .leading, spacing: 24) {
                         VStack(alignment: .leading, spacing: 8) {
                             Text("주거 정보를 입력해주세요")
                                 .font(.system(size: 20, weight: .bold))
-                                .foregroundColor(.black)
+                                .foregroundColor(.customBlack)
                             
                             Text("임차할 주택의 정보입니다")
                                 .font(.system(size: 14))
@@ -67,12 +83,13 @@ struct LoanGuideStep3View: View {
                         VStack(alignment: .leading, spacing: 12) {
                             Text("임차 지역")
                                 .font(.system(size: 16, weight: .medium))
-                                .foregroundColor(.black)
+                                .foregroundColor(.customBlack)
                             
                             TextField("예: 서울시 강남구", text: $rentalArea)
                                 .padding(16)
                                 .background(Color.gray.opacity(0.1))
                                 .cornerRadius(12)
+                                .foregroundColor(.customBlack)
                         }
                         .padding(.horizontal, 20)
                         
@@ -80,7 +97,7 @@ struct LoanGuideStep3View: View {
                         VStack(alignment: .leading, spacing: 12) {
                             Text("집 유형")
                                 .font(.system(size: 16, weight: .medium))
-                                .foregroundColor(.black)
+                                .foregroundColor(.customBlack)
                             
                             HStack(spacing: 12) {
                                 ForEach(HouseType.allCases, id: \.self) { type in
@@ -99,7 +116,7 @@ struct LoanGuideStep3View: View {
                         VStack(alignment: .leading, spacing: 12) {
                             Text("전월세 형태")
                                 .font(.system(size: 16, weight: .medium))
-                                .foregroundColor(.black)
+                                .foregroundColor(.customBlack)
                             
                             HStack(spacing: 12) {
                                 ForEach(LoanGuideLeaseType.allCases, id: \.self) { type in
@@ -118,13 +135,14 @@ struct LoanGuideStep3View: View {
                         VStack(alignment: .leading, spacing: 12) {
                             Text("보증금 (만원)")
                                 .font(.system(size: 16, weight: .medium))
-                                .foregroundColor(.black)
+                                .foregroundColor(.customBlack)
                             
                             TextField("예: 20000", text: $deposit)
                                 .keyboardType(.numberPad)
                                 .padding(16)
                                 .background(Color.gray.opacity(0.1))
                                 .cornerRadius(12)
+                                .foregroundColor(.customBlack)
                         }
                         .padding(.horizontal, 20)
                         
@@ -132,13 +150,14 @@ struct LoanGuideStep3View: View {
                         VStack(alignment: .leading, spacing: 12) {
                             Text("관리비 (만원)")
                                 .font(.system(size: 16, weight: .medium))
-                                .foregroundColor(.black)
+                                .foregroundColor(.customBlack)
                             
                             TextField("예: 10", text: $managementFee)
                                 .keyboardType(.numberPad)
                                 .padding(16)
                                 .background(Color.gray.opacity(0.1))
                                 .cornerRadius(12)
+                                .foregroundColor(.customBlack)
                         }
                         .padding(.horizontal, 20)
                         
@@ -146,7 +165,7 @@ struct LoanGuideStep3View: View {
                         VStack(alignment: .leading, spacing: 12) {
                             Text("대출 가능 주택 여부")
                                 .font(.system(size: 16, weight: .medium))
-                                .foregroundColor(.black)
+                                .foregroundColor(.customBlack)
                             
                             HStack(spacing: 12) {
                                 SegmentedButton(
@@ -178,43 +197,42 @@ struct LoanGuideStep3View: View {
                         }
                         .padding(.horizontal, 20)
                         .padding(.top, 8)
+                        
+                        // 다음 버튼 (스크롤 뷰 안에)
+                        Button(action: {
+                            // 데이터 저장
+                            viewModel.data.rentalArea = rentalArea.isEmpty ? nil : rentalArea
+                            viewModel.data.houseType = selectedHouseType
+                            viewModel.data.leaseType = selectedLeaseType
+                            if let depositInt = Int(deposit) {
+                                viewModel.data.deposit = depositInt
+                            }
+                            if let feeInt = Int(managementFee) {
+                                viewModel.data.managementFee = feeInt
+                            }
+                            viewModel.data.isLoanEligible = isLoanEligible
+                            
+                            navigateToStep4 = true
+                        }) {
+                            Text("다음")
+                                .font(.system(size: 17, weight: .semibold))
+                                .foregroundColor(.customWhite)
+                                .frame(maxWidth: .infinity)
+                                .frame(height: 54)
+                                .background(isFormValid ? Color("customBlue") : Color.gray.opacity(0.3))
+                                .cornerRadius(12)
+                        }
+                        .disabled(!isFormValid)
+                        .padding(.horizontal, 20)
+                        .padding(.top, 20)
+                        .padding(.bottom, 40)
                     }
-                    .padding(.bottom, 100)
                 }
             }
             .background(Color.white)
             .navigationBarHidden(true)
             .navigationDestination(isPresented: $navigateToStep4) {
-                LoanGuideStep4View()
-            }
-            .safeAreaInset(edge: .bottom) {
-                Button(action: {
-                    // 데이터 저장
-                    viewModel.data.rentalArea = rentalArea.isEmpty ? nil : rentalArea
-                    viewModel.data.houseType = selectedHouseType
-                    viewModel.data.leaseType = selectedLeaseType
-                    if let depositInt = Int(deposit) {
-                        viewModel.data.deposit = depositInt
-                    }
-                    if let feeInt = Int(managementFee) {
-                        viewModel.data.managementFee = feeInt
-                    }
-                    viewModel.data.isLoanEligible = isLoanEligible
-                    
-                    navigateToStep4 = true
-                }) {
-                    Text("다음")
-                        .font(.system(size: 17, weight: .semibold))
-                        .foregroundColor(.white)
-                        .frame(maxWidth: .infinity)
-                        .frame(height: 54)
-                        .background(isFormValid ? Color("customBlue") : Color.gray.opacity(0.3))
-                        .cornerRadius(12)
-                }
-                .disabled(!isFormValid)
-                .padding(.horizontal, 20)
-                .padding(.bottom, 30)
-                .background(Color.white)
+                LoanGuideStep4View(source: source)
             }
         }
     }

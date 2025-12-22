@@ -17,14 +17,14 @@ struct PropertyUploadHeaderView: View {
                 Button(action: onBack) {
                     Image(systemName: "chevron.left")
                         .font(.system(size: 20))
-                        .foregroundColor(.black)
+                        .foregroundColor(.customBlack)
                 }
                 
                 Spacer()
                 
                 Text(title)
                     .font(.system(size: 18, weight: .semibold))
-                    .foregroundColor(.black)
+                    .foregroundColor(.customBlack)
                 
                 Spacer()
                 
@@ -37,7 +37,7 @@ struct PropertyUploadHeaderView: View {
             HStack {
                 Text("매물 업로드")
                     .font(.system(size: 17, weight: .bold))
-                    .foregroundColor(.black)
+                    .foregroundColor(.customBlack)
                 Spacer()
             }
             .padding(.horizontal, 20)

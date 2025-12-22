@@ -36,7 +36,7 @@ struct HomeHeaderView: View {
             }
             .background(Color.white)
             .cornerRadius(10)
-            .shadow(color: Color.black.opacity(0.05), radius: 2, x: 0, y: 1)
+            .shadow(color: Color.customBlack.opacity(0.05), radius: 2, x: 0, y: 1)
             .frame(width: 190, height: 38)
             .padding(.trailing, -24)
         }

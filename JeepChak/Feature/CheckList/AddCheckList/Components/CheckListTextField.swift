@@ -22,7 +22,7 @@ struct CheckListTextField: View {
             TextField("", text: $text)
                 .keyboardType(keyboardType)
                 .font(.system(size: 16))
-                .foregroundColor(.black)
+                .foregroundColor(.customBlack)
                 .padding(.vertical, 4)
 
             Rectangle()

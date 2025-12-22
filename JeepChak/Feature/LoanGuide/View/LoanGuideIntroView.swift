@@ -7,29 +7,53 @@
 
 import SwiftUI
 
+enum LoanGuideSource {
+    case home
+    case my
+}
+
 struct LoanGuideIntroView: View {
     @Environment(\.dismiss) private var dismiss
     @State private var navigateToStep1 = false
+    let source: LoanGuideSource
+    
+    init(source: LoanGuideSource = .home) {
+        self.source = source
+    }
     
     var body: some View {
         NavigationStack {
             ScrollView {
                 VStack(spacing: 0) {
-                    // 헤더
+                    // 헤더 (흰색 배경)
                     HStack {
                         Button(action: {
                             dismiss()
                         }) {
                             Image(systemName: "chevron.left")
                                 .font(.system(size: 18, weight: .semibold))
-                                .foregroundColor(.black)
+                                .foregroundColor(.customBlack)
                         }
                         
                         Spacer()
+                        
+                        Text("대출 가이드")
+                            .font(.system(size: 18, weight: .bold))
+                            .foregroundColor(.customBlack)
+                        
+                        Spacer()
+                        
+                        // 뒤로가기 버튼과 균형을 맞추기 위한 투명 버튼
+                        Button(action: {}) {
+                            Image(systemName: "chevron.left")
+                                .font(.system(size: 18, weight: .semibold))
+                                .foregroundColor(.clear)
+                        }
                     }
                     .padding(.horizontal, 20)
                     .padding(.top, 10)
-                    .padding(.bottom, 30)
+                    .padding(.bottom, 20)
+                    .background(Color.customWhite)
                     
                     // 메인 콘텐츠
                     VStack(spacing: 24) {
@@ -37,7 +61,7 @@ struct LoanGuideIntroView: View {
                         VStack(spacing: 12) {
                             Text("대출 가이드")
                                 .font(.system(size: 28, weight: .bold))
-                                .foregroundColor(.black)
+                                .foregroundColor(.customBlack)
                             
                             Text("나에게 딱 맞춤 대출 가이드")
                                 .font(.system(size: 16))
@@ -61,7 +85,7 @@ struct LoanGuideIntroView: View {
                         VStack(alignment: .leading, spacing: 20) {
                             Text("이런 정보를 확인할 수 있어요")
                                 .font(.system(size: 18, weight: .semibold))
-                                .foregroundColor(.black)
+                                .foregroundColor(.customBlack)
                                 .padding(.bottom, 8)
                             
                             LoanGuideInfoRow(
@@ -97,6 +121,21 @@ struct LoanGuideIntroView: View {
                         }
                         .padding(.horizontal, 20)
                         .padding(.top, 30)
+                        
+                        // 시작하기 버튼 (스크롤 뷰 안에)
+                        Button(action: {
+                            navigateToStep1 = true
+                        }) {
+                            Text("시작하기")
+                                .font(.system(size: 17, weight: .semibold))
+                                .foregroundColor(.customWhite)
+                                .frame(maxWidth: .infinity)
+                                .frame(height: 54)
+                                .background(Color("customBlue"))
+                                .cornerRadius(12)
+                        }
+                        .padding(.horizontal, 20)
+                        .padding(.top, 20)
                         .padding(.bottom, 40)
                     }
                 }
@@ -104,23 +143,7 @@ struct LoanGuideIntroView: View {
             .background(Color.white)
             .navigationBarHidden(true)
             .navigationDestination(isPresented: $navigateToStep1) {
-                LoanGuideStep1View()
-            }
-            .safeAreaInset(edge: .bottom) {
-                Button(action: {
-                    navigateToStep1 = true
-                }) {
-                    Text("시작하기")
-                        .font(.system(size: 17, weight: .semibold))
-                        .foregroundColor(.white)
-                        .frame(maxWidth: .infinity)
-                        .frame(height: 54)
-                        .background(Color("customBlue"))
-                        .cornerRadius(12)
-                }
-                .padding(.horizontal, 20)
-                .padding(.bottom, 30)
-                .background(Color.white)
+                LoanGuideStep1View(source: source)
             }
         }
     }
@@ -141,7 +164,7 @@ struct LoanGuideInfoRow: View {
             VStack(alignment: .leading, spacing: 4) {
                 Text(title)
                     .font(.system(size: 16, weight: .medium))
-                    .foregroundColor(.black)
+                    .foregroundColor(.customBlack)
                 
                 Text(description)
                     .font(.system(size: 13))
@@ -158,4 +181,3 @@ struct LoanGuideInfoRow: View {
 #Preview {
     LoanGuideIntroView()
 }
-

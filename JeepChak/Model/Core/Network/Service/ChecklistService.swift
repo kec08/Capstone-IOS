@@ -23,18 +23,23 @@ final class ChecklistService {
                 print("status:", response.statusCode)
                 print(String(data: response.data, encoding: .utf8) ?? "nil")
 
-                // 응답이 배열 또는 단일 객체일 수 있으므로 두 가지 경우를 모두 처리
+                // 응답: {"success":true,"message":"success","data":{"contents":["질문1", "질문2", ...]}}
                 let decoded = try JSONDecoder().decode(
                     ApiResponse<GeneratedChecklistResponse>.self,
                     from: response.data
                 )
                 
                 if decoded.success {
-                    // 단일 객체인 경우 배열로 변환
-                    if let data = decoded.data {
-                        return [data]
+                    // contents 배열을 처리
+                    if let data = decoded.data, let contents = data.contents, !contents.isEmpty {
+                        // contents 배열의 각 항목을 개별 GeneratedChecklistResponse로 변환
+                        // (기존 코드와의 호환성을 위해 배열로 반환)
+                        return contents.map { content in
+                            GeneratedChecklistResponse(contents: [content])
+                        }
                     } else {
-                        // data가 null인 경우 빈 배열 반환
+                        // data가 null이거나 contents가 없는 경우 빈 배열 반환
+                        print("경고: contents 배열이 비어있거나 null입니다.")
                         return []
                     }
                 } else {

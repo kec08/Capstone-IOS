@@ -8,13 +8,13 @@
 import SwiftUI
 
 struct AIGeneratedListView: View {
-    var onConfirm: () -> Void
+    var onConfirm: ([AICheckItem]) -> Void // 선택된 항목들을 전달
 
     @State private var items: [AICheckItem]
     @State private var showAddSheet = false
     @State private var newItem = ""
     
-    init(checklistItems: [AICheckItem] = [], onConfirm: @escaping () -> Void) {
+    init(checklistItems: [AICheckItem] = [], onConfirm: @escaping ([AICheckItem]) -> Void) {
         self.onConfirm = onConfirm
         // API에서 받은 항목이 있으면 사용, 없으면 빈 배열 (기본값 제거)
         self._items = State(initialValue: checklistItems)
@@ -63,7 +63,7 @@ struct AIGeneratedListView: View {
 
                                 Text(item.name)
                                     .font(.system(size: 16))
-                                    .foregroundColor(.black)
+                                    .foregroundColor(.customBlack)
                                     .lineLimit(2)
                                     .multilineTextAlignment(.leading)
 
@@ -92,7 +92,11 @@ struct AIGeneratedListView: View {
                 .padding(.bottom, 10)
             }
 
-            Button(action: onConfirm) {
+            Button(action: {
+                // 선택된 항목들(체크된 항목들)을 전달
+                let selectedItems = items.filter { $0.isChecked }
+                onConfirm(selectedItems.isEmpty ? items : selectedItems) // 아무것도 선택 안 하면 전체 전달
+            }) {
                 Text("확인")
                     .font(.system(size: 16, weight: .semibold))
                     .foregroundColor(.white)
@@ -126,6 +130,6 @@ struct AIGeneratedListView: View {
 }
 
 #Preview {
-    AIGeneratedListView(onConfirm: {})
+    AIGeneratedListView(onConfirm: { _ in })
 }
 

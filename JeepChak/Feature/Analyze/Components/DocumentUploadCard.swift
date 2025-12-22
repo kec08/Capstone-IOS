@@ -23,12 +23,12 @@ struct DocumentUploadCard: View {
                             .resizable()
                             .scaledToFit()
                             .frame(width: 85, height: 80)
-                            .foregroundColor(.blue)
+                            .foregroundColor(.customBlue)
                             .padding(.top, -10)
                         
                         Text(file.lastPathComponent)
                             .font(.system(size: 15, weight: .medium))
-                            .foregroundColor(.blue)
+                            .foregroundColor(.customBlue)
                         
                     } else {
                         Image("Analyz_upload")
@@ -47,13 +47,13 @@ struct DocumentUploadCard: View {
                         
                         Text("파일 업로드")
                             .font(.system(size: 13, weight: .medium))
-                            .foregroundColor(.blue)
+                            .foregroundColor(.customBlue)
                     }
                 }
                 .frame(maxWidth: 350, minHeight: 210)
                 .background(Color.customWhite)
                 .cornerRadius(18)
-                .shadow(color: Color.black.opacity(0.06), radius: 12, x: 0, y: 4)
+                .shadow(color: Color.customBlack.opacity(0.06), radius: 12, x: 0, y: 4)
             }
             .buttonStyle(.plain)
         }

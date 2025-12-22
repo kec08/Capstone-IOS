@@ -60,7 +60,7 @@ struct SavedView: View {
 
         // AI 결과
         .sheet(isPresented: $showAIResult) {
-            AIGeneratedListView(onConfirm: {
+            AIGeneratedListView(onConfirm: {_ in 
                 showAIResult = false
 
                 // 체크리스트에 추가 (로컬 아이템 기반으로 SavedProperty 만들어서 넘김)
@@ -130,7 +130,7 @@ struct SavedView: View {
 
             Text("매물을 불러올 수 없습니다")
                 .font(.system(size: 18, weight: .bold))
-                .foregroundColor(.black)
+                .foregroundColor(.customBlack)
 
             Text(message)
                 .font(.system(size: 14))
@@ -141,7 +141,7 @@ struct SavedView: View {
             Button(action: { viewModel.fetchProperties() }) {
                 Text("다시 시도")
                     .font(.system(size: 16, weight: .semibold))
-                    .foregroundColor(.white)
+                    .foregroundColor(.customWhite)
                     .padding(.horizontal, 40)
                     .padding(.vertical, 12)
                     .background(Color.cyan)
@@ -158,7 +158,7 @@ struct SavedView: View {
             Spacer()
             Text("매물이 없습니다.")
                 .font(.system(size: 20, weight: .bold))
-                .foregroundColor(.black)
+                .foregroundColor(.customBlack)
             Text("홈에서 +버튼을 눌러 매물을 추가해보세요!")
                 .font(.system(size: 14))
                 .foregroundColor(.gray)

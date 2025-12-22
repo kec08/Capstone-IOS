@@ -23,7 +23,7 @@ struct CheckListFinalHeaderView: View {
             
             Text("체크리스트")
                 .font(.system(size: 18, weight: .semibold))
-                .foregroundColor(.black)
+                .foregroundColor(.customBlack)
             
             Spacer()
             

@@ -11,24 +11,35 @@ struct LoanGuideStep4View: View {
     @Environment(\.dismiss) private var dismiss
     @StateObject private var viewModel = LoanGuideViewModel.shared
     @State private var navigateToStep5 = false
+    let source: LoanGuideSource
     
     @State private var selectedCreditRating: CreditRating? = nil
     @State private var selectedLoanType: LoanType? = nil
     @State private var hasDelinquencyRecord: Bool? = nil
     
+    init(source: LoanGuideSource = .home) {
+        self.source = source
+    }
+    
     var body: some View {
         NavigationStack {
             ScrollView {
                 VStack(spacing: 0) {
-                    // 헤더
+                    // 헤더 (흰색 배경)
                     HStack {
                         Button(action: {
                             dismiss()
                         }) {
                             Image(systemName: "chevron.left")
                                 .font(.system(size: 18, weight: .semibold))
-                                .foregroundColor(.black)
+                                .foregroundColor(.customBlack)
                         }
+                        
+                        Spacer()
+                        
+                        Text("신용 및 금융 정보")
+                            .font(.system(size: 18, weight: .bold))
+                            .foregroundColor(.customBlack)
                         
                         Spacer()
                         
@@ -40,18 +51,23 @@ struct LoanGuideStep4View: View {
                             ProgressView(value: 0.8)
                                 .frame(width: 60)
                                 .tint(Color("customBlue"))
+                            
+                            Text("80%")
+                                .font(.system(size: 12, weight: .medium))
+                                .foregroundColor(.gray)
                         }
                     }
                     .padding(.horizontal, 20)
                     .padding(.top, 10)
-                    .padding(.bottom, 30)
+                    .padding(.bottom, 20)
+                    .background(Color.customWhite)
                     
                     // 콘텐츠
                     VStack(alignment: .leading, spacing: 24) {
                         VStack(alignment: .leading, spacing: 8) {
                             Text("신용 및 금융 정보를 입력해주세요")
                                 .font(.system(size: 20, weight: .bold))
-                                .foregroundColor(.black)
+                                .foregroundColor(.customBlack)
                             
                             Text("대출 승인 및 금리 산정을 위한 정보입니다")
                                 .font(.system(size: 14))
@@ -64,7 +80,7 @@ struct LoanGuideStep4View: View {
                         VStack(alignment: .leading, spacing: 12) {
                             Text("신용등급")
                                 .font(.system(size: 16, weight: .medium))
-                                .foregroundColor(.black)
+                                .foregroundColor(.customBlack)
                             
                             Menu {
                                 ForEach(CreditRating.allCases, id: \.self) { rating in
@@ -77,7 +93,7 @@ struct LoanGuideStep4View: View {
                             } label: {
                                 HStack {
                                     Text(selectedCreditRating?.rawValue ?? "선택해주세요")
-                                        .foregroundColor(selectedCreditRating == nil ? .gray : .black)
+                                        .foregroundColor(selectedCreditRating == nil ? .gray : .customBlack)
                                     Spacer()
                                     Image(systemName: "chevron.down")
                                         .font(.system(size: 12))
@@ -94,7 +110,7 @@ struct LoanGuideStep4View: View {
                         VStack(alignment: .leading, spacing: 12) {
                             Text("대출 종류")
                                 .font(.system(size: 16, weight: .medium))
-                                .foregroundColor(.black)
+                                .foregroundColor(.customBlack)
                             
                             VStack(spacing: 12) {
                                 ForEach(LoanType.allCases, id: \.self) { type in
@@ -113,7 +129,7 @@ struct LoanGuideStep4View: View {
                         VStack(alignment: .leading, spacing: 12) {
                             Text("연체 기록 여부")
                                 .font(.system(size: 16, weight: .medium))
-                                .foregroundColor(.black)
+                                .foregroundColor(.customBlack)
                             
                             HStack(spacing: 12) {
                                 SegmentedButton(
@@ -145,36 +161,35 @@ struct LoanGuideStep4View: View {
                         }
                         .padding(.horizontal, 20)
                         .padding(.top, 8)
+                        
+                        // 다음 버튼 (스크롤 뷰 안에)
+                        Button(action: {
+                            // 데이터 저장
+                            viewModel.data.creditRating = selectedCreditRating
+                            viewModel.data.loanType = selectedLoanType
+                            viewModel.data.hasDelinquencyRecord = hasDelinquencyRecord
+                            
+                            navigateToStep5 = true
+                        }) {
+                            Text("다음")
+                                .font(.system(size: 17, weight: .semibold))
+                                .foregroundColor(.customWhite)
+                                .frame(maxWidth: .infinity)
+                                .frame(height: 54)
+                                .background(isFormValid ? Color("customBlue") : Color.gray.opacity(0.3))
+                                .cornerRadius(12)
+                        }
+                        .disabled(!isFormValid)
+                        .padding(.horizontal, 20)
+                        .padding(.top, 20)
+                        .padding(.bottom, 40)
                     }
-                    .padding(.bottom, 100)
                 }
             }
             .background(Color.white)
             .navigationBarHidden(true)
             .navigationDestination(isPresented: $navigateToStep5) {
-                LoanGuideStep5View()
-            }
-            .safeAreaInset(edge: .bottom) {
-                Button(action: {
-                    // 데이터 저장
-                    viewModel.data.creditRating = selectedCreditRating
-                    viewModel.data.loanType = selectedLoanType
-                    viewModel.data.hasDelinquencyRecord = hasDelinquencyRecord
-                    
-                    navigateToStep5 = true
-                }) {
-                    Text("다음")
-                        .font(.system(size: 17, weight: .semibold))
-                        .foregroundColor(.white)
-                        .frame(maxWidth: .infinity)
-                        .frame(height: 54)
-                        .background(isFormValid ? Color("customBlue") : Color.gray.opacity(0.3))
-                        .cornerRadius(12)
-                }
-                .disabled(!isFormValid)
-                .padding(.horizontal, 20)
-                .padding(.bottom, 30)
-                .background(Color.white)
+                LoanGuideStep5View(source: source)
             }
         }
     }

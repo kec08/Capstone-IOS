@@ -24,7 +24,7 @@ struct PropertyUploadCard: View {
                     } label: {
                         Text("매물 다시 선택하기")
                             .font(.system(size: 16, weight: .semibold))
-                            .foregroundColor(.blue)
+                            .foregroundColor(.customBlue)
                     }
                     .padding(.horizontal, 40)
                     .padding(.bottom, 16)
@@ -41,7 +41,7 @@ struct PropertyUploadCard: View {
                     } label: {
                         Text("매물 업로드 하기")
                             .font(.system(size: 18, weight: .semibold))
-                            .foregroundColor(.blue)
+                            .foregroundColor(.customBlue)
                     }
                     .padding(.horizontal, 40)
                     .padding(.bottom, 26)
@@ -50,7 +50,7 @@ struct PropertyUploadCard: View {
             .frame(maxWidth: 350)
             .background(Color.white)
             .cornerRadius(18)
-            .shadow(color: Color.black.opacity(0.06), radius: 12, x: 0, y: 4)
+            .shadow(color: Color.customBlack.opacity(0.06), radius: 12, x: 0, y: 4)
         }
     }
 }

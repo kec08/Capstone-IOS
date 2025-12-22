@@ -20,7 +20,7 @@ struct ProfileSection: View {
             VStack(alignment: .leading, spacing: 4) {
                 Text(userInfo.name)
                     .font(.system(size: 20, weight: .bold))
-                    .foregroundColor(.black)
+                    .foregroundColor(.customBlack)
 
                 Text(userInfo.email)
                     .font(.system(size: 14))
