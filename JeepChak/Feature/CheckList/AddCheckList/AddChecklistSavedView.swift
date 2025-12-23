@@ -196,7 +196,7 @@ struct AddChecklistFromWishlistView: View {
                         // 필터링된 contents를 AICheckItem으로 변환
                         for content in filteredContents {
                             convertedItems.append(AICheckItem(name: content))
-                        }
+            }
                         // 필터링된 contents를 하나의 GeneratedChecklistResponse로 저장
                         self.generatedChecklistItems = [GeneratedChecklistResponse(contents: filteredContents)]
                         print("generatedChecklistItems 설정 완료: \(self.generatedChecklistItems.count)개, contents: \(filteredContents.count)개")

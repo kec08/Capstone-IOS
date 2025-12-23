@@ -55,29 +55,29 @@ struct CheckListGridView: View {
         VStack(alignment: .leading, spacing: 6) {
             ZStack(alignment: .topTrailing) {
                 Group {
-                    if let uiImage = item.image {
-                        Image(uiImage: uiImage)
-                            .resizable()
-                            .scaledToFill()
-                    } else if let imageName = item.imageName, !imageName.isEmpty {
-                        Image(imageName)
-                            .resizable()
-                            .scaledToFill()
-                    } else {
-                        RoundedRectangle(cornerRadius: 12)
-                            .fill(Color.customGray100)
-                            .overlay(
-                                VStack {
-                                    Image(systemName: "photo")
-                                        .font(.system(size: 28))
-                                        .foregroundColor(Color.customDarkGray)
-                                        .padding(.bottom, 6)
-                                    Text("사진을 추가해 보세요")
-                                        .font(.system(size: 13))
-                                        .foregroundColor(.gray)
-                                }
-                            )
-                    }
+                if let uiImage = item.image {
+                    Image(uiImage: uiImage)
+                        .resizable()
+                        .scaledToFill()
+                } else if let imageName = item.imageName, !imageName.isEmpty {
+                    Image(imageName)
+                        .resizable()
+                        .scaledToFill()
+                } else {
+                    RoundedRectangle(cornerRadius: 12)
+                        .fill(Color.customGray100)
+                        .overlay(
+                            VStack {
+                                Image(systemName: "photo")
+                                    .font(.system(size: 28))
+                                    .foregroundColor(Color.customDarkGray)
+                                    .padding(.bottom, 6)
+                                Text("사진을 추가해 보세요")
+                                    .font(.system(size: 13))
+                                    .foregroundColor(.gray)
+                            }
+                        )
+                }
                 }
                 .frame(width: 158, height: 158)
                 .clipped()

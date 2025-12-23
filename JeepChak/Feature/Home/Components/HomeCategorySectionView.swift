@@ -36,7 +36,7 @@ struct HomeCategorySectionView: View {
             cardContent(item)
         }
     }
-    
+
     @ViewBuilder
     private func cardContent(_ item: (title: String, subtitle: String, detail: String, imageName: String, imageWidth: CGFloat, imageHeight: CGFloat)) -> some View {
         HStack {

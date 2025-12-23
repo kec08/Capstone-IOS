@@ -11,6 +11,13 @@ struct PropertyDetailSheet: View {
     let property: MapProperty
     let onClose: () -> Void
     
+    private func makePhoneCall() {
+        let phoneNumber = property.phoneNumber.replacingOccurrences(of: "-", with: "")
+        if let url = URL(string: "tel://\(phoneNumber)") {
+            UIApplication.shared.open(url)
+        }
+    }
+    
     var body: some View {
         ScrollView {
             VStack(alignment: .leading, spacing: 0) {
@@ -88,6 +95,22 @@ struct PropertyDetailSheet: View {
                 }
                 
                     Spacer(minLength: 20)
+                    
+                    // 문의하기 버튼
+                    Button(action: makePhoneCall) {
+                        HStack {
+                            Image(systemName: "phone.fill")
+                                .font(.system(size: 16))
+                            Text("문의하기")
+                                .font(.system(size: 16, weight: .semibold))
+                        }
+                        .foregroundColor(.white)
+                        .frame(maxWidth: .infinity)
+                        .padding(.vertical, 16)
+                        .background(Color.blue)
+                        .cornerRadius(12)
+                    }
+                    .padding(.top, 8)
                 }
                 .padding(20)
             }

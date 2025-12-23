@@ -12,13 +12,11 @@ struct LoanGuideStep5View: View {
     @StateObject private var viewModel = LoanGuideViewModel.shared
     @State private var navigateToLoading = false
     let source: LoanGuideSource
+    var onComplete: () -> Void
     
     @State private var hasLeaseAgreement: Bool? = nil
     @State private var selectedFixedDateStatus: FixedDateStatus? = nil
     
-    init(source: LoanGuideSource = .home) {
-        self.source = source
-    }
     
     var body: some View {
         NavigationStack {
@@ -35,6 +33,7 @@ struct LoanGuideStep5View: View {
                         }
                         
                         Spacer()
+                            .frame(width: 130)
                         
                         Text("계약 정보")
                             .font(.system(size: 18, weight: .bold))
@@ -149,7 +148,7 @@ struct LoanGuideStep5View: View {
                         .padding(.horizontal, 20)
                         .padding(.top, 8)
                         
-                        // 결과 확인 버튼 (스크롤 뷰 안에)
+                        // 결과 확인 버튼
                         Button(action: {
                             // 데이터 저장
                             viewModel.data.hasLeaseAgreement = hasLeaseAgreement
@@ -175,7 +174,7 @@ struct LoanGuideStep5View: View {
             .background(Color.white)
             .navigationBarHidden(true)
             .navigationDestination(isPresented: $navigateToLoading) {
-                LoanGuideLoadingView(source: source)
+                LoanGuideLoadingView(source: source, onComplete: onComplete)
             }
         }
     }
@@ -197,9 +196,5 @@ struct LoanGuideChecklistItem: View {
             Spacer()
         }
     }
-}
-
-#Preview {
-    LoanGuideStep5View()
 }
 

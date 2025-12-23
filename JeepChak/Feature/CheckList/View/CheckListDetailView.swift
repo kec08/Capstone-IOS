@@ -68,12 +68,12 @@ struct CheckListDetailView: View {
             VStack(spacing: 12) {
 
                 Text("\(checkItem.title) 체크리스트")
-                    .font(.system(size: 18, weight: .bold))
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                    .padding(.horizontal, 20)
-                    .padding(.top, 20)
+                .font(.system(size: 18, weight: .bold))
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .padding(.horizontal, 20)
+                .padding(.top, 20)
                     .padding(.bottom, 4)
-
+            
                 VStack(spacing: 12) {
                     ForEach($detailItems) { $item in
                         VStack(alignment: .leading, spacing: 12) {
@@ -84,7 +84,7 @@ struct CheckListDetailView: View {
                                 Spacer()
                                 StatusButtonView(selectedStatus: $item.status)
                             }
-
+                            
                             TextField("메모", text: $item.memo)
                                 .padding(12)
                                 .cornerRadius(8)
@@ -100,7 +100,7 @@ struct CheckListDetailView: View {
                         .cornerRadius(12)
                         .shadow(color: Color.black.opacity(0.05), radius: 2)
                     }
-
+                    
                     Button(action: { showAddItemSheet = true }) {
                         HStack(spacing: 8) {
                             Image(systemName: "plus")
@@ -113,7 +113,7 @@ struct CheckListDetailView: View {
                         .frame(maxWidth: .infinity, alignment: .leading)
                         .padding(.vertical, 22)
                     }
-
+                
                     NavigationLink(
                         destination: CheckListFinalView(
                             checkItem: checkItem,
@@ -121,13 +121,13 @@ struct CheckListDetailView: View {
                             items: $items
                         )
                     ) {
-                        Text("확인")
-                            .font(.system(size: 16, weight: .semibold))
-                            .frame(maxWidth: .infinity)
-                            .padding()
-                            .background(Color.cyan)
-                            .foregroundColor(.white)
-                            .cornerRadius(10)
+                    Text("확인")
+                        .font(.system(size: 16, weight: .semibold))
+                        .frame(maxWidth: .infinity)
+                        .padding()
+                        .background(Color.cyan)
+                        .foregroundColor(.white)
+                        .cornerRadius(10)
                     }
                     .padding(.top, 8)
                 }
@@ -137,7 +137,7 @@ struct CheckListDetailView: View {
                 Color.clear.frame(height: 30)
             }
         }
-        .background(Color.white)
+                .background(Color.white)
     }
 
     private func defaultItems() -> [DetailItem] {
@@ -196,7 +196,7 @@ struct CheckListDetailView: View {
                             // 최소 길이 체크 (너무 짧은 항목은 제외)
                             if !trimmed.isEmpty && trimmed.count >= 3 {
                                 allDetailItems.append(.init(name: trimmed))
-                            }
+                    }
                         }
                     }
                 }
@@ -208,8 +208,8 @@ struct CheckListDetailView: View {
                     }
                 } else {
                     detailItems = defaultItems()
-                }
-            }
+        }
+    }
             .store(in: &cancellables)
     }
 }

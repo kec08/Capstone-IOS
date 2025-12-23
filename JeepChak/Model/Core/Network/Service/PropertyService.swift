@@ -87,7 +87,7 @@ final class PropertyService {
                         userInfo: [NSLocalizedDescriptionKey: wrapped.message]
                     )
                 }
-                
+
                 // 3) ApiResponse<PropertyResponse> 형태
                 if let wrapped = try? JSONDecoder().decode(ApiResponse<PropertyResponse>.self, from: response.data) {
                     if wrapped.success {

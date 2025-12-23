@@ -24,7 +24,7 @@ struct AILoadingView: View {
             Text("AI가 최적의 체크리스트를\n생성하는 중입니다…")
                 .font(.system(size: 20, weight: .bold))
                 .foregroundColor(.customDarkGray)
-                .lineLimit(5)
+                .lineLimit(8)
                 .padding(.top, 30)
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -37,3 +37,4 @@ struct AILoadingView: View {
         }
     }
 }
+

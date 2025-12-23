@@ -58,10 +58,10 @@ struct SavedPropertyCard: View {
                     Spacer()
                     // 가격 정보 표시 (price가 비어있으면 deposit/monthlyRent로 생성)
                     if !property.price.isEmpty {
-                        Text(property.price)
-                            .font(.system(size: 16, weight: .bold))
-                            .foregroundColor(.customBlack)
-                            .padding(.horizontal, 10)
+                    Text(property.price)
+                        .font(.system(size: 16, weight: .bold))
+                        .foregroundColor(.customBlack)
+                        .padding(.horizontal, 10)
                     } else if let deposit = property.deposit, let monthlyRent = property.monthlyRent {
                         Text("월세 \(SavedProperty.formatNumber(deposit))/\(SavedProperty.formatNumber(monthlyRent))")
                             .font(.system(size: 16, weight: .bold))

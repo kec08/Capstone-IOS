@@ -126,15 +126,13 @@
 		BCF777682EF82F91002F9EEF /* LoanGuideLoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCF777672EF82F8E002F9EEF /* LoanGuideLoadingView.swift */; };
 		BCF7776A2EF82FBE002F9EEF /* LoanGuideResultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCF777692EF82FB9002F9EEF /* LoanGuideResultView.swift */; };
 		BCF7778E2EF976AF002F9EEF /* GoMapBottomBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCF7777E2EF976AF002F9EEF /* GoMapBottomBar.swift */; };
-		BCF7778F2EF976AF002F9EEF /* StoreDetailSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCF777862EF976AF002F9EEF /* StoreDetailSheet.swift */; };
 		BCF777902EF976AF002F9EEF /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCF7778A2EF976AF002F9EEF /* MapView.swift */; };
 		BCF777922EF976AF002F9EEF /* NaverMapViewRepresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCF7778C2EF976AF002F9EEF /* NaverMapViewRepresentable.swift */; };
 		BCF777942EF976AF002F9EEF /* MapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCF7778B2EF976AF002F9EEF /* MapViewModel.swift */; };
 		BCF777982EF976AF002F9EEF /* TourSpot.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCF777882EF976AF002F9EEF /* TourSpot.swift */; };
+		BCF7779A2EF976AF002F9EEF /* TourSpotCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCF777842EF976AF002F9EEF /* TourSpotCard.swift */; };
 		BCF7779C2EF976AF002F9EEF /* MapProperty.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCF7779D2EF976AF002F9EEF /* MapProperty.swift */; };
 		BCF7779E2EF976AF002F9EEF /* PropertyDetailSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCF7779F2EF976AF002F9EEF /* PropertyDetailSheet.swift */; };
-		BCF7779A2EF976AF002F9EEF /* TourSpotCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCF777842EF976AF002F9EEF /* TourSpotCard.swift */; };
-		BCF7779B2EF976AF002F9EEF /* PlaceDetailSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCF777852EF976AF002F9EEF /* PlaceDetailSheet.swift */; };
 		BCF9E25E2ECCBD2F004FB229 /* PropertyDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCF9E25D2ECCBD28004FB229 /* PropertyDTO.swift */; };
 /* End PBXBuildFile section */
 
@@ -275,8 +273,6 @@
 		BCF777692EF82FB9002F9EEF /* LoanGuideResultView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoanGuideResultView.swift; sourceTree = "<group>"; };
 		BCF7777E2EF976AF002F9EEF /* GoMapBottomBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoMapBottomBar.swift; sourceTree = "<group>"; };
 		BCF777842EF976AF002F9EEF /* TourSpotCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TourSpotCard.swift; sourceTree = "<group>"; };
-		BCF777852EF976AF002F9EEF /* PlaceDetailSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceDetailSheet.swift; sourceTree = "<group>"; };
-		BCF777862EF976AF002F9EEF /* StoreDetailSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreDetailSheet.swift; sourceTree = "<group>"; };
 		BCF777882EF976AF002F9EEF /* TourSpot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TourSpot.swift; sourceTree = "<group>"; };
 		BCF7778A2EF976AF002F9EEF /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
 		BCF7778B2EF976AF002F9EEF /* MapViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewModel.swift; sourceTree = "<group>"; };
@@ -845,8 +841,6 @@
 			children = (
 				BCF7777E2EF976AF002F9EEF /* GoMapBottomBar.swift */,
 				BCF777842EF976AF002F9EEF /* TourSpotCard.swift */,
-				BCF777852EF976AF002F9EEF /* PlaceDetailSheet.swift */,
-				BCF777862EF976AF002F9EEF /* StoreDetailSheet.swift */,
 				BCF7779F2EF976AF002F9EEF /* PropertyDetailSheet.swift */,
 			);
 			path = Components;
@@ -1023,7 +1017,6 @@
 			files = (
 				BCF9E25E2ECCBD2F004FB229 /* PropertyDTO.swift in Sources */,
 				BCF7778E2EF976AF002F9EEF /* GoMapBottomBar.swift in Sources */,
-				BCF7778F2EF976AF002F9EEF /* StoreDetailSheet.swift in Sources */,
 				BCF777902EF976AF002F9EEF /* MapView.swift in Sources */,
 				BCF777922EF976AF002F9EEF /* NaverMapViewRepresentable.swift in Sources */,
 				BCF777942EF976AF002F9EEF /* MapViewModel.swift in Sources */,
@@ -1031,7 +1024,6 @@
 				BCF7779C2EF976AF002F9EEF /* MapProperty.swift in Sources */,
 				BCF7779E2EF976AF002F9EEF /* PropertyDetailSheet.swift in Sources */,
 				BCF7779A2EF976AF002F9EEF /* TourSpotCard.swift in Sources */,
-				BCF7779B2EF976AF002F9EEF /* PlaceDetailSheet.swift in Sources */,
 				BCBF07292ED8970D009ECE84 /* RiskSolutionView.swift in Sources */,
 				BC10B1E12EC4E2D60067C14E /* AppState.swift in Sources */,
 				BC10B1E22EC4E2D60067C14E /* JeepChakApp.swift in Sources */,

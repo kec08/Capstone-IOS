@@ -36,6 +36,7 @@ struct LoanGuideStep1View: View {
                         }
                         
                         Spacer()
+                            .frame(width: 110)
                         
                         Text("사용자 정보")
                             .font(.system(size: 18, weight: .bold))

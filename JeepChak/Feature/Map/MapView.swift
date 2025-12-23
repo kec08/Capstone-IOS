@@ -9,12 +9,12 @@ struct MapView: View {
             VStack(spacing: 0) {
                 HomeHeaderView()
                     .padding(.horizontal, 20)
+                    .padding(.trailing, 24)
                     .padding(.top, 10)
                     .background(Color.customBackgroundBlue)
                 
-                // 헤더 하단 여백 추가
                 Color.customBackgroundBlue
-                    .frame(height: 16)
+                    .frame(height: 18)
             }
             
             // 지도 레이어

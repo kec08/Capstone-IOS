@@ -16,7 +16,7 @@ struct JeepChakApp: App {
     
     var body: some Scene {
         WindowGroup {
-            RootView()
+            MainTabView()
         }
     }
 }
