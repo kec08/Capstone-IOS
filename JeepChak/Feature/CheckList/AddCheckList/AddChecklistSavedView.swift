@@ -221,6 +221,9 @@ struct AddChecklistFromWishlistView: View {
     }
 }
 
-#Preview {
-    AddChecklistFromWishlistView()
+
+struct AddChecklistSavedView_Previews: PreviewProvider {
+    static var previews: some View {
+            AddChecklistFromWishlistView()
+    }
 }

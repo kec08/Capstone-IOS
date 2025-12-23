@@ -34,6 +34,9 @@ struct CheckListDetailHeaderView: View {
     }
 }
 
-#Preview("Detail Header") {
-    CheckListDetailHeaderView(onBackTapped: {})
+
+struct CheckListDetailHeaderView_Previews: PreviewProvider {
+    static var previews: some View {
+            CheckListDetailHeaderView(onBackTapped: {})
+    }
 }

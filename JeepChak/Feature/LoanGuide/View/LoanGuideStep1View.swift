@@ -232,6 +232,9 @@ struct SelectableButton: View {
     }
 }
 
-#Preview {
-    LoanGuideStep1View()
+
+struct LoanGuideStep1View_Previews: PreviewProvider {
+    static var previews: some View {
+            LoanGuideStep1View()
+    }
 }

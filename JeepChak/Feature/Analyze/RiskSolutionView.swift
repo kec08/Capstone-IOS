@@ -175,8 +175,11 @@ struct RiskSolutionView: View {
     }
 }
 
-#Preview {
-    NavigationView {
-        RiskSolutionView()
+
+struct RiskSolutionView_Previews: PreviewProvider {
+    static var previews: some View {
+            NavigationView {
+                RiskSolutionView()
+            }
     }
 }

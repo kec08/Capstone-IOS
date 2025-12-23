@@ -39,6 +39,9 @@ struct CheckListFinalHeaderView: View {
     }
 }
 
-#Preview("Final Header") {
-    CheckListFinalHeaderView(onBackTapped: {}, onEditTapped: {})
+
+struct CheckListFinalHeaderView_Previews: PreviewProvider {
+    static var previews: some View {
+            CheckListFinalHeaderView(onBackTapped: {}, onEditTapped: {})
+    }
 }

@@ -27,6 +27,9 @@ struct AuthHeaderView: View {
     }
 }
 
-#Preview {
-    LoginView()
+
+struct AuthHeaderView_Previews: PreviewProvider {
+    static var previews: some View {
+            LoginView()
+    }
 }

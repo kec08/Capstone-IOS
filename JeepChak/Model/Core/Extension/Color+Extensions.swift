@@ -6,16 +6,14 @@
 import SwiftUI
 
 extension Color {
-  static let customBlack = Color("customBlack")
-  static let customTextBlack = Color("customBlack")
-  static let customTextGray = Color("customDarkGray")
-  static let customTextLightBlack = Color("customLightBlack")
-  static let customTextLightGray1 = Color("customLightGray1")
-  static let customTextLightGray2 = Color("customLightGray2")
-  static let customMainRed = Color("customRed")
-  static let customBackgroundWhite = Color("customWhite")
-  static let customMainYellow = Color("customYellow")
-    static let customBkBlue = Color("customBackgroundBlue")
-    static let customBkGray = Color("customBackgroundGray")
-    static let customMainBlue = Color("customBlue")
+    static let customTextBlack = Color.customBlack
+    static let customTextGray = Color.customDarkGray
+    
+    static let customMainRed = Color.customRed
+    static let customMainYellow = Color.customYellow
+    static let customMainBlue = Color.customBlue
+    
+    static let customBackgroundWhite = Color.customWhite
+    static let customBkBlue = Color.customBackgroundBlue
+    static let customBkGray = Color.customBackgroundGray
 }

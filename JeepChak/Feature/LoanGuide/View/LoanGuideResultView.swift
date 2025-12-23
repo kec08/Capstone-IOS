@@ -544,7 +544,10 @@ struct PrerequisiteItem {
     let description: String
 }
 
-#Preview {
-    LoanGuideResultView()
+
+struct LoanGuideResultView_Previews: PreviewProvider {
+    static var previews: some View {
+            LoanGuideResultView()
+    }
 }
 

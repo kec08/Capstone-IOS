@@ -17,8 +17,10 @@ struct MessageCompleteView: View {
 
             VStack(spacing: 14) {
                 Image("CheckIcon")
-                    .frame(width: 100, height: 100)
-                    .padding(.bottom, 6)
+                    .resizable()
+                    .scaledToFill()
+                    .frame(width: 120, height: 120)
+                    .padding(.bottom, 30)
 
                 Text(message.isEmpty ? "완료되었습니다" : message)
                     .font(.system(size: 22, weight: .bold))
@@ -44,11 +46,14 @@ struct MessageCompleteView: View {
     }
 }
 
-#Preview {
-    MessageCompleteView(
-        message: "매물 추가가 완료되었습니다!",
-        onConfirm: {
-            print("확인 버튼 클릭")
-        }
-    )
+
+struct MessageCompleteView_Previews: PreviewProvider {
+    static var previews: some View {
+            MessageCompleteView(
+                message: "매물 추가가 완료되었습니다!",
+                onConfirm: {
+                    print("확인 버튼 클릭")
+                }
+            )
+    }
 }

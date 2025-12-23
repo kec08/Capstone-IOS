@@ -1,15 +1,23 @@
 import SwiftUI
+import Combine
 
 struct CheckListFinalView: View {
     let checkItem: CheckItem
     let detailItems: [DetailItem]
     @Binding var items: [CheckItem]
+    /// Detail에서 진입했을 때, 저장 후 Detail까지 닫아 CheckListView로 복귀시키기 위한 콜백
+    var onExitToList: () -> Void = {}
 
     @State private var showAIReport = false
     @Environment(\.dismiss) private var dismiss
     @Environment(\.presentationMode) private var presentationMode
 
     private let headerHeight: CGFloat = 56
+    private let checklistService = ChecklistService()
+    @State private var cancellables = Set<AnyCancellable>()
+    @State private var isSaving = false
+    @State private var showErrorAlert = false
+    @State private var errorMessage = ""
 
     var body: some View {
         ZStack(alignment: .top) {
@@ -20,14 +28,19 @@ struct CheckListFinalView: View {
             header
                 .frame(maxWidth: .infinity)
                 .frame(height: headerHeight)
-                .background(Color.customWhite)
+                .background(Color("customWhite"))
                 .zIndex(10)
         }
-        .background(Color.customWhite)
+        .background(Color("customWhite"))
         .toolbar(.hidden, for: .navigationBar)
         .navigationBarBackButtonHidden(true)
         .navigationDestination(isPresented: $showAIReport) {
             AIResultView()
+        }
+        .alert("저장 실패", isPresented: $showErrorAlert) {
+            Button("확인", role: .cancel) {}
+        } message: {
+            Text(errorMessage)
         }
     }
 
@@ -37,7 +50,7 @@ struct CheckListFinalView: View {
             Button(action: { dismiss() }) {
                 Image(systemName: "chevron.left")
                     .font(.system(size: 20))
-                    .foregroundColor(.customBlack)
+                    .foregroundColor(Color("customBlack"))
             }
 
             Spacer()
@@ -51,11 +64,15 @@ struct CheckListFinalView: View {
             NavigationLink(destination: CheckListDetailView(checkItem: checkItem, items: $items)) {
                 Text("수정")
                     .font(.system(size: 16))
-                    .foregroundColor(.customBlack)
+                    .foregroundColor(Color("customBlack"))
             }
         }
         .padding(.horizontal, 20)
         .padding(.vertical, 12)
+    }
+
+    private var isAlreadySaved: Bool {
+        items.first(where: { $0.id == checkItem.id })?.isSaved ?? checkItem.isSaved
     }
 
     // MARK: - Content
@@ -76,7 +93,7 @@ struct CheckListFinalView: View {
                             VStack(alignment: .leading, spacing: 6) {
                                 Text(item.name)
                                     .font(.system(size: 16, weight: .medium))
-                                    .foregroundColor(.customBlack)
+                                    .foregroundColor(Color("customBlack"))
 
                                 if !item.memo.isEmpty {
                                     Text(item.memo)
@@ -93,27 +110,24 @@ struct CheckListFinalView: View {
                         .padding(16)
                         .background(Color.white)
                         .cornerRadius(12)
-                        .shadow(color: Color.customBlack.opacity(0.05), radius: 2)
+                        .shadow(color: Color("customBlack").opacity(0.05), radius: 2)
                     }
 
-                    Button(action: {
-                        if let index = items.firstIndex(where: { $0.id == checkItem.id }) {
-                            items[index].detailItems = detailItems
+                    // 저장 완료된 체크리스트는 확인 버튼 숨김
+                    if !isAlreadySaved {
+                        Button(action: saveAndExitToList) {
+                            Text(isSaving ? "저장 중..." : "확인")
+                                .font(.system(size: 16, weight: .semibold))
+                                .foregroundColor(.white)
+                                .frame(maxWidth: .infinity)
+                                .padding()
+                                .background(Color.cyan)
+                                .cornerRadius(12)
                         }
-                        presentationMode.wrappedValue.dismiss()
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-                            presentationMode.wrappedValue.dismiss()
-                        }
-                    }) {
-                        Text("확인")
-                            .font(.system(size: 16, weight: .semibold))
-                            .foregroundColor(.white)
-                            .frame(maxWidth: .infinity)
-                            .padding()
-                            .background(Color.cyan)
-                            .cornerRadius(12)
+                        .disabled(isSaving)
+                        .opacity(isSaving ? 0.7 : 1.0)
+                        .padding(.top, 8)
                     }
-                    .padding(.top, 8)
                 }
                 .padding(.horizontal, 20)
 
@@ -131,5 +145,70 @@ struct CheckListFinalView: View {
         case "danger":    return .red
         default:          return .gray
         }
+    }
+
+    private func severityInt(for status: String) -> Int {
+        switch status {
+        case "none":      return 0
+        case "checkmark": return 1
+        case "warning":   return 2
+        case "danger":    return 3
+        default:          return 0
+        }
+    }
+
+    private func severityString(for status: String) -> String {
+        switch status {
+        case "none":      return "NONE"
+        case "checkmark": return "NORMAL"
+        case "warning":   return "WARNING"
+        case "danger":    return "DANGER"
+        default:          return "NONE"
+        }
+    }
+
+    private func saveAndExitToList() {
+        guard !isSaving else { return }
+        guard let propertyId = checkItem.propertyId else {
+            errorMessage = "매물 ID(propertyId)가 없어 체크리스트를 저장할 수 없습니다."
+            showErrorAlert = true
+            return
+        }
+
+        isSaving = true
+
+        let saveItems: [ChecklistSaveItem] = detailItems.map { item in
+            ChecklistSaveItem(
+                content: item.name,
+                severity: severityString(for: item.status),
+                memo: item.memo   // 빈 문자열이어도 key 포함해서 전송
+            )
+        }
+
+        let request = ChecklistSaveRequest(propertyId: propertyId, items: saveItems)
+
+        checklistService.saveChecklist(request: request)
+            .receive(on: DispatchQueue.main)
+            .sink { completion in
+                isSaving = false
+                if case .failure(let err) = completion {
+                    errorMessage = err.localizedDescription
+                    showErrorAlert = true
+                }
+            } receiveValue: { response in
+                // 로컬 상태 업데이트(저장됨 처리)
+                if let index = items.firstIndex(where: { $0.id == checkItem.id }) {
+                    items[index].detailItems = detailItems
+                    items[index].isSaved = true
+                    items[index].checklistId = response.checklistId
+                }
+
+                // Final 먼저 닫고, 이어서 Detail까지 닫아서 CheckListView로 복귀
+                dismiss()
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.05) {
+                    onExitToList()
+                }
+            }
+            .store(in: &cancellables)
     }
 }

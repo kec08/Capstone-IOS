@@ -19,8 +19,8 @@ struct HomePopularSectionView: View {
                     .frame(width: 30, height: 30)
                     .symbolRenderingMode(.multicolor)
                 Text("지금 가장 인기있는 봉양면 매물")
-                    .font(.system(size: 18, weight: .bold))
-                    .foregroundColor(.customBlack)
+                    .font(Font.system(size: 18, weight: .bold))
+                    .foregroundColor(Color("customBlack"))
             }
 
             ScrollView(.horizontal, showsIndicators: false) {

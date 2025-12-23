@@ -25,7 +25,9 @@ struct ChecklistSaveRequest: Codable {
 
 struct ChecklistSaveItem: Codable {
     let content: String
+    /// NONE | NORMAL | WARNING | DANGER
     let severity: String
+    let memo: String
 }
 
 // 체크리스트 수정 요청

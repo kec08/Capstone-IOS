@@ -178,6 +178,9 @@ struct LoanGuideInfoRow: View {
     }
 }
 
-#Preview {
-    LoanGuideIntroView()
+
+struct LoanGuideIntroView_Previews: PreviewProvider {
+    static var previews: some View {
+            LoanGuideIntroView()
+    }
 }

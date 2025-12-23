@@ -49,7 +49,7 @@ struct AnalyzeView: View {
                         
                         Spacer(minLength: 20)
                     }
-                    
+                        
                     VStack {
                         Spacer()
                         AnalyzeButton(
@@ -59,7 +59,7 @@ struct AnalyzeView: View {
                         }
                         .padding(.horizontal, 20)
                         .padding(.bottom, 30)
-                    }
+                }
             }
             .background(.customBackgroundGray)
             .navigationBarHidden(true)
@@ -83,7 +83,7 @@ struct AnalyzeView: View {
                             do {
                                 // 파일 데이터를 미리 읽어서 메모리에 저장 (접근 권한이 있는 동안)
                                 let fileData = try Data(contentsOf: url)
-                                selectedFileURL = url
+                    selectedFileURL = url
                                 selectedFileData = fileData
                                 print("파일 선택 성공: \(url.lastPathComponent), 크기: \(fileData.count) bytes")
                                 
@@ -215,6 +215,9 @@ struct AnalyzeView: View {
     }
 }
 
-#Preview {
-    AnalyzeView()
+
+struct AnalyzeView_Previews: PreviewProvider {
+    static var previews: some View {
+            AnalyzeView()
+    }
 }

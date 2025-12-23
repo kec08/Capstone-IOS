@@ -35,6 +35,9 @@ struct MyHeaderView: View {
         .padding(.bottom, 30)
     }
 }
-#Preview {
-    MyHeaderView(toggleSetting: {})
+
+struct MyHeaderView_Previews: PreviewProvider {
+    static var previews: some View {
+            MyHeaderView(toggleSetting: {})
+    }
 }

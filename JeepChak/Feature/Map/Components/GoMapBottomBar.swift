@@ -36,12 +36,12 @@ struct GoMapBottomBar: View {
 
                 if let title {
                     Text(title)
-                        .font(.system(size: 18, weight: .bold))
+                        .font(SwiftUI.Font.system(size: 18, weight: .bold))
                         .foregroundColor(.blue)
                 } else if let system {
                     Image(systemName: system)
-                        .font(.system(size: 20, weight: .semibold))
-                        .foregroundColor(.customBlue)
+                        .font(SwiftUI.Font.system(size: 20, weight: .semibold))
+                        .foregroundColor(SwiftUI.Color("customBlue"))
                 }
             }
         }
@@ -56,8 +56,8 @@ struct GoMapBottomBar: View {
                     .shadow(color: Color.black.opacity(0.10), radius: 12, x: 0, y: 6)
 
                 Text("출발")
-                    .font(.system(size: 20, weight: .bold))
-                    .foregroundColor(.customBlue)
+                    .font(SwiftUI.Font.system(size: 20, weight: .bold))
+                    .foregroundColor(SwiftUI.Color("customBlue"))
             }
         }
     }

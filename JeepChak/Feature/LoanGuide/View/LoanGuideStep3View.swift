@@ -268,7 +268,10 @@ struct LoanGuideStep3View: View {
     }
 }
 
-#Preview {
-    LoanGuideStep3View()
+
+struct LoanGuideStep3View_Previews: PreviewProvider {
+    static var previews: some View {
+            LoanGuideStep3View()
+    }
 }
 

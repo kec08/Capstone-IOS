@@ -18,7 +18,7 @@ final class MyViewModel: ObservableObject {
             
             userInfo = UserInfo(
                 name: "김은찬",
-                email: "eunchan@example.com",
+                email: "Kkk1234@naver.com",
                 phone: "010-1234-5678",
                 userId: "kimeunchan"
             )

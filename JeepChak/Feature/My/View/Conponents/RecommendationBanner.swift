@@ -37,6 +37,9 @@ struct RecommendationBanner: View {
         .buttonStyle(.plain)
     }
 }
-#Preview {
-    RecommendationBanner()
+
+struct RecommendationBanner_Previews: PreviewProvider {
+    static var previews: some View {
+            RecommendationBanner()
+    }
 }

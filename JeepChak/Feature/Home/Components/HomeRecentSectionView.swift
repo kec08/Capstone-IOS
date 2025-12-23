@@ -20,8 +20,8 @@ struct HomeRecentSectionView: View {
                     .symbolRenderingMode(.multicolor)
                 
                 Text("최근 많이 찾는 봉양면 매물")
-                    .font(.system(size: 18, weight: .bold))
-                    .foregroundColor(.customBlack)
+                    .font(Font.system(size: 18, weight: .bold))
+                    .foregroundColor(Color("customBlack"))
             }
 
             ScrollView(.horizontal, showsIndicators: false) {

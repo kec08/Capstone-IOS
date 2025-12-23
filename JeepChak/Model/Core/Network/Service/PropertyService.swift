@@ -15,20 +15,43 @@ final class PropertyService {
     func getProperties() -> AnyPublisher<[PropertyListResponse], Error> {
         provider.requestPublisher(.getProperties)
             .tryMap { response in
-                let decoded = try JSONDecoder().decode(
-                    ApiResponse<[PropertyListResponse]>.self,
-                    from: response.data
-                )
-
-                guard decoded.success else {
+                // 1) 권한/에러 응답(바디가 비어있는 경우가 있어 먼저 statusCode로 가드)
+                guard (200..<300).contains(response.statusCode) else {
+                    let raw = String(data: response.data, encoding: .utf8) ?? ""
+                    let message: String
+                    if raw.isEmpty {
+                        message = (response.statusCode == 401 || response.statusCode == 403)
+                        ? "권한이 없습니다. 로그인 상태(토큰)를 확인해주세요."
+                        : "요청 실패 (status: \(response.statusCode))"
+                    } else {
+                        // ApiResponse 래핑일 수도 있으니 한 번 시도
+                        if let wrapped = try? JSONDecoder().decode(ApiResponse<String>.self, from: response.data) {
+                            message = wrapped.message
+                        } else {
+                            message = raw
+                        }
+                    }
                     throw NSError(
                         domain: "PropertyService",
                         code: response.statusCode,
-                        userInfo: [NSLocalizedDescriptionKey: decoded.message]
+                        userInfo: [NSLocalizedDescriptionKey: message]
                     )
                 }
 
-                return decoded.data ?? []
+                // 2) 성공 응답: 서버가 ApiResponse로 래핑하거나, 명세대로 raw array로 줄 수 있음
+                if let wrapped = try? JSONDecoder().decode(ApiResponse<[PropertyListResponse]>.self, from: response.data) {
+                    guard wrapped.success else {
+                        throw NSError(
+                            domain: "PropertyService",
+                            code: response.statusCode,
+                            userInfo: [NSLocalizedDescriptionKey: wrapped.message]
+                        )
+                    }
+                    return wrapped.data ?? []
+                }
+
+                // 3) 명세(배열) 형태
+                return try JSONDecoder().decode([PropertyListResponse].self, from: response.data)
             }
             .mapError { $0 as Error }
             .eraseToAnyPublisher()
@@ -37,28 +60,47 @@ final class PropertyService {
     func getPropertyDetail(id: Int) -> AnyPublisher<PropertyResponse, Error> {
         provider.requestPublisher(.getPropertyDetail(id: id))
             .tryMap { response in
-                let decoded = try JSONDecoder().decode(
-                    ApiResponse<PropertyResponse>.self,
-                    from: response.data
-                )
-
-                guard decoded.success else {
+                guard (200..<300).contains(response.statusCode) else {
+                    let raw = String(data: response.data, encoding: .utf8) ?? ""
+                    let message: String
+                    if raw.isEmpty {
+                        message = (response.statusCode == 401 || response.statusCode == 403)
+                        ? "권한이 없습니다. 로그인 상태(토큰)를 확인해주세요."
+                        : "요청 실패 (status: \(response.statusCode))"
+                    } else {
+                        if let wrapped = try? JSONDecoder().decode(ApiResponse<String>.self, from: response.data) {
+                            message = wrapped.message
+                        } else {
+                            message = raw
+                        }
+                    }
                     throw NSError(
                         domain: "PropertyService",
                         code: response.statusCode,
-                        userInfo: [NSLocalizedDescriptionKey: decoded.message]
+                        userInfo: [NSLocalizedDescriptionKey: message]
                     )
                 }
 
-                guard let data = decoded.data else {
-                    throw NSError(
-                        domain: "PropertyService",
-                        code: response.statusCode,
-                        userInfo: [NSLocalizedDescriptionKey: "매물 상세 데이터가 없습니다."]
-                    )
+                // 래핑/비래핑 둘 다 허용
+                if let wrapped = try? JSONDecoder().decode(ApiResponse<PropertyResponse>.self, from: response.data) {
+                    guard wrapped.success else {
+                        throw NSError(
+                            domain: "PropertyService",
+                            code: response.statusCode,
+                            userInfo: [NSLocalizedDescriptionKey: wrapped.message]
+                        )
+                    }
+                    guard let data = wrapped.data else {
+                        throw NSError(
+                            domain: "PropertyService",
+                            code: response.statusCode,
+                            userInfo: [NSLocalizedDescriptionKey: "매물 상세 데이터가 없습니다."]
+                        )
+                    }
+                    return data
                 }
 
-                return data
+                return try JSONDecoder().decode(PropertyResponse.self, from: response.data)
             }
             .mapError { $0 as Error }
             .eraseToAnyPublisher()

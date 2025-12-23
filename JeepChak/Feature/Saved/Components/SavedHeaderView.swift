@@ -8,33 +8,47 @@
 import SwiftUI
 
 struct SavedHeaderView: View {
-    var onBackTapped: () -> Void
-    var onAddTapped: () -> Void
-    
+    let onBackTapped: () -> Void
+    let onAddTapped: () -> Void
+
     var body: some View {
-        HStack {
+        HStack(spacing: 12) {
             Button(action: onBackTapped) {
                 Image(systemName: "chevron.left")
-                    .font(.system(size: 20))
-                    .foregroundColor(.customBlack)
+                    .font(SwiftUI.Font.system(size: 18, weight: .semibold))
+                    .foregroundColor(SwiftUI.Color.customBlack)
+                    .frame(width: 44, height: 44)
             }
-            
+            .contentShape(Rectangle())
+
             Spacer()
-            
+
             Text("내 매물")
-                .font(.system(size: 18, weight: .semibold))
-                .foregroundColor(.customBlack)
-            
+                .font(SwiftUI.Font.system(size: 18, weight: .bold))
+                .foregroundColor(SwiftUI.Color.customBlack)
+
             Spacer()
-                .frame(width: 150)
-            
+
+            Button(action: onAddTapped) {
+                Image(systemName: "plus")
+                    .font(SwiftUI.Font.system(size: 18, weight: .semibold))
+                    .foregroundColor(SwiftUI.Color.customBlack)
+                    .frame(width: 44, height: 44)
+            }
+            .contentShape(Rectangle())
         }
-        .padding(.horizontal, 20)
-        .padding(.vertical, 25)
-        .background(Color.customWhite)
+        .padding(.horizontal, 16)
+        .padding(.vertical, 8)
+        .background(SwiftUI.Color.customWhite)
     }
 }
 
-#Preview {
-    SavedHeaderView(onBackTapped: {}, onAddTapped: {})
+
+struct SavedHeaderView_Previews: PreviewProvider {
+    static var previews: some View {
+            SavedHeaderView(
+                onBackTapped: { },
+                onAddTapped: { }
+            )
+    }
 }

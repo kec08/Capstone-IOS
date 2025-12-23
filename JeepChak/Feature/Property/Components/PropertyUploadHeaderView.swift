@@ -47,6 +47,9 @@ struct PropertyUploadHeaderView: View {
     }
 }
 
-#Preview {
-    PropertyUploadHeaderView(title: "매물 업로드", onBack: {})
+
+struct PropertyUploadHeaderView_Previews: PreviewProvider {
+    static var previews: some View {
+            PropertyUploadHeaderView(title: "매물 업로드", onBack: {})
+    }
 }

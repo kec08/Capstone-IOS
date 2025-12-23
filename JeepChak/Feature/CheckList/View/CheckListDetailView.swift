@@ -118,7 +118,8 @@ struct CheckListDetailView: View {
                         destination: CheckListFinalView(
                             checkItem: checkItem,
                             detailItems: detailItems,
-                            items: $items
+                            items: $items,
+                            onExitToList: { dismiss() }
                         )
                     ) {
                     Text("확인")
@@ -214,9 +215,12 @@ struct CheckListDetailView: View {
     }
 }
 
-#Preview {
-    CheckListDetailView(
-        checkItem: CheckItem(title: "봉양면 ㅇㅇ주택", date: "2025-09-16", imageName: "CheckListHouse1", image: nil, propertyId: nil),
-        items: .constant([])
-    )
+
+struct CheckListDetailView_Previews: PreviewProvider {
+    static var previews: some View {
+            CheckListDetailView(
+                checkItem: CheckItem(title: "봉양면 ㅇㅇ주택", date: "2025-09-16", imageName: "CheckListHouse1", image: nil, propertyId: nil),
+                items: .constant([])
+            )
+    }
 }

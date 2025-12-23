@@ -33,11 +33,14 @@ struct InfoRow: View {
     }
 }
 
-#Preview {
-    VStack {
-        InfoRow(icon: "My_user", title: "이름", value: "김은찬")
-        InfoRow(icon: "My_email", title: "이메일", value: "kec@naver.com")
+
+struct InfoRow_Previews: PreviewProvider {
+    static var previews: some View {
+            VStack {
+                InfoRow(icon: "My_user", title: "이름", value: "김은찬")
+                InfoRow(icon: "My_email", title: "이메일", value: "kec@naver.com")
+            }
+            .padding()
     }
-    .padding()
 }
 

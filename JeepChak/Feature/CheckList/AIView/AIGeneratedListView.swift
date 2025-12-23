@@ -129,7 +129,10 @@ struct AIGeneratedListView: View {
     }
 }
 
-#Preview {
-    AIGeneratedListView(onConfirm: { _ in })
+
+struct AIGeneratedListView_Previews: PreviewProvider {
+    static var previews: some View {
+            AIGeneratedListView(onConfirm: { _ in })
+    }
 }
 

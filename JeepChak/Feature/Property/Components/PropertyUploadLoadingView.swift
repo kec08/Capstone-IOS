@@ -22,6 +22,9 @@ struct PropertyUploadLoadingView: View {
     }
 }
 
-#Preview {
-    PropertyUploadLoadingView()
+
+struct PropertyUploadLoadingView_Previews: PreviewProvider {
+    static var previews: some View {
+            PropertyUploadLoadingView()
+    }
 }
