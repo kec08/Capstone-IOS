@@ -20,13 +20,23 @@ struct HomeHeaderView: View {
             Spacer()
 
             HStack {
-                TextField("찾으시는 방을 검색해보세요", text: $searchText)
-                    .font(.system(size: 12))
-                    .foregroundColor(.customBlack)
-                    .padding(.vertical, 12)
-                    .padding(.leading, 10)
-                    .disableAutocorrection(true)
-                    .textInputAutocapitalization(.never)
+                ZStack(alignment: .leading) {
+                    if searchText.isEmpty {
+                        Text("찾으시는 방을 검색해보세요")
+                            .font(.system(size: 12))
+                            .foregroundColor(Color("customGray300"))
+                            .padding(.leading, 10)
+                    }
+
+                    TextField("", text: $searchText)
+                        .font(.system(size: 12))
+                        .padding(.vertical, 12)
+                        .padding(.leading, 10)
+                        .foregroundColor(Color("customGray300"))
+                        .tint(Color("customGray300"))
+                        .disableAutocorrection(true)
+                }
+
 
                 Image("Home_search_icon")
                     .resizable()
@@ -36,11 +46,11 @@ struct HomeHeaderView: View {
             }
             .background(Color.white)
             .cornerRadius(10)
-            .shadow(color: Color.customBlack.opacity(0.05), radius: 2, x: 0, y: 1)
+            .shadow(color: Color("customBlack").opacity(0.05), radius: 2, x: 0, y: 1)
             .frame(width: 190, height: 38)
             .padding(.trailing, -24)
         }
-        .background(Color.customBackgroundBlue)
+        .background(Color("customBackgroundBlue"))
     }
 }
 

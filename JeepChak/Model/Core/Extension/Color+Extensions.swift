@@ -6,6 +6,7 @@
 import SwiftUI
 
 extension Color {
+  static let customBlack = Color("customBlack")
   static let customTextBlack = Color("customBlack")
   static let customTextGray = Color("customDarkGray")
   static let customTextLightBlack = Color("customLightBlack")

@@ -55,10 +55,6 @@ struct LoanGuideStep3View: View {
                             ProgressView(value: 0.6)
                                 .frame(width: 60)
                                 .tint(Color("customBlue"))
-                            
-                            Text("60%")
-                                .font(.system(size: 12, weight: .medium))
-                                .foregroundColor(.gray)
                         }
                     }
                     .padding(.horizontal, 20)

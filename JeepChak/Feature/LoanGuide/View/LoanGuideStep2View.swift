@@ -55,9 +55,6 @@ struct LoanGuideStep2View: View {
                                 .frame(width: 60)
                                 .tint(Color("customBlue"))
                             
-                            Text("40%")
-                                .font(.system(size: 12, weight: .medium))
-                                .foregroundColor(.gray)
                         }
                     }
                     .padding(.horizontal, 20)

@@ -103,7 +103,13 @@ final class AddCheckListViewModel: ObservableObject {
                 }
             } receiveValue: { [weak self] message in
                 guard let self else { return }
-                self.serverMessage = message.isEmpty ? "완료되었습니다" : message
+                // 서버 응답이 "success"나 빈 문자열이면 사용자 친화적인 메시지로 변경
+                let trimmedMessage = message.trimmingCharacters(in: .whitespacesAndNewlines).lowercased()
+                if trimmedMessage.isEmpty || trimmedMessage == "success" || trimmedMessage == "매물이 생성되었습니다." {
+                    self.serverMessage = "매물 추가가 완료되었습니다!"
+                } else {
+                    self.serverMessage = message
+                }
                 self.showMessageSheet = true
                 onSuccess()
             }
