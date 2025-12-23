@@ -14,17 +14,24 @@ struct AnalyzeButton: View {
     var body: some View {
         Button(action: action) {
             Text("분석 시작하기")
-                .font(.system(size: 17, weight: .semibold))
+                .font(SwiftUI.Font.system(size: 17, weight: .semibold))
                 .frame(maxWidth: .infinity)
                 .frame(height: 54)
                 .foregroundColor(enabled ? .white : .gray)
-                .background(enabled ? Color.customBlue : Color.customGray100)
+                .background(enabled ? SwiftUI.Color.customBlue : SwiftUI.Color.customGray100)
                 .cornerRadius(12)
         }
         .disabled(!enabled)
     }
 }
 
-#Preview {
-    AnalyzeButton(enabled: false, action: {})
+
+struct AnalyzeButton_Previews: PreviewProvider {
+    static var previews: some View {
+            VStack(spacing: 12) {
+                AnalyzeButton(enabled: false, action: {})
+                AnalyzeButton(enabled: true, action: {})
+            }
+            .padding()
+    }
 }

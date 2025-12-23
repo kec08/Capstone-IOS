@@ -58,10 +58,10 @@ struct SavedPropertyCard: View {
                     Spacer()
                     // 가격 정보 표시 (price가 비어있으면 deposit/monthlyRent로 생성)
                     if !property.price.isEmpty {
-                        Text(property.price)
-                            .font(.system(size: 16, weight: .bold))
-                            .foregroundColor(.customBlack)
-                            .padding(.horizontal, 10)
+                    Text(property.price)
+                        .font(.system(size: 16, weight: .bold))
+                        .foregroundColor(.customBlack)
+                        .padding(.horizontal, 10)
                     } else if let deposit = property.deposit, let monthlyRent = property.monthlyRent {
                         Text("월세 \(SavedProperty.formatNumber(deposit))/\(SavedProperty.formatNumber(monthlyRent))")
                             .font(.system(size: 16, weight: .bold))
@@ -83,23 +83,26 @@ struct SavedPropertyCard: View {
     }
 }
 
-#Preview {
-    SavedPropertyCard(
-        property: SavedProperty(
-            id: 1,
-            propertyId: 1,
-            image: UIImage(contentsOfFile: "CheckListHouse1"),
-            type: "원룸",
-            name: "성수동 풀옵션 원룸",
-            details: "서울특별시 성동구 성수동1가 123-4",
-            description: "채광 좋고 주변이 조용함",
-            price: "월세 80 / 10",
-            createdAt: "2025-11-15",
-            floor: 1,
-            area: 15,
-            leaseType: "MONTHLY_RENT",
-            deposit: 1000,
-            monthlyRent: 60
-        )
-    )
+
+struct SavedPropertyCard_Previews: PreviewProvider {
+    static var previews: some View {
+            SavedPropertyCard(
+                property: SavedProperty(
+                    id: 1,
+                    propertyId: 1,
+                    image: UIImage(contentsOfFile: "CheckListHouse1"),
+                    type: "원룸",
+                    name: "성수동 풀옵션 원룸",
+                    details: "서울특별시 성동구 성수동1가 123-4",
+                    description: "채광 좋고 주변이 조용함",
+                    price: "월세 80 / 10",
+                    createdAt: "2025-11-15",
+                    floor: 1,
+                    area: 15,
+                    leaseType: "MONTHLY_RENT",
+                    deposit: 1000,
+                    monthlyRent: 60
+                )
+            )
+    }
 }

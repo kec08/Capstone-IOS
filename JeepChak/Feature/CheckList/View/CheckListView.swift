@@ -109,6 +109,9 @@ struct CheckListView: View {
     }
 }
 
-#Preview {
-    CheckListView()
+
+struct CheckListView_Previews: PreviewProvider {
+    static var previews: some View {
+            CheckListView()
+    }
 }

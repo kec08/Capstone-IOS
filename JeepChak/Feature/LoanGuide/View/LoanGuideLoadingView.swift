@@ -14,70 +14,40 @@ struct LoanGuideLoadingView: View {
     @State private var isLoading = true
     let source: LoanGuideSource
     
-    init(source: LoanGuideSource = .home) {
-        self.source = source
-    }
-    
+    var onComplete: () -> Void
+
+    @State private var isAnimating = false
+
     var body: some View {
         NavigationStack {
-            ZStack {
-                // 배경
-                Color.white
-                    .ignoresSafeArea()
-                
-                if isLoading {
-                    // 로딩 화면
-                    VStack(spacing: 30) {
-                        // 로딩 아이콘
-                        ZStack {
-                            Circle()
-                                .fill(
-                                    LinearGradient(
-                                        colors: [
-                                            Color("customBlue"),
-                                            Color.cyan,
-                                            Color.yellow
-                                        ],
-                                        startPoint: .topLeading,
-                                        endPoint: .bottomTrailing
-                                    )
-                                )
-                                .frame(width: 100, height: 100)
-                                .blur(radius: 20)
-                                .opacity(0.8)
-                            
-                            Image(systemName: "sparkles")
-                                .font(.system(size: 50, weight: .bold))
-                                .foregroundColor(.white)
-                        }
-                        
-                        Text("AI가 최적의 대출 가이드를\n생성하는 중입니다...")
-                            .font(.system(size: 18, weight: .medium))
-                            .foregroundColor(.customBlack)
-                            .multilineTextAlignment(.center)
-                            .lineSpacing(4)
-                    }
-                } else {
-                    // 로딩 완료 후 결과 화면으로 이동
-                    EmptyView()
-                }
+            VStack(spacing: 16) {
+                Image("AI_icon")
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 105, height: 105)
+                    .rotationEffect(.degrees(isAnimating ? 360 : 0))
+                    .animation(.linear(duration: 1.5).repeatForever(autoreverses: false), value: isAnimating)
+
+                Text("AI가 최적의 대출 가이드를\n생성하는 중입니다…")
+                    .font(.system(size: 20, weight: .bold))
+                    .foregroundColor(.customDarkGray)
+                    .lineLimit(8)
+                    .padding(.top, 30)
             }
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
+            .background(Color.white)
             .navigationBarHidden(true)
             .navigationDestination(isPresented: $navigateToResult) {
                 LoanGuideResultView(source: source)
             }
             .onAppear {
-                // 3초 후 로딩 완료
+                isAnimating = true
+                // 3초 후 결과 페이지로 이동
                 DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
-                    isLoading = false
                     navigateToResult = true
                 }
             }
         }
     }
-}
-
-#Preview {
-    LoanGuideLoadingView()
 }
 

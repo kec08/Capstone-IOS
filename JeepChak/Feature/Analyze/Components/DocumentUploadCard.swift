@@ -60,6 +60,9 @@ struct DocumentUploadCard: View {
     }
 }
 
-#Preview {
-    DocumentUploadCard(selectedFileURL: nil, showingFileImporter: .constant(false))
+
+struct DocumentUploadCard_Previews: PreviewProvider {
+    static var previews: some View {
+            DocumentUploadCard(selectedFileURL: nil, showingFileImporter: .constant(false))
+    }
 }

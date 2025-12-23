@@ -77,7 +77,7 @@ final class AddCheckListViewModel: ObservableObject {
             builtYear: int(from: builtYear) ?? 0,
             area: int(from: area) ?? 0,
             marketPrice: int(from: marketPrice) ?? 0,
-            leaseType: leaseType.rawValue,           // MONTHLY_RENT / JEONSE
+            leaseType: leaseType.rawValue,
             deposit: int(from: deposit) ?? 0,
             monthlyRent: leaseType == .monthly ? (int(from: monthlyRent) ?? 0) : 0,
             memo: memo.trimmed
@@ -103,7 +103,13 @@ final class AddCheckListViewModel: ObservableObject {
                 }
             } receiveValue: { [weak self] message in
                 guard let self else { return }
-                self.serverMessage = message.isEmpty ? "완료되었습니다" : message
+                // 서버 응답 success or 빈 문자열이면 메시지 변경
+                let trimmedMessage = message.trimmingCharacters(in: .whitespacesAndNewlines).lowercased()
+                if trimmedMessage.isEmpty || trimmedMessage == "success" || trimmedMessage == "매물이 생성되었습니다." {
+                    self.serverMessage = "매물 추가가 완료되었습니다!"
+                } else {
+                    self.serverMessage = message
+                }
                 self.showMessageSheet = true
                 onSuccess()
             }

@@ -34,13 +34,16 @@ struct StatusIndicatorView: View {
     }
 }
 
-#Preview {
-    VStack(spacing: 16) {
-        StatusIndicatorView(status: "checkmark")
-        StatusIndicatorView(status: "warning")
-        StatusIndicatorView(status: "danger")
-        StatusIndicatorView(status: "none")
+
+struct StatusIndicatorView_Previews: PreviewProvider {
+    static var previews: some View {
+            VStack(spacing: 16) {
+                StatusIndicatorView(status: "checkmark")
+                StatusIndicatorView(status: "warning")
+                StatusIndicatorView(status: "danger")
+                StatusIndicatorView(status: "none")
+            }
+            .padding()
+            .background(Color(UIColor.systemGray6))
     }
-    .padding()
-    .background(Color(UIColor.systemGray6))
 }

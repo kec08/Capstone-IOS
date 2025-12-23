@@ -12,6 +12,7 @@ import SwiftUI
 struct MyView: View {
     @StateObject private var viewModel = MyViewModel(appState: AppState())
     @EnvironmentObject var appState: AppState
+    @State private var showLogoutAlert: Bool = false
 
     var body: some View {
         NavigationStack {
@@ -35,7 +36,7 @@ struct MyView: View {
                         .padding(.horizontal, 20)
                         .padding(.bottom, 40)
 
-                    Button(action: viewModel.logout) {
+                    Button(action: { showLogoutAlert = true }) {
                         Text("로그아웃")
                             .font(.system(size: 16).weight(.semibold))
                             .foregroundColor(.customRed)
@@ -49,9 +50,20 @@ struct MyView: View {
         .sheet(isPresented: $viewModel.showSettings) {
             Text("설정 화면")
         }
+        .alert("로그아웃", isPresented: $showLogoutAlert) {
+            Button("취소", role: .cancel) {}
+            Button("로그아웃", role: .destructive) {
+                viewModel.logout()
+            }
+        } message: {
+            Text("정말 로그아웃 하시겠어요?")
+        }
     }
 }
 
-#Preview {
-    MyView()
+
+struct MyView_Previews: PreviewProvider {
+    static var previews: some View {
+            MyView()
+    }
 }

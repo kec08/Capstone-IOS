@@ -112,6 +112,9 @@ extension SignUpView {
     }
 }
 
-#Preview {
-    SignUpView()
+
+struct SignUpView_Previews: PreviewProvider {
+    static var previews: some View {
+            SignUpView()
+    }
 }

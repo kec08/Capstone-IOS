@@ -289,9 +289,12 @@ extension AddCheckListView {
     }
 }
 
-#Preview {
-    AddCheckListView(
-        addCheckListItem: { _ in print("체크리스트 아이템이 추가되었습니다.") },
-        onDismiss: { print("뷰가 닫혔습니다.") }
-    )
+
+struct AddCheckListView_Previews: PreviewProvider {
+    static var previews: some View {
+            AddCheckListView(
+                addCheckListItem: { _ in print("체크리스트 아이템이 추가되었습니다.") },
+                onDismiss: { print("뷰가 닫혔습니다.") }
+            )
+    }
 }

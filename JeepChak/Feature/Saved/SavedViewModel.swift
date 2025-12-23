@@ -36,7 +36,7 @@ final class SavedViewModel: ObservableObject {
                     if response.propertyType != nil || response.deposit != nil {
                         return SavedProperty.from(response)
                     } else {
-                        // 정보가 없으면 임시로 반환 (나중에 상세 조회로 업데이트 가능)
+                        // 정보가 없으면 임시로 반환
                         return SavedProperty.from(response)
                     }
                 }
@@ -59,7 +59,7 @@ final class SavedViewModel: ObservableObject {
     // MARK: - 매물 생성
     func createProperty(from newItem: AddCheckListItem, onSuccess: @escaping (String) -> Void) {
 
-        // PropertyType -> 서버 코드(String)
+        // PropertyType -> 서버 코드
         let propertyTypeCode = newItem.propertyType.rawValue
 
         // 전세면 monthlyRent는 0으로 강제

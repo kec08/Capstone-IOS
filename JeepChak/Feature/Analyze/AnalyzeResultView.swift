@@ -244,8 +244,11 @@ extension AnalyzeResultView {
     }
 }
 
-#Preview {
-    NavigationView {
-        AnalyzeResultView.mock
+
+struct AnalyzeResultView_Previews: PreviewProvider {
+    static var previews: some View {
+            NavigationView {
+                AnalyzeResultView.mock
+            }
     }
 }

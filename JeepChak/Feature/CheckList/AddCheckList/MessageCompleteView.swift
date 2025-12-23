@@ -16,10 +16,11 @@ struct MessageCompleteView: View {
             Spacer()
 
             VStack(spacing: 14) {
-                // 아이콘은 원하는 이미지/로고로 바꾸세요
-                Image(systemName: "sparkles")
-                    .font(.system(size: 54))
-                    .padding(.bottom, 6)
+                Image("CheckIcon")
+                    .resizable()
+                    .scaledToFill()
+                    .frame(width: 120, height: 120)
+                    .padding(.bottom, 30)
 
                 Text(message.isEmpty ? "완료되었습니다" : message)
                     .font(.system(size: 22, weight: .bold))
@@ -42,5 +43,17 @@ struct MessageCompleteView: View {
             }
         }
         .background(Color.white.ignoresSafeArea())
+    }
+}
+
+
+struct MessageCompleteView_Previews: PreviewProvider {
+    static var previews: some View {
+            MessageCompleteView(
+                message: "매물 추가가 완료되었습니다!",
+                onConfirm: {
+                    print("확인 버튼 클릭")
+                }
+            )
     }
 }

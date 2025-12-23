@@ -21,6 +21,7 @@ struct MapProperty: Identifiable {
     let deposit: Int
     let monthlyRent: Int?
     let memo: String
+    let phoneNumber: String
     let lat: Double
     let lng: Double
     

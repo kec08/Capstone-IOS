@@ -139,9 +139,12 @@ struct LoginView: View {
     }
 }
 
-#Preview {
-    NavigationStack {
-        LoginView()
-            .environmentObject(AppState())
+
+struct LoginView_Previews: PreviewProvider {
+    static var previews: some View {
+            NavigationStack {
+                LoginView()
+                    .environmentObject(AppState())
+            }
     }
 }

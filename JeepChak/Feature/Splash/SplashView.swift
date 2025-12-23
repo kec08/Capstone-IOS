@@ -29,6 +29,9 @@ struct SplashView: View {
     }
 }
 
-#Preview {
-    SplashView()
+
+struct SplashView_Previews: PreviewProvider {
+    static var previews: some View {
+            SplashView()
+    }
 }

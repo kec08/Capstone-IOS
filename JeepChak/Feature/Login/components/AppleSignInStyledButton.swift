@@ -32,8 +32,11 @@ struct AppleSignInStyledButton: View {
     }
 }
 
-#Preview {
-    AppleSignInStyledButton { }
-        .padding()
-        .background(.customWhite)
+
+struct AppleSignInStyledButton_Previews: PreviewProvider {
+    static var previews: some View {
+            AppleSignInStyledButton { }
+                .padding()
+                .background(.customWhite)
+    }
 }

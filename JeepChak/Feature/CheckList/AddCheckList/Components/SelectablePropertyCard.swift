@@ -16,21 +16,21 @@ struct SelectablePropertyCard: View {
         Button(action: onSelect) {
             HStack(spacing: 12) {
                 // 이미지
-                if let image = property.image {
-                    Image(uiImage: image)
-                        .resizable()
-                        .scaledToFill()
-                        .frame(width: 100, height: 100)
-                        .cornerRadius(8)
-                        .clipped()
-                } else {
-                    RoundedRectangle(cornerRadius: 8)
-                        .fill(Color.gray.opacity(0.2))
-                        .frame(width: 100, height: 100)
-                        .overlay(
-                            Image(systemName: "photo")
-                                .foregroundColor(.customGray200)
-                        )
+                    if let image = property.image {
+                        Image(uiImage: image)
+                            .resizable()
+                            .scaledToFill()
+                            .frame(width: 100, height: 100)
+                            .cornerRadius(8)
+                            .clipped()
+                    } else {
+                        RoundedRectangle(cornerRadius: 8)
+                            .fill(Color.gray.opacity(0.2))
+                            .frame(width: 100, height: 100)
+                            .overlay(
+                                Image(systemName: "photo")
+                                    .foregroundColor(.customGray200)
+                            )
                 }
                 
                 // 정보
@@ -55,9 +55,9 @@ struct SelectablePropertyCard: View {
                             .font(.system(size: 12))
                             .foregroundColor(.customBlack)
                     } else if !property.description.isEmpty {
-                        Text(property.description)
-                            .font(.system(size: 12))
-                            .foregroundColor(.customBlack)
+                    Text(property.description)
+                        .font(.system(size: 12))
+                        .foregroundColor(.customBlack)
                     }
                     
                     Spacer()
@@ -66,9 +66,9 @@ struct SelectablePropertyCard: View {
                         Spacer()
                         // 가격 정보 표시
                         if !property.price.isEmpty {
-                            Text(property.price)
-                                .font(.system(size: 16, weight: .bold))
-                                .foregroundColor(.customBlack)
+                        Text(property.price)
+                            .font(.system(size: 16, weight: .bold))
+                            .foregroundColor(.customBlack)
                         } else if let deposit = property.deposit, let monthlyRent = property.monthlyRent {
                             Text("월세 \(SavedProperty.formatNumber(deposit))/\(SavedProperty.formatNumber(monthlyRent))")
                                 .font(.system(size: 16, weight: .bold))

@@ -37,12 +37,14 @@ struct LoanGuideStep2View: View {
                         }
                         
                         Spacer()
+                            .frame(width: 130)
                         
                         Text("소득 정보")
                             .font(.system(size: 18, weight: .bold))
                             .foregroundColor(.customBlack)
                         
                         Spacer()
+                            
                         
                         VStack(alignment: .trailing, spacing: 4) {
                             Text("2/5단계")
@@ -53,9 +55,6 @@ struct LoanGuideStep2View: View {
                                 .frame(width: 60)
                                 .tint(Color("customBlue"))
                             
-                            Text("40%")
-                                .font(.system(size: 12, weight: .medium))
-                                .foregroundColor(.gray)
                         }
                     }
                     .padding(.horizontal, 20)
@@ -81,32 +80,51 @@ struct LoanGuideStep2View: View {
                         VStack(alignment: .leading, spacing: 12) {
                             Text("연소득 (만원)")
                                 .font(.system(size: 16, weight: .medium))
-                                .foregroundColor(.customBlack)
-                            
-                            TextField("예: 5000", text: $annualIncome)
-                                .keyboardType(.numberPad)
-                                .padding(16)
-                                .background(Color.gray.opacity(0.1))
-                                .cornerRadius(12)
-                                .foregroundColor(.customBlack)
+                                .foregroundStyle(.customBlack)
+
+                            ZStack(alignment: .leading) {
+                                if annualIncome.isEmpty {
+                                    Text("예: 5000")
+                                        .foregroundStyle(Color.customGray300)
+                                        .padding(.leading, 16)
+                                }
+
+                                TextField("", text: $annualIncome)
+                                    .keyboardType(.numberPad)
+                                    .padding(16)
+                                    .foregroundStyle(.customBlack)
+                                    .tint(.customBlack)
+                            }
+                            .background(Color.gray.opacity(0.15))
+                            .cornerRadius(12)
                         }
                         .padding(.horizontal, 20)
+
                         
                         // 월소득
                         VStack(alignment: .leading, spacing: 12) {
                             Text("월 소득 (만원)")
                                 .font(.system(size: 16, weight: .medium))
-                                .foregroundColor(.customBlack)
-                            
-                            TextField("예: 300", text: $monthlyIncome)
-                                .keyboardType(.numberPad)
-                                .padding(16)
-                                .background(Color.gray.opacity(0.1))
-                                .cornerRadius(12)
-                                .foregroundColor(.customBlack)
+                                .foregroundStyle(.customBlack)
+
+                            ZStack(alignment: .leading) {
+                                if monthlyIncome.isEmpty {
+                                    Text("예: 300")
+                                        .foregroundStyle(Color.customGray300)
+                                        .padding(.leading, 16)
+                                }
+
+                                TextField("", text: $monthlyIncome)
+                                    .keyboardType(.numberPad)
+                                    .padding(16)
+                                    .foregroundStyle(.customBlack)
+                                    .tint(.customBlack)
+                            }
+                            .background(Color.gray.opacity(0.15))
+                            .cornerRadius(12)
                         }
                         .padding(.horizontal, 20)
-                        
+
                         // 소득 형태
                         VStack(alignment: .leading, spacing: 12) {
                             Text("소득 형태")
@@ -200,7 +218,10 @@ struct LoanGuideStep2View: View {
     }
 }
 
-#Preview {
-    LoanGuideStep2View()
+
+struct LoanGuideStep2View_Previews: PreviewProvider {
+    static var previews: some View {
+            LoanGuideStep2View()
+    }
 }
 

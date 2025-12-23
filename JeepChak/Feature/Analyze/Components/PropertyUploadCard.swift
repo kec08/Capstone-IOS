@@ -55,6 +55,9 @@ struct PropertyUploadCard: View {
     }
 }
 
-#Preview {
-    PropertyUploadCard(selectedProperty: nil, showingSheet: .constant(false))
+
+struct PropertyUploadCard_Previews: PreviewProvider {
+    static var previews: some View {
+            PropertyUploadCard(selectedProperty: nil, showingSheet: .constant(false))
+    }
 }

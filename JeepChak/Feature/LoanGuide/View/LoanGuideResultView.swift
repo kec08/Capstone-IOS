@@ -17,7 +17,7 @@ struct LoanGuideResultView: View {
         self.source = source
     }
     
-    // 임시 데이터 (나중에 API 연동 시 실제 데이터로 교체)
+    // 임시 데이터
     private let mockResult = LoanGuideResult(
         estimatedLoanAmount: 20000,
         estimatedInterestRate: 2.8,
@@ -100,7 +100,7 @@ struct LoanGuideResultView: View {
     
     var body: some View {
         NavigationStack {
-            ScrollView {
+            ScrollView(.vertical) {
                 VStack(spacing: 0) {
                     // 헤더 (흰색 배경)
                     HStack {
@@ -120,7 +120,6 @@ struct LoanGuideResultView: View {
                         
                         Spacer()
                         
-                        // 뒤로가기 버튼과 균형을 맞추기 위한 투명 버튼
                         Button(action: {}) {
                             Image(systemName: "chevron.left")
                                 .font(.system(size: 18, weight: .semibold))
@@ -133,17 +132,18 @@ struct LoanGuideResultView: View {
                     .background(Color.customWhite)
                     
                     VStack(spacing: 24) {
-                        // 맞춤 대출 가이드 결과 (상단 박스)
-                        VStack(alignment: .leading, spacing: 12) {
+                        // 맞춤 대출 가이드 결과
+                        VStack(alignment: .leading, spacing: 30) {
                             Text("맞춤 대출 가이드 결과")
                                 .font(.system(size: 18, weight: .bold))
                                 .foregroundColor(.customWhite)
                             
                             HStack {
-                                VStack(alignment: .leading, spacing: 4) {
+                                VStack(alignment: .leading, spacing: 10) {
                                     Text("예상 대출 가능 금액")
-                                        .font(.system(size: 13))
+                                        .font(.system(size: 14))
                                         .foregroundColor(.white.opacity(0.9))
+                                    
                                     Text("\(formatNumber(mockResult.estimatedLoanAmount))만원")
                                         .font(.system(size: 20, weight: .bold))
                                         .foregroundColor(.customWhite)
@@ -151,9 +151,9 @@ struct LoanGuideResultView: View {
                                 
                                 Spacer()
                                 
-                                VStack(alignment: .trailing, spacing: 4) {
+                                VStack(alignment: .trailing, spacing: 10) {
                                     Text("예상 금리")
-                                        .font(.system(size: 13))
+                                        .font(.system(size: 14))
                                         .foregroundColor(.white.opacity(0.9))
                                     Text("연 \(mockResult.estimatedInterestRate)%")
                                         .font(.system(size: 20, weight: .bold))
@@ -166,17 +166,18 @@ struct LoanGuideResultView: View {
                         .background(Color("customBlue"))
                         .cornerRadius(12)
                         .padding(.horizontal, 20)
-                        .padding(.top, 10)
+                        .padding(.top, 40)
                         
                         // 예상 지불 비용
                         VStack(alignment: .leading, spacing: 16) {
-                            HStack(spacing: 8) {
+                            HStack(spacing: 0) {
                                 Image(systemName: "calculator")
                                     .font(.system(size: 16))
                                     .foregroundColor(.customBlack)
                                 Text("예상 지불 비용")
                                     .font(.system(size: 16, weight: .semibold))
                                     .foregroundColor(.customBlack)
+                                    .padding(.bottom, 8)
                             }
                             
                             VStack(spacing: 12) {
@@ -188,29 +189,34 @@ struct LoanGuideResultView: View {
                                 
                                 HStack {
                                     Text("월 총 부담 금액")
-                                        .font(.system(size: 16, weight: .semibold))
+                                        .font(.system(size: 20, weight: .semibold))
                                         .foregroundColor(.customBlack)
                                     Spacer()
                                     Text("약 \(mockResult.totalMonthlyPayment)만원")
-                                        .font(.system(size: 16, weight: .bold))
+                                        .font(.system(size: 20, weight: .bold))
                                         .foregroundColor(Color.customBlue)
                                 }
+                                .padding(.top, 14)
                             }
                         }
                         .padding(20)
                         .background(Color.white)
                         .cornerRadius(12)
                         .padding(.horizontal, 20)
+                        .padding(.bottom, 20)
                         
                         // 추천 대출 상품
                         VStack(alignment: .leading, spacing: 16) {
                             HStack(spacing: 8) {
                                 Image(systemName: "doc.text")
-                                    .font(.system(size: 16))
+                                    .font(.system(size: 18))
                                     .foregroundColor(.customBlack)
+                                    .padding(.bottom, 10)
+                                
                                 Text("추천 대출 상품")
-                                    .font(.system(size: 16, weight: .semibold))
+                                    .font(.system(size: 18, weight: .semibold))
                                     .foregroundColor(.customBlack)
+                                    .padding(.bottom, 10)
                             }
                             
                             ForEach(mockResult.recommendedProducts, id: \.title) { product in
@@ -228,9 +234,12 @@ struct LoanGuideResultView: View {
                                 Image(systemName: "doc.text")
                                     .font(.system(size: 16))
                                     .foregroundColor(.customBlack)
+                                    .padding(.bottom, 12)
+                                
                                 Text("신청 절차 및 방법")
                                     .font(.system(size: 16, weight: .semibold))
                                     .foregroundColor(.customBlack)
+                                    .padding(.bottom, 12)
                             }
                             
                             VStack(spacing: 16) {
@@ -264,7 +273,7 @@ struct LoanGuideResultView: View {
                             }
                         }
                         .padding(20)
-                        .background(Color.customBlack)
+                        .background(Color.gray.opacity(0.07))
                         .cornerRadius(12)
                         .padding(.horizontal, 20)
                         
@@ -274,25 +283,26 @@ struct LoanGuideResultView: View {
                                 .font(.system(size: 16, weight: .semibold))
                                 .foregroundColor(.customBlack)
                             
-                            VStack(alignment: .leading, spacing: 12) {
+                            VStack(alignment: .leading, spacing: 16) {
                                 ForEach(mockResult.prerequisiteChecklist, id: \.title) { item in
-                                    HStack(alignment: .top, spacing: 8) {
+                                    HStack(alignment: .top, spacing: 12) {
                                         Image(systemName: "checkmark.circle.fill")
-                                            .font(.system(size: 14))
+                                            .font(.system(size: 16))
                                             .foregroundColor(Color("customBlue"))
                                         
-                                        VStack(alignment: .leading, spacing: 4) {
+                                        VStack(alignment: .leading, spacing: 8) {
                                             Text(item.title)
-                                                .font(.system(size: 14, weight: .medium))
+                                                .font(.system(size: 16, weight: .medium))
                                                 .foregroundColor(.customBlack)
                                             Text(item.description)
-                                                .font(.system(size: 12))
+                                                .font(.system(size: 14))
                                                 .foregroundColor(.customGray300)
                                         }
                                     }
                                 }
                             }
                         }
+                        .frame(maxWidth: .infinity, alignment: .leading)
                         .padding(20)
                         .background(Color.white)
                         .cornerRadius(12)
@@ -324,7 +334,7 @@ struct LoanGuideResultView: View {
                         .padding(.horizontal, 20)
                         .padding(.bottom, 30)
                         
-                        // 결과 확인 버튼 (스크롤 뷰 안에)
+                        // 결과 확인 버튼
                         Button(action: {
                             // 홈에서 왔으면 홈으로, 마이에서 왔으면 마이로
                             // NavigationStack을 모두 pop하기 위해 dismiss를 여러 번 호출
@@ -409,7 +419,7 @@ struct CostRow: View {
                 .foregroundColor(.gray)
             Spacer()
             Text(amount)
-                .font(.system(size: 14, weight: .medium))
+                .font(Font.system(size: 14, weight: .medium))
                 .foregroundColor(.customBlack)
         }
     }
@@ -419,52 +429,52 @@ struct RecommendedProductCard: View {
     let product: RecommendedProduct
     
     var body: some View {
-        VStack(alignment: .leading, spacing: 12) {
+        VStack(alignment: .leading, spacing: 14) {
             HStack {
                 Text(product.title)
-                    .font(.system(size: 15, weight: .semibold))
+                    .font(.system(size: 16, weight: .semibold))
                     .foregroundColor(.customBlack)
                 
                 if product.isRecommended {
                     Text("추천")
-                        .font(.system(size: 11, weight: .bold))
+                        .font(.system(size: 13, weight: .bold))
                         .foregroundColor(.white)
                         .padding(.horizontal, 8)
                         .padding(.vertical, 4)
                         .background(Color("customBlue"))
-                        .cornerRadius(4)
+                        .cornerRadius(5)
                 }
                 
                 Spacer()
             }
             
-            VStack(alignment: .leading, spacing: 6) {
+            VStack(alignment: .leading, spacing: 8) {
                 Text(product.fund)
-                    .font(.system(size: 13))
+                    .font(.system(size: 14))
                     .foregroundColor(.gray)
                 Text(product.limit)
-                    .font(.system(size: 13))
+                    .font(.system(size: 14))
                     .foregroundColor(.gray)
                 Text(product.interestRate)
-                    .font(.system(size: 13))
+                    .font(.system(size: 14))
                     .foregroundColor(.gray)
             }
             
-            VStack(alignment: .leading, spacing: 4) {
+            VStack(alignment: .leading, spacing: 6) {
                 ForEach(product.benefits, id: \.self) { benefit in
-                    HStack(alignment: .top, spacing: 6) {
+                    HStack(alignment: .top, spacing: 8) {
                         Text("•")
-                            .font(.system(size: 12))
+                            .font(.system(size: 13))
                             .foregroundColor(.gray)
                         Text(benefit)
-                            .font(.system(size: 12))
+                            .font(.system(size: 13))
                             .foregroundColor(.gray)
                     }
                 }
             }
         }
         .padding(16)
-        .background(Color.gray.opacity(0.05))
+        .background(Color.gray.opacity(0.05) as Color)
         .cornerRadius(12)
     }
 }
@@ -484,15 +494,15 @@ struct ApplicationStepRow: View {
                     .foregroundColor(.customWhite)
             }
             
-            VStack(alignment: .leading, spacing: 4) {
+            VStack(alignment: .leading, spacing: 8) {
                 Text(step.title)
-                    .font(.system(size: 14, weight: .medium))
+                    .font(Font.system(size: 16, weight: .medium))
                     .foregroundColor(.customBlack)
                 
                 Text(step.description)
-                    .font(.system(size: 12))
+                    .font(.system(size: 14))
                     .foregroundColor(.gray)
-                    .lineSpacing(2)
+                    .lineSpacing(4)
             }
             
             Spacer()
@@ -534,7 +544,10 @@ struct PrerequisiteItem {
     let description: String
 }
 
-#Preview {
-    LoanGuideResultView()
+
+struct LoanGuideResultView_Previews: PreviewProvider {
+    static var previews: some View {
+            LoanGuideResultView()
+    }
 }
 

@@ -22,9 +22,9 @@ struct RecentPropertyCard: View {
                 .overlay(
                     LinearGradient(
                         gradient: Gradient(colors: [
-                            Color.customBlack.opacity(0.0),
-                            Color.customBlack.opacity(0.3),
-                            Color.customBlack.opacity(0.5)
+                            Color("customBlack").opacity(0.0),
+                            Color("customBlack").opacity(0.3),
+                            Color("customBlack").opacity(0.5)
                         ]),
                         startPoint: .top,
                         endPoint: .bottom
@@ -35,30 +35,30 @@ struct RecentPropertyCard: View {
             // MARK: - 텍스트 영역
             VStack(alignment: .leading, spacing: 6) {
                 Text("\(property.type)   \(property.area)")
-                    .font(.system(size: 10, weight: .medium))
-                    .foregroundColor(.customWhite)
+                    .font(Font.system(size: 10, weight: .medium))
+                    .foregroundColor(Color("customWhite"))
 
                 Text(property.location)
-                    .font(.system(size: 12, weight: .semibold))
-                    .foregroundColor(.customWhite)
+                    .font(Font.system(size: 12, weight: .semibold))
+                    .foregroundColor(Color("customWhite"))
                     .lineLimit(1)
 
                 Text(property.price)
-                    .font(.system(size: 16, weight: .bold))
-                    .foregroundColor(.customWhite)
+                    .font(Font.system(size: 16, weight: .bold))
+                    .foregroundColor(Color("customWhite"))
                     .padding(.top, 4)
 
                 Button(action: {
                     // 자세히 보기 액션
                 }) {
                     Text("자세히 보기")
-                        .font(.system(size: 10, weight: .bold))
-                        .foregroundColor(.customWhite)
-                        .frame(maxWidth: .infinity,)
+                        .font(Font.system(size: 10, weight: .bold))
+                        .foregroundColor(Color("customWhite"))
+                        .frame(maxWidth: .infinity)
                         .padding(.vertical, 10)
                         .overlay(
                             RoundedRectangle(cornerRadius: 6)
-                                .stroke(.customWhite, lineWidth: 1)
+                                .stroke(Color("customWhite"), lineWidth: 1)
                         )
                 }
                 .padding(.top, 10)
@@ -70,15 +70,18 @@ struct RecentPropertyCard: View {
     }
 }
 
-#Preview {
-    RecentPropertyCard(
-        property: RecentProperty(
-            type: "원룸",
-            area: "1층 15평",
-            imageName: "Home_img2",
-            location: "의성군 봉양면 화전리 129 파랑채",
-            price: "월세 120"
-        )
-    )
+
+struct RecentPropertyCard_Previews: PreviewProvider {
+    static var previews: some View {
+            RecentPropertyCard(
+                property: RecentProperty(
+                    type: "원룸",
+                    area: "1층 15평",
+                    imageName: "Home_img2",
+                    location: "의성군 봉양면 화전리 129 파랑채",
+                    price: "월세 120"
+                )
+            )
+    }
 }
 

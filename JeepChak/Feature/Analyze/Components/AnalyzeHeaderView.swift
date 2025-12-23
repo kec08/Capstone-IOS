@@ -27,6 +27,9 @@ struct AnalyzeHeaderView: View {
     }
 }
 
-#Preview {
-    AnalyzeHeaderView()
+
+struct AnalyzeHeaderView_Previews: PreviewProvider {
+    static var previews: some View {
+            AnalyzeHeaderView()
+    }
 }

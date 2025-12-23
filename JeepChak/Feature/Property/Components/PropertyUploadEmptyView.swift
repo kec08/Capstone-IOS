@@ -22,6 +22,9 @@ struct PropertyUploadEmptyView: View {
     }
 }
 
-#Preview {
-    PropertyUploadEmptyView()
+
+struct PropertyUploadEmptyView_Previews: PreviewProvider {
+    static var previews: some View {
+            PropertyUploadEmptyView()
+    }
 }

@@ -15,25 +15,26 @@ struct PropertyUploadBottomButton: View {
     var body: some View {
         Button(action: action) {
             Text(title)
-                .font(.system(size: 17, weight: .semibold))
+                .font(SwiftUI.Font.system(size: 17, weight: .semibold))
                 .frame(maxWidth: .infinity)
                 .frame(height: 54)
-                .foregroundColor(isEnabled ? .customWhite : .customDarkGray)
+                .foregroundColor(isEnabled ? SwiftUI.Color.customWhite : SwiftUI.Color.customDarkGray)
                 .background(
                     RoundedRectangle(cornerRadius: 14)
-                        .fill(isEnabled
-                              ? .customBlue
-                              : .customGray100)
+                        .fill(isEnabled ? SwiftUI.Color.customBlue : SwiftUI.Color.customGray100)
                 )
         }
         .disabled(!isEnabled)
     }
 }
 
-#Preview {
-    VStack {
-        PropertyUploadBottomButton(title: "업로드 하기", isEnabled: false, action: {})
-        PropertyUploadBottomButton(title: "업로드 하기", isEnabled: true, action: {})
+
+struct PropertyUploadBottomButton_Previews: PreviewProvider {
+    static var previews: some View {
+            VStack {
+                PropertyUploadBottomButton(title: "업로드 하기", isEnabled: false, action: {})
+                PropertyUploadBottomButton(title: "업로드 하기", isEnabled: true, action: {})
+            }
+            .padding()
     }
-    .padding()
 }

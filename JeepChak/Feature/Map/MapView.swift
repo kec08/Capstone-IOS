@@ -6,10 +6,16 @@ struct MapView: View {
     var body: some View {
         VStack(spacing: 0) {
             // 헤더
-            HomeHeaderView()
-                .padding(.horizontal, 20)
-                .padding(.top, 10)
-                .background(Color.customBackgroundBlue)
+            VStack(spacing: 0) {
+                HomeHeaderView()
+                    .padding(.horizontal, 20)
+                    .padding(.trailing, 24)
+                    .padding(.top, 10)
+                    .background(Color.customBackgroundBlue)
+                
+                Color.customBackgroundBlue
+                    .frame(height: 18)
+            }
             
             // 지도 레이어
             ZStack {
@@ -48,6 +54,9 @@ struct MapView: View {
     }
 }
 
-#Preview {
-    MapView()
+
+struct MapView_Previews: PreviewProvider {
+    static var previews: some View {
+            MapView()
+    }
 }

@@ -36,6 +36,7 @@ struct LoanGuideStep1View: View {
                         }
                         
                         Spacer()
+                            .frame(width: 120)
                         
                         Text("사용자 정보")
                             .font(.system(size: 18, weight: .bold))
@@ -51,10 +52,6 @@ struct LoanGuideStep1View: View {
                             ProgressView(value: 0.2)
                                 .frame(width: 60)
                                 .tint(Color("customBlue"))
-                            
-                            Text("20%")
-                                .font(.system(size: 12, weight: .medium))
-                                .foregroundColor(.gray)
                         }
                     }
                     .padding(.horizontal, 20)
@@ -80,16 +77,26 @@ struct LoanGuideStep1View: View {
                         VStack(alignment: .leading, spacing: 12) {
                             Text("나이")
                                 .font(.system(size: 16, weight: .medium))
-                                .foregroundColor(.customBlack)
-                            
-                            TextField("만 나이를 입력해주세요", text: $age)
-                                .keyboardType(.numberPad)
-                                .padding(16)
-                                .background(Color.gray.opacity(0.1))
-                                .cornerRadius(12)
-                                .foregroundColor(.customBlack)
+                                .foregroundStyle(.customBlack)
+
+                            ZStack(alignment: .leading) {
+                                if age.isEmpty {
+                                    Text("만 나이를 입력해주세요")
+                                        .foregroundStyle(Color.customGray300)
+                                        .padding(.leading, 16)
+                                }
+
+                                TextField("", text: $age)
+                                    .keyboardType(.numberPad)
+                                    .padding(16)
+                                    .foregroundStyle(.customBlack)
+                                    .tint(.customBlack)
+                            }
+                            .background(Color.gray.opacity(0.15))
+                            .cornerRadius(12)
                         }
                         .padding(.horizontal, 20)
+
                         
                         // 세대주 여부
                         VStack(alignment: .leading, spacing: 12) {
@@ -225,6 +232,9 @@ struct SelectableButton: View {
     }
 }
 
-#Preview {
-    LoanGuideStep1View()
+
+struct LoanGuideStep1View_Previews: PreviewProvider {
+    static var previews: some View {
+            LoanGuideStep1View()
+    }
 }

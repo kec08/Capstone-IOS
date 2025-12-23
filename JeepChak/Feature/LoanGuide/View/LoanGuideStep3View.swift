@@ -39,6 +39,7 @@ struct LoanGuideStep3View: View {
                         }
                         
                         Spacer()
+                            .frame(width: 130)
                         
                         Text("주거 정보")
                             .font(.system(size: 18, weight: .bold))
@@ -54,10 +55,6 @@ struct LoanGuideStep3View: View {
                             ProgressView(value: 0.6)
                                 .frame(width: 60)
                                 .tint(Color("customBlue"))
-                            
-                            Text("60%")
-                                .font(.system(size: 12, weight: .medium))
-                                .foregroundColor(.gray)
                         }
                     }
                     .padding(.horizontal, 20)
@@ -83,15 +80,25 @@ struct LoanGuideStep3View: View {
                         VStack(alignment: .leading, spacing: 12) {
                             Text("임차 지역")
                                 .font(.system(size: 16, weight: .medium))
-                                .foregroundColor(.customBlack)
-                            
-                            TextField("예: 서울시 강남구", text: $rentalArea)
-                                .padding(16)
-                                .background(Color.gray.opacity(0.1))
-                                .cornerRadius(12)
-                                .foregroundColor(.customBlack)
+                                .foregroundStyle(.customBlack)
+
+                            ZStack(alignment: .leading) {
+                                if rentalArea.isEmpty {
+                                    Text("예: 서울시 강남구")
+                                        .foregroundStyle(Color.customGray300)
+                                        .padding(.leading, 16)
+                                }
+
+                                TextField("", text: $rentalArea)
+                                    .padding(16)
+                                    .foregroundStyle(.customBlack)
+                                    .tint(.customBlack)
+                            }
+                            .background(Color.gray.opacity(0.15))
+                            .cornerRadius(12)
                         }
                         .padding(.horizontal, 20)
+
                         
                         // 집 유형
                         VStack(alignment: .leading, spacing: 12) {
@@ -135,32 +142,51 @@ struct LoanGuideStep3View: View {
                         VStack(alignment: .leading, spacing: 12) {
                             Text("보증금 (만원)")
                                 .font(.system(size: 16, weight: .medium))
-                                .foregroundColor(.customBlack)
-                            
-                            TextField("예: 20000", text: $deposit)
-                                .keyboardType(.numberPad)
-                                .padding(16)
-                                .background(Color.gray.opacity(0.1))
-                                .cornerRadius(12)
-                                .foregroundColor(.customBlack)
+                                .foregroundStyle(.customBlack)
+
+                            ZStack(alignment: .leading) {
+                                if deposit.isEmpty {
+                                    Text("예: 20000")
+                                        .foregroundStyle(Color.customGray300)
+                                        .padding(.leading, 16)
+                                }
+
+                                TextField("", text: $deposit)
+                                    .keyboardType(.numberPad)
+                                    .padding(16)
+                                    .foregroundStyle(.customBlack)
+                                    .tint(.customBlack)
+                            }
+                            .background(Color.gray.opacity(0.15))
+                            .cornerRadius(12)
                         }
                         .padding(.horizontal, 20)
+
                         
                         // 관리비
                         VStack(alignment: .leading, spacing: 12) {
                             Text("관리비 (만원)")
                                 .font(.system(size: 16, weight: .medium))
-                                .foregroundColor(.customBlack)
-                            
-                            TextField("예: 10", text: $managementFee)
-                                .keyboardType(.numberPad)
-                                .padding(16)
-                                .background(Color.gray.opacity(0.1))
-                                .cornerRadius(12)
-                                .foregroundColor(.customBlack)
+                                .foregroundStyle(.customBlack)
+
+                            ZStack(alignment: .leading) {
+                                if managementFee.isEmpty {
+                                    Text("예: 10")
+                                        .foregroundStyle(Color.customGray300)
+                                        .padding(.leading, 16)
+                                }
+
+                                TextField("", text: $managementFee)
+                                    .keyboardType(.numberPad)
+                                    .padding(16)
+                                    .foregroundStyle(.customBlack)
+                                    .tint(.customBlack)
+                            }
+                            .background(Color.gray.opacity(0.15))
+                            .cornerRadius(12)
                         }
                         .padding(.horizontal, 20)
-                        
+
                         // 대출 가능 주택 여부
                         VStack(alignment: .leading, spacing: 12) {
                             Text("대출 가능 주택 여부")
@@ -242,7 +268,10 @@ struct LoanGuideStep3View: View {
     }
 }
 
-#Preview {
-    LoanGuideStep3View()
+
+struct LoanGuideStep3View_Previews: PreviewProvider {
+    static var previews: some View {
+            LoanGuideStep3View()
+    }
 }
 

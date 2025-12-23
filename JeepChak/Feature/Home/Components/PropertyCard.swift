@@ -25,21 +25,21 @@ struct PropertyCard: View {
             // 매물 정보
             VStack(alignment: .leading, spacing: 4) {
                 Text(property.price)
-                    .font(.system(size: 14, weight: .bold))
-                    .foregroundColor(.customBlack)
+                    .font(Font.system(size: 14, weight: .bold))
+                    .foregroundColor(Color("customBlack"))
                 Text("\(property.type) \(property.area)")
-                    .font(.system(size: 11))
-                    .foregroundColor(.customDarkGray)
+                    .font(Font.system(size: 11))
+                    .foregroundColor(Color("customDarkGray"))
                 Text(property.address)
-                    .font(.system(size: 11))
-                    .foregroundColor(.customDarkGray)
+                    .font(Font.system(size: 11))
+                    .foregroundColor(Color("customDarkGray"))
                 Text(property.detail)
-                    .font(.system(size: 10))
-                    .foregroundColor(.customGray300)
+                    .font(Font.system(size: 10))
+                    .foregroundColor(Color("customGray300"))
             }
         }
         .frame(width: 160)
-        .background(.customWhite)
+        .background(Color("customWhite"))
         .cornerRadius(6)
     }
 }

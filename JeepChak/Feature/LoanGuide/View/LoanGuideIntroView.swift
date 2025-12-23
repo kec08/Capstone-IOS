@@ -43,7 +43,6 @@ struct LoanGuideIntroView: View {
                         
                         Spacer()
                         
-                        // 뒤로가기 버튼과 균형을 맞추기 위한 투명 버튼
                         Button(action: {}) {
                             Image(systemName: "chevron.left")
                                 .font(.system(size: 18, weight: .semibold))
@@ -62,23 +61,24 @@ struct LoanGuideIntroView: View {
                             Text("대출 가이드")
                                 .font(.system(size: 28, weight: .bold))
                                 .foregroundColor(.customBlack)
+                                .padding(.bottom, 6)
                             
                             Text("나에게 딱 맞춤 대출 가이드")
-                                .font(.system(size: 16))
+                                .font(.system(size: 16, weight: .semibold))
                                 .foregroundColor(.gray)
+                                .padding(.bottom, 4)
                             
                             Text("짧은 설문만으로 최적의 대출 정보를 찾아보세요!")
-                                .font(.system(size: 14))
+                                .font(.system(size: 15))
                                 .foregroundColor(.gray.opacity(0.8))
                                 .multilineTextAlignment(.center)
                         }
                         .padding(.top, 20)
                         
-                        // 일러스트
                         Image("Home_map")
                             .resizable()
                             .scaledToFit()
-                            .frame(width: 200, height: 150)
+                            .frame(width: 230, height: 180)
                             .padding(.vertical, 20)
                         
                         // 정보 섹션
@@ -89,7 +89,7 @@ struct LoanGuideIntroView: View {
                                 .padding(.bottom, 8)
                             
                             LoanGuideInfoRow(
-                                icon: "calculator",
+                                icon: "chart.bar",
                                 title: "예상 대출 금액 계산",
                                 description: "내 조건으로 받을 수 있는 대출 한도와 금리를 확인해요"
                             )
@@ -178,6 +178,9 @@ struct LoanGuideInfoRow: View {
     }
 }
 
-#Preview {
-    LoanGuideIntroView()
+
+struct LoanGuideIntroView_Previews: PreviewProvider {
+    static var previews: some View {
+            LoanGuideIntroView()
+    }
 }

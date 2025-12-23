@@ -44,6 +44,9 @@ struct PropertyUploadErrorView: View {
     }
 }
 
-#Preview {
-    PropertyUploadErrorView(message: "네트워크 오류입니다.") { }
+
+struct PropertyUploadErrorView_Previews: PreviewProvider {
+    static var previews: some View {
+            PropertyUploadErrorView(message: "네트워크 오류입니다.") { }
+    }
 }
