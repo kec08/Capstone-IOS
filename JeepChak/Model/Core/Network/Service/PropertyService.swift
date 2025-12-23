@@ -15,13 +15,12 @@ final class PropertyService {
     func getProperties() -> AnyPublisher<[PropertyListResponse], Error> {
         provider.requestPublisher(.getProperties)
             .tryMap { response in
-                // 1) 권한/에러 응답(바디가 비어있는 경우가 있어 먼저 statusCode로 가드)
                 guard (200..<300).contains(response.statusCode) else {
                     let raw = String(data: response.data, encoding: .utf8) ?? ""
                     let message: String
                     if raw.isEmpty {
                         message = (response.statusCode == 401 || response.statusCode == 403)
-                        ? "권한이 없습니다. 로그인 상태(토큰)를 확인해주세요."
+                        ? "권한이 없습니다. 토큰 환인 해주세요"
                         : "요청 실패 (status: \(response.statusCode))"
                     } else {
                         // ApiResponse 래핑일 수도 있으니 한 번 시도
@@ -38,7 +37,6 @@ final class PropertyService {
                     )
                 }
 
-                // 2) 성공 응답: 서버가 ApiResponse로 래핑하거나, 명세대로 raw array로 줄 수 있음
                 if let wrapped = try? JSONDecoder().decode(ApiResponse<[PropertyListResponse]>.self, from: response.data) {
                     guard wrapped.success else {
                         throw NSError(

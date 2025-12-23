@@ -24,9 +24,9 @@ extension AnalyzeAPI: TargetType {
     var path: String {
         switch self {
         case .analyze:
-            return "/api/analyze"
+            return "/api/analysis"
         case .getAnalyzeDetail(let id):
-            return "/api/analyze/\(id)"
+            return "/api/analysis/\(id)"
         case .riskSolution:
             return "/api/risk/solution"
         case .getRiskSolution(let id):
@@ -48,6 +48,18 @@ extension AnalyzeAPI: TargetType {
         case .analyze(let request, let files):
             var formData: [Moya.MultipartFormData] = []
             
+            // ✅ 서버가 @RequestPart("request") 형태(JSON 파트)를 요구하는 경우를 위해 request JSON도 함께 전송
+            if let json = try? JSONEncoder().encode(request) {
+                formData.append(
+                    Moya.MultipartFormData(
+                        provider: .data(json),
+                        name: "request",
+                        fileName: "request.json",
+                        mimeType: "application/json"
+                    )
+                )
+            }
+
             // API 명세에 따라 propertyId, marketPrice, deposit, monthlyRent를 개별 필드로 추가
             formData.append(Moya.MultipartFormData(
                 provider: .data("\(request.propertyId)".data(using: .utf8)!),
@@ -120,6 +132,18 @@ extension AnalyzeAPI: TargetType {
             
         case .riskSolution(let request, let files):
             var formData: [Moya.MultipartFormData] = []
+
+            // ✅ 서버가 @RequestPart("request") 형태(JSON 파트)를 요구하는 경우를 위해 request JSON도 함께 전송
+            if let json = try? JSONEncoder().encode(request) {
+                formData.append(
+                    Moya.MultipartFormData(
+                        provider: .data(json),
+                        name: "request",
+                        fileName: "request.json",
+                        mimeType: "application/json"
+                    )
+                )
+            }
             
             // propertyId, marketPrice, deposit, monthlyRent를 개별 필드로 추가
             formData.append(Moya.MultipartFormData(provider: .data("\(request.propertyId)".data(using: .utf8)!), name: "propertyId"))
