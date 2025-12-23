@@ -41,27 +41,17 @@ final class AnalyzeService {
                 print("=== 분석 응답 정보 ===")
                 print("Status Code: \(response.statusCode)")
                 print("Response Data 크기: \(response.data.count) bytes")
-                
-                // 403 오류 처리
-                if response.statusCode == 403 {
-                    let responseBody = String(data: response.data, encoding: .utf8) ?? "비어있음"
-                    print("403 오류 응답 본문: \(responseBody)")
-                    
-                    // 응답 본문이 있으면 그 내용을 사용
-                    if !response.data.isEmpty {
-                        if let errorMessage = String(data: response.data, encoding: .utf8), !errorMessage.isEmpty {
-                            throw NSError(
-                                domain: "AnalyzeService",
-                                code: 403,
-                                userInfo: [NSLocalizedDescriptionKey: errorMessage]
-                            )
-                        }
-                    }
-                    
+
+                // 2xx가 아니면 에러로 처리 (400도 여기서 잡아서 디코딩 에러 방지)
+                guard (200..<300).contains(response.statusCode) else {
+                    let raw = String(data: response.data, encoding: .utf8) ?? ""
+                    let message = raw.isEmpty
+                    ? "요청 실패 (status: \(response.statusCode))"
+                    : raw
                     throw NSError(
                         domain: "AnalyzeService",
-                        code: 403,
-                        userInfo: [NSLocalizedDescriptionKey: "서버에서 요청을 거부했습니다. (403) 파일 형식이나 크기를 확인해주세요."]
+                        code: response.statusCode,
+                        userInfo: [NSLocalizedDescriptionKey: message]
                     )
                 }
                 

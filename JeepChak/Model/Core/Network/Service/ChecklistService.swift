@@ -33,7 +33,7 @@ final class ChecklistService {
                     // contents 배열을 처리
                     if let data = decoded.data, let contents = data.contents, !contents.isEmpty {
                         // contents 배열의 각 항목을 개별 GeneratedChecklistResponse로 변환
-                        // (기존 코드와의 호환성을 위해 배열로 반환)
+                        // 호환성을 위한 배열로 반환
                         return contents.map { content in
                             GeneratedChecklistResponse(contents: [content])
                         }

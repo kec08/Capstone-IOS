@@ -9,6 +9,12 @@ import SwiftUI
 
 struct HomePopularSectionView: View {
     let properties: [Property]
+    
+    // 가로 스크롤 1개로 2줄을 함께 스크롤
+    private let rows: [GridItem] = [
+        GridItem(.fixed(220), spacing: 16),
+        GridItem(.fixed(220), spacing: 16),
+    ]
 
     var body: some View {
         VStack(alignment: .leading, spacing: 18) {
@@ -24,7 +30,7 @@ struct HomePopularSectionView: View {
             }
 
             ScrollView(.horizontal, showsIndicators: false) {
-                HStack(spacing: 16) {
+                LazyHGrid(rows: rows, spacing: 16) {
                     ForEach(properties) { property in
                         PropertyCard(property: property)
                             .frame(width: 168)
@@ -33,17 +39,6 @@ struct HomePopularSectionView: View {
                 .padding(.vertical, 4)
                 .padding(.leading, 2)
             }
-            ScrollView(.horizontal, showsIndicators: false) {
-                HStack(spacing: 16) {
-                    ForEach(properties) { property in
-                        PropertyCard(property: property)
-                            .frame(width: 168)
-                    }
-                }
-                .padding(.vertical, 4)
-                .padding(.leading, 2)
-            }
-            
         }
     }
 }

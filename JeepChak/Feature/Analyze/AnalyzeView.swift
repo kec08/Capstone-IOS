@@ -11,8 +11,8 @@ import Combine
 import Foundation
 
 struct AnalyzeView: View {
-    @State private var selectedFileURL: URL?
-    @State private var selectedFileData: Data? // 파일 데이터를 메모리에 저장
+    @State private var selectedFileURLs: [URL] = []
+    @State private var selectedFileDatas: [Data] = [] // 파일 데이터를 메모리에 저장
     @State private var selectedProperty: SavedProperty?
     
     @State private var showingFileImporter = false
@@ -34,7 +34,7 @@ struct AnalyzeView: View {
                         AnalyzeHeaderView()
                         
                         DocumentUploadCard(
-                            selectedFileURL: selectedFileURL,
+                            selectedFileURLs: selectedFileURLs,
                             showingFileImporter: $showingFileImporter
                         )
                         .frame(maxWidth: .infinity, alignment: .center)
@@ -53,7 +53,7 @@ struct AnalyzeView: View {
                     VStack {
                         Spacer()
                         AnalyzeButton(
-                            enabled: selectedFileData != nil && selectedProperty != nil
+                            enabled: !selectedFileDatas.isEmpty && selectedProperty != nil
                         ) {
                             startAnalysis()
                         }
@@ -66,39 +66,39 @@ struct AnalyzeView: View {
             .fileImporter(
                 isPresented: $showingFileImporter,
                 allowedContentTypes: [
-                    .pdf,
-                    .image,
-                    UTType(filenameExtension: "jpg")!,
-                    UTType(filenameExtension: "jpeg")!,
-                    UTType(filenameExtension: "png")!
+                    .pdf
                 ],
-                allowsMultipleSelection: false
+                allowsMultipleSelection: true
             ) { result in
                 switch result {
                 case .success(let urls):
-                    // fileImporter는 배열로 반환하므로 첫 번째 파일 사용
-                    if let url = urls.first {
-                        // 파일 접근 권한 획득 (fileImporter로 선택한 파일은 접근 권한이 필요함)
+                    // 여러 파일 처리
+                    var pickedURLs: [URL] = []
+                    var pickedDatas: [Data] = []
+
+                    for url in urls {
                         if url.startAccessingSecurityScopedResource() {
+                            defer { url.stopAccessingSecurityScopedResource() }
                             do {
-                                // 파일 데이터를 미리 읽어서 메모리에 저장 (접근 권한이 있는 동안)
                                 let fileData = try Data(contentsOf: url)
-                    selectedFileURL = url
-                                selectedFileData = fileData
+                                guard !fileData.isEmpty else { continue }
+                                pickedURLs.append(url)
+                                pickedDatas.append(fileData)
                                 print("파일 선택 성공: \(url.lastPathComponent), 크기: \(fileData.count) bytes")
-                                
-                                // 접근 권한 해제 (데이터를 이미 읽었으므로)
-                                url.stopAccessingSecurityScopedResource()
                             } catch {
-                                url.stopAccessingSecurityScopedResource()
                                 print("파일 읽기 실패: \(url.lastPathComponent), 오류: \(error.localizedDescription)")
                                 errorMessage = "파일을 읽을 수 없습니다: \(error.localizedDescription)"
+                                return
                             }
                         } else {
                             print("파일 접근 권한 획득 실패: \(url.lastPathComponent)")
                             errorMessage = "파일 접근 권한을 획득할 수 없습니다."
+                            return
                         }
                     }
+
+                    selectedFileURLs = pickedURLs
+                    selectedFileDatas = pickedDatas
                 case .failure(let error):
                     print("파일 선택 실패: \(error.localizedDescription)")
                     errorMessage = "파일을 선택할 수 없습니다: \(error.localizedDescription)"
@@ -136,16 +136,14 @@ struct AnalyzeView: View {
     }
     
     private func startAnalysis() {
-        guard let property = selectedProperty,
-              let fileURL = selectedFileURL,
-              let fileData = selectedFileData else {
-            errorMessage = "파일을 선택해주세요."
+        guard let property = selectedProperty else {
+            errorMessage = "매물을 선택해주세요."
             return
         }
-        
-        // 파일 데이터가 있는지 확인
-        guard !fileData.isEmpty else {
-            errorMessage = "파일 데이터가 비어있습니다. 파일을 다시 선택해주세요."
+
+        // 명세상 등기부등본 + 건축물대장 2개 파일 필요
+        guard selectedFileDatas.count >= 2, selectedFileURLs.count >= 2 else {
+            errorMessage = "등기부등본과 건축물대장(PDF) 2개 파일을 업로드해주세요."
             return
         }
         
@@ -165,20 +163,26 @@ struct AnalyzeView: View {
         errorMessage = nil
         
         // 파일 데이터를 임시 파일로 저장하여 URL 생성
-        let tempURL = createTempFile(from: fileData, fileName: fileURL.lastPathComponent)
-        
-        guard let tempFileURL = tempURL else {
+        var tempFileURLs: [URL] = []
+        for (idx, data) in selectedFileDatas.enumerated() {
+            let originalName = selectedFileURLs.indices.contains(idx) ? selectedFileURLs[idx].lastPathComponent : "document_\(idx).pdf"
+            if let tempURL = createTempFile(from: data, fileName: originalName) {
+                tempFileURLs.append(tempURL)
+            }
+        }
+
+        guard tempFileURLs.count >= 2 else {
             errorMessage = "임시 파일을 생성할 수 없습니다."
             isLoading = false
             return
         }
-        
-        analyzeService.analyze(request: request, files: [tempFileURL])
+
+        analyzeService.analyze(request: request, files: tempFileURLs)
             .receive(on: DispatchQueue.main)
             .sink { completion in
                 // 임시 파일 삭제
-                if let tempURL = tempURL {
-                    try? FileManager.default.removeItem(at: tempURL)
+                for url in tempFileURLs {
+                    try? FileManager.default.removeItem(at: url)
                 }
                 
                 isLoading = false
@@ -188,12 +192,12 @@ struct AnalyzeView: View {
                 }
             } receiveValue: { result in
                 // 임시 파일 삭제
-                if let tempURL = tempURL {
-                    try? FileManager.default.removeItem(at: tempURL)
+                for url in tempFileURLs {
+                    try? FileManager.default.removeItem(at: url)
                 }
                 
                 analyzeResult = result
-                resultFileURL = selectedFileURL
+                resultFileURL = selectedFileURLs.first
                 showingResult = true
             }
             .store(in: &cancellables)
