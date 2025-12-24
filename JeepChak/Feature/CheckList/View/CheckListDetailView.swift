@@ -16,11 +16,14 @@ struct CheckListDetailView: View {
 
     // 헤더 높이
     private let headerHeight: CGFloat = 56
+    /// Final(저장된 체크리스트)에서 '수정'으로 들어온 경우, Final에서 다시 '확인' 버튼을 보여주기 위한 플래그
+    private let isEditingSavedChecklist: Bool
 
-    init(checkItem: CheckItem, items: Binding<[CheckItem]>) {
+    init(checkItem: CheckItem, items: Binding<[CheckItem]>, isEditingSavedChecklist: Bool = false) {
         self.checkItem = checkItem
         self._items = items
         self._detailItems = State(initialValue: checkItem.detailItems.isEmpty ? [] : checkItem.detailItems)
+        self.isEditingSavedChecklist = isEditingSavedChecklist
     }
 
     var body: some View {
@@ -119,7 +122,8 @@ struct CheckListDetailView: View {
                             checkItem: checkItem,
                             detailItems: detailItems,
                             items: $items,
-                            onExitToList: { dismiss() }
+                            onExitToList: { dismiss() },
+                            forceShowConfirm: isEditingSavedChecklist
                         )
                     ) {
                     Text("확인")

@@ -77,10 +77,42 @@ struct ChecklistDetailResponse: Codable {
     let items: [ChecklistItemDetail]
 }
 
+/// 서버 severity가 Int(0~3) 또는 String("NONE" | "NORMAL" | "WARNING" | "DANGER")로 올 수 있어 둘 다 지원
+enum ChecklistSeverity: String, Codable {
+    case NONE
+    case NORMAL
+    case WARNING
+    case DANGER
+
+    init(from decoder: Decoder) throws {
+        let container = try decoder.singleValueContainer()
+
+        if let raw = try? container.decode(String.self) {
+            let upper = raw.trimmingCharacters(in: .whitespacesAndNewlines).uppercased()
+            if let v = ChecklistSeverity(rawValue: upper) {
+                self = v
+                return
+            }
+        }
+
+        if let intValue = try? container.decode(Int.self) {
+            switch intValue {
+            case 1: self = .NORMAL
+            case 2: self = .WARNING
+            case 3: self = .DANGER
+            default: self = .NONE
+            }
+            return
+        }
+
+        self = .NONE
+    }
+}
+
 struct ChecklistItemDetail: Codable {
     let itemId: Int
     let content: String
-    let severity: Int  // 0: none, 1: normal, 2: warning, 3: danger
+    let severity: ChecklistSeverity
     let memo: String?
 }
 

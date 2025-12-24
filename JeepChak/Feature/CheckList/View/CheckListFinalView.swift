@@ -7,6 +7,8 @@ struct CheckListFinalView: View {
     @Binding var items: [CheckItem]
     /// Detail에서 진입했을 때, 저장 후 Detail까지 닫아 CheckListView로 복귀시키기 위한 콜백
     var onExitToList: () -> Void = {}
+    /// 저장된 체크리스트라도 '수정' 플로우로 들어온 경우에는 확인 버튼을 다시 노출하고 PUT 업데이트를 수행
+    var forceShowConfirm: Bool = false
 
     @State private var showAIReport = false
     @Environment(\.dismiss) private var dismiss
@@ -61,7 +63,7 @@ struct CheckListFinalView: View {
 
             Spacer()
 
-            NavigationLink(destination: CheckListDetailView(checkItem: checkItem, items: $items)) {
+            NavigationLink(destination: CheckListDetailView(checkItem: checkItem, items: $items, isEditingSavedChecklist: true)) {
                 Text("수정")
                     .font(.system(size: 16))
                     .foregroundColor(Color("customBlack"))
@@ -73,6 +75,10 @@ struct CheckListFinalView: View {
 
     private var isAlreadySaved: Bool {
         items.first(where: { $0.id == checkItem.id })?.isSaved ?? checkItem.isSaved
+    }
+
+    private var currentChecklistId: Int? {
+        items.first(where: { $0.id == checkItem.id })?.checklistId ?? checkItem.checklistId
     }
 
     // MARK: - Content
@@ -113,8 +119,9 @@ struct CheckListFinalView: View {
                         .shadow(color: Color("customBlack").opacity(0.05), radius: 2)
                     }
 
-                    // 저장 완료된 체크리스트는 확인 버튼 숨김
-                    if !isAlreadySaved {
+                    // 저장 완료된 체크리스트는 기본적으로 확인 버튼 숨김
+                    // 단, Final에서 '수정'으로 들어왔다가 온 경우(forceShowConfirm)에는 다시 노출
+                    if !isAlreadySaved || forceShowConfirm {
                         Button(action: saveAndExitToList) {
                             Text(isSaving ? "저장 중..." : "확인")
                                 .font(.system(size: 16, weight: .semibold))
@@ -169,13 +176,55 @@ struct CheckListFinalView: View {
 
     private func saveAndExitToList() {
         guard !isSaving else { return }
+        isSaving = true
+
+        // 1) 저장된 체크리스트를 '수정' 플로우로 들어온 경우: PUT /api/checklist/{id}
+        if isAlreadySaved && forceShowConfirm {
+            guard let checklistId = currentChecklistId else {
+                isSaving = false
+                errorMessage = "checklistId가 없어 체크리스트를 수정 저장할 수 없습니다."
+                showErrorAlert = true
+                return
+            }
+
+            let updates: [ChecklistUpdateRequest] = detailItems.map { item in
+                ChecklistUpdateRequest(
+                    itemId: item.serverItemId,
+                    memo: item.memo,
+                    severity: severityString(for: item.status)
+                )
+            }
+
+            checklistService.updateChecklist(id: checklistId, items: updates)
+                .receive(on: DispatchQueue.main)
+                .sink { completion in
+                    isSaving = false
+                    if case .failure(let err) = completion {
+                        errorMessage = err.localizedDescription
+                        showErrorAlert = true
+                    }
+                } receiveValue: { _ in
+                    if let index = items.firstIndex(where: { $0.id == checkItem.id }) {
+                        items[index].detailItems = detailItems
+                        items[index].isSaved = true
+                        items[index].checklistId = checklistId
+                    }
+                    dismiss()
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.05) {
+                        onExitToList()
+                    }
+                }
+                .store(in: &cancellables)
+            return
+        }
+
+        // 2) 신규 체크리스트 저장: POST /api/checklist
         guard let propertyId = checkItem.propertyId else {
+            isSaving = false
             errorMessage = "매물 ID(propertyId)가 없어 체크리스트를 저장할 수 없습니다."
             showErrorAlert = true
             return
         }
-
-        isSaving = true
 
         let saveItems: [ChecklistSaveItem] = detailItems.map { item in
             ChecklistSaveItem(

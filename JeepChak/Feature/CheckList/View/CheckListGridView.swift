@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import Combine
 
 struct CheckListGridView: View {
     @Binding var items: [CheckItem]
@@ -27,11 +28,9 @@ struct CheckListGridView: View {
                     cardView(for: item)
                 } else {
                     // 저장된 체크리스트는 FinalView로 바로 진입(하단 확인 버튼 없음)
-                    NavigationLink(
-                        destination: item.isSaved
-                        ? AnyView(CheckListFinalView(checkItem: item, detailItems: item.detailItems, items: $items))
-                        : AnyView(CheckListDetailView(checkItem: item, items: $items))
-                    ) {
+                    NavigationLink {
+                        destinationView(for: item)
+                    } label: {
                         cardView(for: item)
                     }
                     .buttonStyle(PlainButtonStyle())
@@ -39,6 +38,17 @@ struct CheckListGridView: View {
             }
         }
         .padding(.bottom, 20)
+    }
+
+    @ViewBuilder
+    private func destinationView(for item: CheckItem) -> some View {
+        if item.isSaved, let checklistId = item.checklistId, item.detailItems.isEmpty {
+            SavedChecklistFinalLoaderView(checkItem: item, checklistId: checklistId, items: $items)
+        } else if item.isSaved {
+            CheckListFinalView(checkItem: item, detailItems: item.detailItems, items: $items)
+        } else {
+            CheckListDetailView(checkItem: item, items: $items)
+        }
     }
     
     // 날짜 포맷팅 함수
@@ -108,6 +118,89 @@ struct CheckListGridView: View {
                 .font(.system(size: 12))
                 .foregroundColor(Color("customDarkGray"))
                 .padding(.bottom, 16)
+        }
+    }
+}
+
+/// 저장된 체크리스트(서버) 클릭 시, 상세를 먼저 불러온 뒤 FinalView로 보여주는 로더
+private struct SavedChecklistFinalLoaderView: View {
+    let checkItem: CheckItem
+    let checklistId: Int
+    @Binding var items: [CheckItem]
+
+    @State private var detailItems: [DetailItem] = []
+    @State private var isLoading: Bool = true
+    @State private var showErrorAlert: Bool = false
+    @State private var errorMessage: String = ""
+
+    private let checklistService = ChecklistService()
+    @State private var cancellables = Set<AnyCancellable>()
+
+    var body: some View {
+        Group {
+            if isLoading {
+                VStack(spacing: 12) {
+                    ProgressView()
+                    Text("체크리스트 불러오는 중...")
+                        .font(.system(size: 14))
+                        .foregroundColor(Color("customDarkGray"))
+                }
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
+                .background(Color("customWhite"))
+            } else {
+                CheckListFinalView(
+                    checkItem: checkItem,
+                    detailItems: detailItems,
+                    items: $items
+                )
+            }
+        }
+        .onAppear(perform: load)
+        .alert("불러오기 실패", isPresented: $showErrorAlert) {
+            Button("확인", role: .cancel) {}
+        } message: {
+            Text(errorMessage)
+        }
+    }
+
+    private func load() {
+        guard isLoading else { return }
+
+        checklistService.getChecklistDetail(id: checklistId)
+            .receive(on: DispatchQueue.main)
+            .sink { completion in
+                if case .failure(let err) = completion {
+                    errorMessage = err.localizedDescription
+                    showErrorAlert = true
+                }
+                isLoading = false
+            } receiveValue: { response in
+                let mapped = response.items.map { item in
+                    DetailItem(
+                        name: item.content,
+                        status: statusString(from: item.severity),
+                        memo: item.memo ?? "",
+                        serverItemId: item.itemId
+                    )
+                }
+                detailItems = mapped
+
+                // 바인딩된 items에도 캐싱(다음 진입 때 빠르게)
+                if let idx = items.firstIndex(where: { $0.id == checkItem.id }) {
+                    items[idx].detailItems = mapped
+                    items[idx].isSaved = true
+                    items[idx].checklistId = checklistId
+                }
+            }
+            .store(in: &cancellables)
+    }
+
+    private func statusString(from severity: ChecklistSeverity) -> String {
+        switch severity {
+        case .NORMAL:  return "checkmark"
+        case .WARNING: return "warning"
+        case .DANGER:  return "danger"
+        case .NONE:    return "none"
         }
     }
 }
