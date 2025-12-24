@@ -122,28 +122,32 @@ final class HomeViewModel: ObservableObject {
                 area: "1층 13평",
                 imageName: "property_11",
                 location: "의성군 봉양면 화전리 101",
-                price: "월세 60/5"
+                price: "월세 60/5",
+                mapPropertyId: 11
             ),
             RecentProperty(
                 type: "투룸",
                 area: "2층 18평",
                 imageName: "property_12",
                 location: "의성군 봉양면 도리원리 58-2",
-                price: "전세 4,500"
+                price: "전세 4,500",
+                mapPropertyId: 12
             ),
             RecentProperty(
                 type: "오피스텔",
                 area: "5층 22평",
                 imageName: "property_13",
                 location: "의성군 의성읍 시장로 234",
-                price: "월세 1000/60"
+                price: "월세 1000/60",
+                mapPropertyId: 13
             ),
             RecentProperty(
                 type: "아파트",
                 area: "4층 30평",
                 imageName: "property_14",
                 location: "의성군 의성읍 군청로 567",
-                price: "전세 5,000"
+                price: "전세 5,000",
+                mapPropertyId: 14
             )
         ]
     }

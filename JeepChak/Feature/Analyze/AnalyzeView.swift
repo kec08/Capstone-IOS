@@ -76,7 +76,8 @@ struct AnalyzeView: View {
                     var pickedURLs: [URL] = []
                     var pickedDatas: [Data] = []
 
-                    for url in urls {
+                    // ✅ 최대 2개까지만 허용
+                    for url in urls.prefix(2) {
                         if url.startAccessingSecurityScopedResource() {
                             defer { url.stopAccessingSecurityScopedResource() }
                             do {
@@ -141,9 +142,9 @@ struct AnalyzeView: View {
             return
         }
 
-        // 명세상 등기부등본 + 건축물대장 2개 파일 필요
-        guard selectedFileDatas.count >= 2, selectedFileURLs.count >= 2 else {
-            errorMessage = "등기부등본과 건축물대장(PDF) 2개 파일을 업로드해주세요."
+        // ✅ 파일은 1~2개 허용
+        guard selectedFileDatas.count >= 1, selectedFileURLs.count >= 1 else {
+            errorMessage = "PDF 파일을 1~2개 업로드해주세요."
             return
         }
         
@@ -171,7 +172,7 @@ struct AnalyzeView: View {
             }
         }
 
-        guard tempFileURLs.count >= 2 else {
+        guard tempFileURLs.count >= 1 else {
             errorMessage = "임시 파일을 생성할 수 없습니다."
             isLoading = false
             return
