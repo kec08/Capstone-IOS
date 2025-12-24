@@ -12,7 +12,10 @@ import SwiftUI
 @MainActor
 final class MapViewModel: ObservableObject {
     @Published var selectedProperty: MapProperty? = nil
-    @Published var isDetailPresented: Bool = false
+        @Published var isDetailPresented: Bool = false
+
+    /// 홈 카테고리에서 넘어온 필터
+    @Published var activePropertyTypes: Set<String>? = nil
     
     // 의성군 중심 좌표
     @Published var centerLat: Double = 36.3529
@@ -21,8 +24,7 @@ final class MapViewModel: ObservableObject {
     // 의성군 매물 데이터 50개 - 의성군 중심으로 완전히 랜덤 분포
     // 중심 좌표: 36.3529, 128.6970
     // 넓은 범위에 분산 배치: 위도 36.30~36.40, 경도 128.60~128.80
-    // 중심 근처에 더 많이 배치하되 완전히 랜덤하게
-    @Published var properties: [MapProperty] = [
+    private let allProperties: [MapProperty] = [
         MapProperty(id: 1, name: "의성역 근처 원룸", address: "경상북도 의성군 의성읍 중앙로 123", propertyType: "ONE_ROOM", floor: 2, builtYear: 2018, area: 18, marketPrice: 15000, leaseType: "MONTHLY_RENT", deposit: 500, monthlyRent: 35, memo: "의성역 도보 5분 거리, 역세권 원룸", phoneNumber: "010-1234-5678", lat: 36.3523, lng: 128.6956),
         MapProperty(id: 2, name: "의성읍 중심가 빌라", address: "경상북도 의성군 의성읍 의성로 456", propertyType: "VILLA", floor: 3, builtYear: 2015, area: 25, marketPrice: 25000, leaseType: "MONTHLY_RENT", deposit: 1000, monthlyRent: 50, memo: "의성읍 중심가 위치, 주차 가능", phoneNumber: "010-2345-6789", lat: 36.3487, lng: 128.7123),
         MapProperty(id: 3, name: "의성고등학교 앞 원룸", address: "경상북도 의성군 의성읍 학교길 78", propertyType: "ONE_ROOM", floor: 1, builtYear: 2020, area: 20, marketPrice: 18000, leaseType: "JEONSE", deposit: 3000, monthlyRent: nil, memo: "의성고등학교 도보 3분, 신축 원룸", phoneNumber: "010-3456-7890", lat: 36.3561, lng: 128.6834),
@@ -74,6 +76,25 @@ final class MapViewModel: ObservableObject {
         MapProperty(id: 49, name: "의성우체국 뒷골목 원룸", address: "경상북도 의성군 의성읍 우체국뒷길 123", propertyType: "ONE_ROOM", floor: 1, builtYear: 2019, area: 19, marketPrice: 15900, leaseType: "JEONSE", deposit: 3100, monthlyRent: nil, memo: "우체국 인근, 생활 편의시설 접근 용이", phoneNumber: "010-9012-3570", lat: 36.3478, lng: 128.6989),
         MapProperty(id: 50, name: "의성중학교 뒷길 오피스텔", address: "경상북도 의성군 의성읍 중학교뒷길 456", propertyType: "OFFICETEL", floor: 4, builtYear: 2017, area: 23, marketPrice: 20800, leaseType: "MONTHLY_RENT", deposit: 870, monthlyRent: 46, memo: "중학교 인근, 학원가 접근 용이", phoneNumber: "010-0123-4681", lat: 36.3586, lng: 128.6901)
     ]
+
+    /// 화면에 표시할 매물
+    var properties: [MapProperty] {
+        guard let filter = activePropertyTypes, !filter.isEmpty else { return allProperties }
+        return allProperties.filter { filter.contains($0.propertyType) }
+    }
+
+    init(filterTypes: Set<String>? = nil) {
+        self.activePropertyTypes = filterTypes
+    }
+
+    func propertyById(_ id: Int) -> MapProperty? {
+        allProperties.first(where: { $0.id == id })
+    }
+
+    func selectPropertyById(_ id: Int) {
+        guard let p = propertyById(id) else { return }
+        selectProperty(p)
+    }
     
     func selectProperty(_ property: MapProperty) {
         selectedProperty = property
@@ -81,7 +102,7 @@ final class MapViewModel: ObservableObject {
         centerLng = property.lng
         isDetailPresented = true
     }
-    
+
     func closeDetail() {
         isDetailPresented = false
     }

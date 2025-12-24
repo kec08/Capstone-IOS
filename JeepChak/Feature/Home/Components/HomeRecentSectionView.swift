@@ -9,6 +9,8 @@ import SwiftUI
 
 struct HomeRecentSectionView: View {
     let recentPropeties: [RecentProperty]
+    @State private var navigateToMap: Bool = false
+    @State private var selectedMapPropertyId: Int? = nil
 
     var body: some View {
         VStack(alignment: .leading, spacing: 18) {
@@ -27,8 +29,11 @@ struct HomeRecentSectionView: View {
             ScrollView(.horizontal, showsIndicators: false) {
                 HStack(spacing: 16) {
                     ForEach(recentPropeties) { recentproperty in
-                        RecentPropertyCard(property: recentproperty)
-                            .frame(width: 195)
+                        RecentPropertyCard(property: recentproperty) { id in
+                            selectedMapPropertyId = id
+                            navigateToMap = true
+                        }
+                        .frame(width: 195)
                     }
                 }
                 .padding(.vertical, 4)
@@ -36,6 +41,20 @@ struct HomeRecentSectionView: View {
             }
             
         }
+        // "자세히 보기" 탭 시 MapView로 이동 후 해당 매물 시트 자동 표시
+        .background(
+            NavigationLink(
+                destination: MapView(
+                    showsCompactHeader: true,
+                    showsBackButton: false,
+                    initialSelectedPropertyId: selectedMapPropertyId
+                ),
+                isActive: $navigateToMap
+            ) {
+                EmptyView()
+            }
+            .hidden()
+        )
     }
 }
 

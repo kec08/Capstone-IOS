@@ -14,4 +14,6 @@ struct RecentProperty: Identifiable, Hashable {
     let imageName: String
     let location: String
     let price: String
+    /// MapView에서 자동으로 띄울 매물 ID (MapProperty.id)
+    let mapPropertyId: Int?
 }

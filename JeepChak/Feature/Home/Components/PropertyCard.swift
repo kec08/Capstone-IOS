@@ -36,6 +36,7 @@ struct PropertyCard: View {
                 Text(property.detail)
                     .font(Font.system(size: 10))
                     .foregroundColor(Color("customGray300"))
+                    .padding(.bottom, 40)
             }
         }
         .frame(width: 160)

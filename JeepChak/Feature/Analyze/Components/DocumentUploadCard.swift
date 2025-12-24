@@ -49,7 +49,7 @@ struct DocumentUploadCard: View {
                             .font(.system(size: 15, weight: .semibold))
                             .foregroundColor(.customBlack)
                         
-                        Text("PDF 2개 업로드")
+                        Text("PDF 1~2개 업로드")
                             .font(.system(size: 12))
                             .foregroundColor(.gray)
                         

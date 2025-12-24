@@ -9,6 +9,7 @@ import SwiftUI
 
 struct RecentPropertyCard: View {
     let property: RecentProperty
+    let onTapDetail: (Int) -> Void
 
     var body: some View {
         ZStack(alignment: .bottomLeading) {
@@ -48,9 +49,11 @@ struct RecentPropertyCard: View {
                     .foregroundColor(Color("customWhite"))
                     .padding(.top, 4)
 
-                Button(action: {
-                    // 자세히 보기 액션
-                }) {
+                Button {
+                    if let id = property.mapPropertyId {
+                        onTapDetail(id)
+                    }
+                } label: {
                     Text("자세히 보기")
                         .font(Font.system(size: 10, weight: .bold))
                         .foregroundColor(Color("customWhite"))
@@ -61,6 +64,8 @@ struct RecentPropertyCard: View {
                                 .stroke(Color("customWhite"), lineWidth: 1)
                         )
                 }
+                .disabled(property.mapPropertyId == nil)
+                .opacity(property.mapPropertyId == nil ? 0.6 : 1.0)
                 .padding(.top, 10)
                 .frame(maxWidth: .infinity, alignment: .center)
             }
@@ -79,8 +84,10 @@ struct RecentPropertyCard_Previews: PreviewProvider {
                     area: "1층 15평",
                     imageName: "Home_img2",
                     location: "의성군 봉양면 화전리 129 파랑채",
-                    price: "월세 120"
-                )
+                    price: "월세 120",
+                    mapPropertyId: 11
+                ),
+                onTapDetail: { _ in }
             )
     }
 }
