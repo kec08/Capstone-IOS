@@ -48,6 +48,16 @@ struct CheckListView: View {
                     Spacer()
                 }
 
+                if viewModel.isLoading {
+                    ProgressView()
+                        .progressViewStyle(CircularProgressViewStyle())
+                        .padding(14)
+                        .background(Color("customWhite"))
+                        .cornerRadius(12)
+                        .shadow(color: Color.black.opacity(0.05), radius: 2)
+                        .padding(.bottom, 92)
+                }
+
                 Button(action: {
                     showSavedView = true
                 }) {
@@ -61,6 +71,9 @@ struct CheckListView: View {
             }
             .background(Color.customWhite)
             .navigationBarBackButtonHidden(true)
+            .onAppear {
+                viewModel.loadChecklistsIfNeeded()
+            }
             .sheet(isPresented: $showSavedView) {
                 AddChecklistFromWishlistView(
                     onPropertiesSelected: { properties, detailItems in
@@ -93,6 +106,17 @@ struct CheckListView: View {
                 }
             } message: {
                 Text("체크리스트 항목을 삭제하면 복구할 수 없습니다.")
+            }
+            .alert("불러오기 실패", isPresented: $viewModel.showLoadErrorAlert) {
+                Button("확인", role: .cancel) {
+                    viewModel.errorMessage = nil
+                }
+                Button("다시 시도") {
+                    viewModel.errorMessage = nil
+                    viewModel.refresh()
+                }
+            } message: {
+                Text(viewModel.errorMessage ?? "")
             }
         }
     }

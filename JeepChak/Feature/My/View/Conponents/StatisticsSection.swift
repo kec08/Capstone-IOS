@@ -37,7 +37,7 @@ struct StatisticsSection: View {
             }
 
             NavigationLink {
-                CheckListView()
+                MyCheckListListView()
             } label: {
                 StatCard(
                     icon: "My_checkList",
@@ -49,3 +49,4 @@ struct StatisticsSection: View {
         }
     }
 }
+

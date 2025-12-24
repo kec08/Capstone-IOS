@@ -116,6 +116,7 @@
 		BCC987BA2EC40456002AE0F8 /* Moya in Frameworks */ = {isa = PBXBuildFile; productRef = BCC987B92EC40456002AE0F8 /* Moya */; };
 		BCC987BC2EC40456002AE0F8 /* ReactiveMoya in Frameworks */ = {isa = PBXBuildFile; productRef = BCC987BB2EC40456002AE0F8 /* ReactiveMoya */; };
 		BCC987BE2EC40456002AE0F8 /* RxMoya in Frameworks */ = {isa = PBXBuildFile; productRef = BCC987BD2EC40456002AE0F8 /* RxMoya */; };
+		BCE2ABA52EFB9030004501D3 /* MyCheckListListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCE2ABA42EFB902E004501D3 /* MyCheckListListView.swift */; };
 		BCF7775D2EF828FC002F9EEF /* LoanGuideIntroView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC3C604D2EF8246E0025896C /* LoanGuideIntroView.swift */; };
 		BCF7775E2EF8290D002F9EEF /* LoanGuideViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC3C60532EF824D30025896C /* LoanGuideViewModel.swift */; };
 		BCF7775F2EF82912002F9EEF /* LoanGuideStep2View.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC3C60512EF824BD0025896C /* LoanGuideStep2View.swift */; };
@@ -266,6 +267,7 @@
 		BCBF08802EE09FC7009ECE84 /* AuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
 		BCBF08832EE1043F009ECE84 /* MoyaProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoyaProvider.swift; sourceTree = "<group>"; };
 		BCC1EEB52EF16CE60065A89A /* MessageCompleteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageCompleteView.swift; sourceTree = "<group>"; };
+		BCE2ABA42EFB902E004501D3 /* MyCheckListListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyCheckListListView.swift; sourceTree = "<group>"; };
 		BCF777612EF82A37002F9EEF /* LoanGuideStep3View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoanGuideStep3View.swift; sourceTree = "<group>"; };
 		BCF777632EF82F37002F9EEF /* LoanGuideStep4View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoanGuideStep4View.swift; sourceTree = "<group>"; };
 		BCF777652EF82F6B002F9EEF /* LoanGuideStep5View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoanGuideStep5View.swift; sourceTree = "<group>"; };
@@ -400,6 +402,7 @@
 			children = (
 				BC10B1942EC4E2D60067C14E /* Components */,
 				BC10B1952EC4E2D60067C14E /* CheckListDetailView.swift */,
+				BCE2ABA42EFB902E004501D3 /* MyCheckListListView.swift */,
 				BC10B1962EC4E2D60067C14E /* CheckListEmptyView.swift */,
 				BC10B1972EC4E2D60067C14E /* CheckListFinalView.swift */,
 				BC10B1982EC4E2D60067C14E /* CheckListGridView.swift */,
@@ -1021,6 +1024,7 @@
 				BCF777922EF976AF002F9EEF /* NaverMapViewRepresentable.swift in Sources */,
 				BCF777942EF976AF002F9EEF /* MapViewModel.swift in Sources */,
 				BCF777982EF976AF002F9EEF /* TourSpot.swift in Sources */,
+				BCE2ABA52EFB9030004501D3 /* MyCheckListListView.swift in Sources */,
 				BCF7779C2EF976AF002F9EEF /* MapProperty.swift in Sources */,
 				BCF7779E2EF976AF002F9EEF /* PropertyDetailSheet.swift in Sources */,
 				BCF7779A2EF976AF002F9EEF /* TourSpotCard.swift in Sources */,

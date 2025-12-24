@@ -90,7 +90,7 @@ struct LoanGuideStep1View: View {
                                     .keyboardType(.numberPad)
                                     .padding(16)
                                     .foregroundStyle(.customBlack)
-                                    .tint(.customBlack)
+                                    .tint(.customBlue)
                             }
                             .background(Color.gray.opacity(0.15))
                             .cornerRadius(12)

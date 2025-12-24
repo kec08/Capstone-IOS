@@ -34,7 +34,8 @@ struct CheckListHeaderView: View {
             }
         }
         .padding(.vertical, 12)
-        .padding(.bottom, 30)
+        // 헤더가 과하게 아래로 밀리는 문제 방지
+        .padding(.bottom, 6)
         .background(Color.white)
     }
 }

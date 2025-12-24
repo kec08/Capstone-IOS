@@ -127,19 +127,20 @@ final class ChecklistService {
     func getChecklists() -> AnyPublisher<[ChecklistListResponse], Error> {
         provider.requestPublisher(.getChecklists)
             .tryMap { response in
-                let decoded = try JSONDecoder().decode(
-                    ApiResponse<[ChecklistListResponse]>.self,
-                    from: response.data
-                )
-                if decoded.success, let data = decoded.data {
-                    return data
-                } else {
+                // 1) ApiResponse 래핑 형태
+                if let wrapped = try? JSONDecoder().decode(ApiResponse<[ChecklistListResponse]>.self, from: response.data) {
+                    if wrapped.success {
+                        return wrapped.data ?? []
+                    }
                     throw NSError(
                         domain: "ChecklistService",
                         code: response.statusCode,
-                        userInfo: [NSLocalizedDescriptionKey: decoded.message]
+                        userInfo: [NSLocalizedDescriptionKey: wrapped.message]
                     )
                 }
+
+                // 2) 명세(배열) 형태
+                return try JSONDecoder().decode([ChecklistListResponse].self, from: response.data)
             }
             .mapError { $0 as Error }
             .eraseToAnyPublisher()
@@ -149,19 +150,18 @@ final class ChecklistService {
     func getChecklistDetail(id: Int) -> AnyPublisher<ChecklistDetailResponse, Error> {
         provider.requestPublisher(.getChecklistDetail(id: id))
             .tryMap { response in
-                let decoded = try JSONDecoder().decode(
-                    ApiResponse<ChecklistDetailResponse>.self,
-                    from: response.data
-                )
-                if decoded.success, let data = decoded.data {
-                    return data
-                } else {
+                if let wrapped = try? JSONDecoder().decode(ApiResponse<ChecklistDetailResponse>.self, from: response.data) {
+                    if wrapped.success, let data = wrapped.data {
+                        return data
+                    }
                     throw NSError(
                         domain: "ChecklistService",
                         code: response.statusCode,
-                        userInfo: [NSLocalizedDescriptionKey: decoded.message]
+                        userInfo: [NSLocalizedDescriptionKey: wrapped.message]
                     )
                 }
+
+                return try JSONDecoder().decode(ChecklistDetailResponse.self, from: response.data)
             }
             .mapError { $0 as Error }
             .eraseToAnyPublisher()

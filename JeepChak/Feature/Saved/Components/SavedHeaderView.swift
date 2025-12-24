@@ -22,6 +22,7 @@ struct SavedHeaderView: View {
             .contentShape(Rectangle())
 
             Spacer()
+                .frame(width: 87 )
 
             Text("내 매물")
                 .font(SwiftUI.Font.system(size: 18, weight: .bold))
