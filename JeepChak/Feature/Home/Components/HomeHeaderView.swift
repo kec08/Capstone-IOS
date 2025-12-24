@@ -8,7 +8,8 @@
 import SwiftUI
 
 struct HomeHeaderView: View {
-    @State private var searchText = ""
+    /// 검색바 영역 탭 시 외부 페이지(검색 화면)로 이동
+    var onTapSearchArea: () -> Void
 
     var body: some View {
         HStack(spacing: 16) {
@@ -19,36 +20,31 @@ struct HomeHeaderView: View {
 
             Spacer()
 
-            HStack {
-                ZStack(alignment: .leading) {
-                    if searchText.isEmpty {
-                        Text("찾으시는 방을 검색해보세요")
-                            .font(.system(size: 12))
-                            .foregroundColor(Color("customGray300"))
-                            .padding(.leading, 10)
-                    }
+            Button(action: onTapSearchArea) {
+                HStack {
+                    Text("찾으시는 방을 검색해보세요")
+                        .font(.system(size: 14))
+                        .foregroundColor(.customGray300)
+                        .padding(.leading, 14)
 
-                    TextField("", text: $searchText)
-                        .font(.system(size: 12))
-                        .padding(.vertical, 12)
-                        .padding(.leading, 10)
-                        .foregroundColor(Color("customGray300"))
-                        .tint(Color("customGray300"))
-                        .disableAutocorrection(true)
+                    Spacer()
+
+                    Image("Search_icon")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 18, height: 18)
+                        .padding(.trailing, 14)
                 }
-
-
-                Image("Home_search_icon")
-                    .resizable()
-                    .scaledToFit()
-                    .frame(width: 12, height: 12)
-                    .padding(.trailing, 10)
+                .frame(height: 44)
+                .background(Color.white)
+                .cornerRadius(14)
+                .shadow(color: Color("customBlack").opacity(0.05), radius: 2, x: 0, y: 1)
             }
-            .background(Color.white)
-            .cornerRadius(10)
-            .shadow(color: Color("customBlack").opacity(0.05), radius: 2, x: 0, y: 1)
-            .frame(width: 190, height: 38)
+            .environment(\.colorScheme, .light)
+            .buttonStyle(PlainButtonStyle())
+            .frame(width: 230, height: 44)
             .padding(.trailing, -24)
+
         }
         .background(Color("customBackgroundBlue"))
     }
