@@ -17,86 +17,7 @@ struct LoanGuideResultView: View {
         self.source = source
     }
     
-    // 임시 데이터
-    private let mockResult = LoanGuideResult(
-        estimatedLoanAmount: 20000,
-        estimatedInterestRate: 2.8,
-        selfFunded: 5000,
-        monthlyInterest: 47,
-        managementFee: 12,
-        totalMonthlyPayment: 59,
-        recommendedProducts: [
-            RecommendedProduct(
-                title: "청년 전월세보증금 대출",
-                isRecommended: true,
-                fund: "주택도시기금",
-                limit: "한도: 최대 1억원",
-                interestRate: "금리: 연 1.8-2.4%",
-                benefits: [
-                    "만 19~34세 무주택자",
-                    "보증금의 80% 이내",
-                    "저금리 혜택"
-                ]
-            ),
-            RecommendedProduct(
-                title: "일반 전세자금대출",
-                isRecommended: false,
-                fund: "은행권",
-                limit: "한도: 보증금의 70~80%",
-                interestRate: "금리: 연 3.0~4.5%",
-                benefits: [
-                    "주택기금 대상 외 일반대출",
-                    "신용등급에 따라 금리 차등"
-                ]
-            )
-        ],
-        applicationSteps: [
-            ApplicationStep(
-                number: 1,
-                title: "대출 상담 및 상품 선택",
-                description: "은행 앱 또는 영업점 방문하여 상담"
-            ),
-            ApplicationStep(
-                number: 2,
-                title: "필요 서류 준비",
-                description: "신분증, 재직증명서\n소득증명 서류\n임대차계약서 사본\n등기부등본"
-            ),
-            ApplicationStep(
-                number: 3,
-                title: "대출 심사 및 승인",
-                description: "신용평가 및 소득 심사 (2-3 영업일 소요)"
-            ),
-            ApplicationStep(
-                number: 4,
-                title: "계약 체결 및 전입신고",
-                description: "임대차계약 체결 후 전입신고 및 확정일자 받기"
-            ),
-            ApplicationStep(
-                number: 5,
-                title: "대출 실행",
-                description: "임대인 계좌로 대출금 입금"
-            )
-        ],
-        applicationChannels: [
-            "은행 모바일 앱: KB국민, 신한, 우리, 하나 등",
-            "은행 영업점 방문: 상담 후 신청",
-            "기금든든 (주택도시기금): 청년·신혼부부 전용 상품"
-        ],
-        prerequisiteChecklist: [
-            PrerequisiteItem(
-                title: "확정일자 받기",
-                description: "계약 체결 후 주민센터 또는 인터넷으로 신청"
-            ),
-            PrerequisiteItem(
-                title: "전입신고",
-                description: "계약일 또는 잔금일 이후에 신고"
-            ),
-            PrerequisiteItem(
-                title: "임대차계약서 및 계약금 영수증",
-                description: "대출 신청 시 필수 서류"
-            )
-        ]
-    )
+    private var result: LoanGuideResponseDTO? { viewModel.loanResult }
     
     var body: some View {
         NavigationStack {
@@ -131,7 +52,8 @@ struct LoanGuideResultView: View {
                     .padding(.bottom, 20)
                     .background(Color.customWhite)
                     
-                    VStack(spacing: 24) {
+                    if let result {
+                        VStack(spacing: 24) {
                         // 맞춤 대출 가이드 결과
                         VStack(alignment: .leading, spacing: 30) {
                             Text("맞춤 대출 가이드 결과")
@@ -144,7 +66,7 @@ struct LoanGuideResultView: View {
                                         .font(.system(size: 14))
                                         .foregroundColor(.white.opacity(0.9))
                                     
-                                    Text("\(formatNumber(mockResult.estimatedLoanAmount))만원")
+                                    Text("\(formatNumber(result.loanAmount))만원")
                                         .font(.system(size: 20, weight: .bold))
                                         .foregroundColor(.customWhite)
                                 }
@@ -155,7 +77,7 @@ struct LoanGuideResultView: View {
                                     Text("예상 금리")
                                         .font(.system(size: 14))
                                         .foregroundColor(.white.opacity(0.9))
-                                    Text("연 \(mockResult.estimatedInterestRate)%")
+                                    Text("연 \(result.interestRate)%")
                                         .font(.system(size: 20, weight: .bold))
                                         .foregroundColor(.customWhite)
                                 }
@@ -181,9 +103,9 @@ struct LoanGuideResultView: View {
                             }
                             
                             VStack(spacing: 12) {
-                                CostRow(title: "자기 자금", amount: "\(formatNumber(mockResult.selfFunded))만원")
-                                CostRow(title: "월 이자 (예상)", amount: "\(mockResult.monthlyInterest)만원")
-                                CostRow(title: "관리비", amount: "\(mockResult.managementFee)만원")
+                                CostRow(title: "자기 자금", amount: "\(formatNumber(result.ownCapital))만원")
+                                CostRow(title: "월 이자 (예상)", amount: "\(result.monthlyInterest)만원")
+                                CostRow(title: "관리비", amount: "\(result.managementFee)만원")
                                 
                                 Divider()
                                 
@@ -192,7 +114,7 @@ struct LoanGuideResultView: View {
                                         .font(.system(size: 20, weight: .semibold))
                                         .foregroundColor(.customBlack)
                                     Spacer()
-                                    Text("약 \(mockResult.totalMonthlyPayment)만원")
+                                    Text("약 \(result.totalMonthlyCost)만원")
                                         .font(.system(size: 20, weight: .bold))
                                         .foregroundColor(Color.customBlue)
                                 }
@@ -219,8 +141,8 @@ struct LoanGuideResultView: View {
                                     .padding(.bottom, 10)
                             }
                             
-                            ForEach(mockResult.recommendedProducts, id: \.title) { product in
-                                RecommendedProductCard(product: product)
+                            ForEach(result.loans, id: \.title) { item in
+                                LoanGuideBlockCard(title: item.title, content: item.content)
                             }
                         }
                         .padding(20)
@@ -243,8 +165,8 @@ struct LoanGuideResultView: View {
                             }
                             
                             VStack(spacing: 16) {
-                                ForEach(mockResult.applicationSteps, id: \.number) { step in
-                                    ApplicationStepRow(step: step)
+                                ForEach(Array(result.procedures.enumerated()), id: \.offset) { idx, step in
+                                    LoanProcedureRow(number: idx + 1, title: step.title, content: step.content)
                                 }
                             }
                         }
@@ -260,14 +182,19 @@ struct LoanGuideResultView: View {
                                 .foregroundColor(.customBlack)
                             
                             VStack(alignment: .leading, spacing: 12) {
-                                ForEach(mockResult.applicationChannels, id: \.self) { channel in
+                                ForEach(result.channels, id: \.title) { channel in
                                     HStack(spacing: 8) {
                                         Image(systemName: "checkmark.circle.fill")
                                             .font(.system(size: 14))
                                             .foregroundColor(Color("customBlue"))
-                                        Text(channel)
-                                            .font(.system(size: 14))
-                                            .foregroundColor(.customBlack)
+                                        VStack(alignment: .leading, spacing: 2) {
+                                            Text(channel.title)
+                                                .font(.system(size: 14, weight: .medium))
+                                                .foregroundColor(.customBlack)
+                                            Text(channel.content)
+                                                .font(.system(size: 13))
+                                                .foregroundColor(.customDarkGray)
+                                        }
                                     }
                                 }
                             }
@@ -284,7 +211,7 @@ struct LoanGuideResultView: View {
                                 .foregroundColor(.customBlack)
                             
                             VStack(alignment: .leading, spacing: 16) {
-                                ForEach(mockResult.prerequisiteChecklist, id: \.title) { item in
+                                ForEach(result.advance, id: \.title) { item in
                                     HStack(alignment: .top, spacing: 12) {
                                         Image(systemName: "checkmark.circle.fill")
                                             .font(.system(size: 16))
@@ -294,7 +221,7 @@ struct LoanGuideResultView: View {
                                             Text(item.title)
                                                 .font(.system(size: 16, weight: .medium))
                                                 .foregroundColor(.customBlack)
-                                            Text(item.description)
+                                            Text(item.content)
                                                 .font(.system(size: 14))
                                                 .foregroundColor(.customGray300)
                                         }
@@ -393,6 +320,22 @@ struct LoanGuideResultView: View {
                         .padding(.horizontal, 20)
                         .padding(.top, 20)
                         .padding(.bottom, 40)
+                    }
+                    } else {
+                        VStack(spacing: 16) {
+                            ProgressView()
+                            Text("대출 가이드 결과를 불러오는 중입니다…")
+                                .font(.system(size: 16, weight: .semibold))
+                                .foregroundColor(.customDarkGray)
+                        }
+                        .frame(maxWidth: .infinity)
+                        .padding(.top, 120)
+                        .padding(.bottom, 40)
+                        .onAppear {
+                            if viewModel.loanResult == nil && !viewModel.isRequestingLoan {
+                                viewModel.requestLoanGuide()
+                            }
+                        }
                     }
                 }
             }
@@ -505,6 +448,61 @@ struct ApplicationStepRow: View {
                     .lineSpacing(4)
             }
             
+            Spacer()
+        }
+    }
+}
+
+// MARK: - API 응답 렌더링용 (title/content)
+private struct LoanGuideBlockCard: View {
+    let title: String
+    let content: String
+
+    var body: some View {
+        VStack(alignment: .leading, spacing: 10) {
+            Text(title)
+                .font(.system(size: 16, weight: .semibold))
+                .foregroundColor(.customBlack)
+            Text(content)
+                .font(.system(size: 14))
+                .foregroundColor(.customDarkGray)
+                .lineSpacing(3)
+        }
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .padding(16)
+        .background(Color.gray.opacity(0.05) as Color)
+        .cornerRadius(12)
+    }
+}
+
+private struct LoanProcedureRow: View {
+    let number: Int
+    let title: String
+    let content: String
+
+    var body: some View {
+        HStack(alignment: .top, spacing: 12) {
+            ZStack {
+                Circle()
+                    .fill(Color("customBlue"))
+                    .frame(width: 28, height: 28)
+
+                Text("\(number)")
+                    .font(.system(size: 14, weight: .bold))
+                    .foregroundColor(.customWhite)
+            }
+
+            VStack(alignment: .leading, spacing: 8) {
+                Text(title)
+                    .font(Font.system(size: 16, weight: .medium))
+                    .foregroundColor(.customBlack)
+
+                Text(content)
+                    .font(.system(size: 14))
+                    .foregroundColor(.gray)
+                    .lineSpacing(4)
+            }
+
             Spacer()
         }
     }
