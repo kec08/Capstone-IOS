@@ -5,19 +5,23 @@ struct MapView: View {
     private let showsCompactHeader: Bool
     private let showsBackButton: Bool
     private let initialSelectedPropertyId: Int?
+    private let initialSearchQuery: String?
     @StateObject private var viewModel: MapViewModel
     @Environment(\.dismiss) private var dismiss
+    @State private var showSearch: Bool = false
 
     init(
         filterTypes: Set<String>? = nil,
         showsCompactHeader: Bool = false,
         showsBackButton: Bool = false,
-        initialSelectedPropertyId: Int? = nil
+        initialSelectedPropertyId: Int? = nil,
+        initialSearchQuery: String? = nil
     ) {
         self.filterTypes = filterTypes
         self.showsCompactHeader = showsCompactHeader
         self.showsBackButton = showsBackButton
         self.initialSelectedPropertyId = initialSelectedPropertyId
+        self.initialSearchQuery = initialSearchQuery
         _viewModel = StateObject(wrappedValue: MapViewModel(filterTypes: filterTypes))
     }
 
@@ -27,9 +31,8 @@ struct MapView: View {
                 Color.gray.opacity(0.15).ignoresSafeArea()
             } else {
                 VStack(spacing: 0) {
-                    // 탭(기본) 진입: 기존 헤더(검색 포함)
                     if !showsCompactHeader {
-                        HomeHeaderView()
+                        HomeHeaderView(onTapSearchArea: { showSearch = true })
                             .padding(.horizontal, 20)
                             .padding(.trailing, 24)
                             .padding(.top, 10)
@@ -55,7 +58,6 @@ struct MapView: View {
                 }
             }
         }
-        // 홈에서 push로 진입한 경우: 네비게이션 바를 사용(기본 back 버튼 1개만) + 배경을 연한 파랑으로 노치까지 채움
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
             if showsCompactHeader {
@@ -74,6 +76,15 @@ struct MapView: View {
             // RecentPropertyCard에서 진입 시 해당 매물 시트 자동 오픈
             if let id = initialSelectedPropertyId {
                 viewModel.selectPropertyById(id)
+                return
+            }
+            if let q = initialSearchQuery?.trimmingCharacters(in: .whitespacesAndNewlines), !q.isEmpty {
+                _ = viewModel.selectPropertyByQuery(q)
+            }
+        }
+        .fullScreenCover(isPresented: $showSearch) {
+            NavigationStack {
+                PropertySearchView()
             }
         }
         .sheet(isPresented: .init(

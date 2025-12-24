@@ -95,6 +95,56 @@ final class MapViewModel: ObservableObject {
         guard let p = propertyById(id) else { return }
         selectProperty(p)
     }
+
+    /// 검색어로 매물(목데이터) 1개를 찾아 바로 선택 + 시트 오픈
+    /// - Returns: 매칭 여부
+    func selectPropertyByQuery(_ query: String) -> Bool {
+        let q = query.trimmingCharacters(in: .whitespacesAndNewlines)
+        guard !q.isEmpty else { return false }
+
+        // 숫자면 id로 우선 검색
+        if let id = Int(q), let p = propertyById(id) {
+            selectProperty(p)
+            return true
+        }
+
+        let lowered = q.lowercased()
+        if let p = allProperties.first(where: {
+            $0.name.lowercased().contains(lowered) ||
+            $0.address.lowercased().contains(lowered) ||
+            $0.memo.lowercased().contains(lowered)
+        }) {
+            selectProperty(p)
+            return true
+        }
+
+        return false
+    }
+
+    /// 검색 결과 리스트용 (목데이터 기반)
+    func searchProperties(query: String, limit: Int = 20) -> [MapProperty] {
+        let q = query.trimmingCharacters(in: .whitespacesAndNewlines)
+        guard !q.isEmpty else { return [] }
+
+        // 숫자면 id 매칭 우선
+        if let id = Int(q), let p = propertyById(id) {
+            return [p]
+        }
+
+        let lowered = q.lowercased()
+        let matches = allProperties.filter {
+            $0.name.lowercased().contains(lowered) ||
+            $0.address.lowercased().contains(lowered) ||
+            $0.memo.lowercased().contains(lowered) ||
+            $0.displayPropertyType.lowercased().contains(lowered) ||
+            $0.displayLeaseType.lowercased().contains(lowered)
+        }
+
+        if matches.count > limit {
+            return Array(matches.prefix(limit))
+        }
+        return matches
+    }
     
     func selectProperty(_ property: MapProperty) {
         selectedProperty = property
