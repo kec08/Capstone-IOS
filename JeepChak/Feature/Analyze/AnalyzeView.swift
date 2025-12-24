@@ -17,17 +17,15 @@ struct AnalyzeView: View {
     
     @State private var showingFileImporter = false
     @State private var showingPropertySheet = false
-    @State private var showingResult = false
-    @State private var analyzeResult: AnalyzeResponseDTO?
-    @State private var isLoading = false
     @State private var errorMessage: String?
-    @State private var resultFileURL: URL?
     
-    private let analyzeService = AnalyzeService()
-    @State private var cancellables = Set<AnyCancellable>()
+    @State private var navigateToLoading = false
+    @State private var loadingProperty: SavedProperty?
+    @State private var loadingFileURLs: [URL] = []
+    @State private var loadingFileDatas: [Data] = []
     
     var body: some View {
-        NavigationView {
+        NavigationStack {
             VStack {
                     VStack(alignment: .leading, spacing: 24) {
                         
@@ -55,7 +53,7 @@ struct AnalyzeView: View {
                         AnalyzeButton(
                             enabled: !selectedFileDatas.isEmpty && selectedProperty != nil
                         ) {
-                            startAnalysis()
+                            goToAnalyzeLoading()
                         }
                         .padding(.horizontal, 20)
                         .padding(.bottom, 30)
@@ -63,6 +61,15 @@ struct AnalyzeView: View {
             }
             .background(.customBackgroundGray)
             .navigationBarHidden(true)
+            .navigationDestination(isPresented: $navigateToLoading) {
+                if let property = loadingProperty {
+                    AnalyzeLoadingView(
+                        property: property,
+                        selectedFileURLs: loadingFileURLs,
+                        selectedFileDatas: loadingFileDatas
+                    )
+                }
+            }
             .fileImporter(
                 isPresented: $showingFileImporter,
                 allowedContentTypes: [
@@ -110,20 +117,6 @@ struct AnalyzeView: View {
                     self.selectedProperty = saved
                 }
             }
-            .sheet(isPresented: $showingResult) {
-                if let result = analyzeResult {
-                    NavigationView {
-                        AnalyzeResultView(
-                            score: result.totalRisk,
-                            summary: result.comment,
-                            details: result.details.map { RiskDetail(title: $0.original, description: $0.analysisText) },
-                            property: selectedProperty,
-                            analyzeResult: result,
-                            fileURL: resultFileURL
-                        )
-                    }
-                }
-            }
             .alert("오류", isPresented: .constant(errorMessage != nil)) {
                 Button("확인") {
                     errorMessage = nil
@@ -136,7 +129,7 @@ struct AnalyzeView: View {
         }
     }
     
-    private func startAnalysis() {
+    private func goToAnalyzeLoading() {
         guard let property = selectedProperty else {
             errorMessage = "매물을 선택해주세요."
             return
@@ -148,75 +141,12 @@ struct AnalyzeView: View {
             return
         }
         
-        // marketPrice가 없으면 deposit을 사용하거나 기본값 사용
-        let marketPrice = property.deposit ?? 0
-        let deposit = property.deposit ?? 0
-        let monthlyRent = property.monthlyRent ?? 0
-        
-        let request = AnalyzeRequestDTO(
-            propertyId: property.propertyId,
-            marketPrice: marketPrice,
-            deposit: deposit,
-            monthlyRent: monthlyRent
-        )
-        
-        isLoading = true
         errorMessage = nil
         
-        // 파일 데이터를 임시 파일로 저장하여 URL 생성
-        var tempFileURLs: [URL] = []
-        for (idx, data) in selectedFileDatas.enumerated() {
-            let originalName = selectedFileURLs.indices.contains(idx) ? selectedFileURLs[idx].lastPathComponent : "document_\(idx).pdf"
-            if let tempURL = createTempFile(from: data, fileName: originalName) {
-                tempFileURLs.append(tempURL)
-            }
-        }
-
-        guard tempFileURLs.count >= 1 else {
-            errorMessage = "임시 파일을 생성할 수 없습니다."
-            isLoading = false
-            return
-        }
-
-        analyzeService.analyze(request: request, files: tempFileURLs)
-            .receive(on: DispatchQueue.main)
-            .sink { completion in
-                // 임시 파일 삭제
-                for url in tempFileURLs {
-                    try? FileManager.default.removeItem(at: url)
-                }
-                
-                isLoading = false
-                if case .failure(let error) = completion {
-                    errorMessage = error.localizedDescription
-                    print("분석 실패: \(error.localizedDescription)")
-                }
-            } receiveValue: { result in
-                // 임시 파일 삭제
-                for url in tempFileURLs {
-                    try? FileManager.default.removeItem(at: url)
-                }
-                
-                analyzeResult = result
-                resultFileURL = selectedFileURLs.first
-                showingResult = true
-            }
-            .store(in: &cancellables)
-    }
-    
-    // 파일 데이터를 임시 파일로 저장하는 헬퍼 함수
-    private func createTempFile(from data: Data, fileName: String) -> URL? {
-        let tempDir = FileManager.default.temporaryDirectory
-        let tempFileURL = tempDir.appendingPathComponent(fileName)
-        
-        do {
-            try data.write(to: tempFileURL)
-            print("임시 파일 생성 성공: \(tempFileURL.path)")
-            return tempFileURL
-        } catch {
-            print("임시 파일 생성 실패: \(error.localizedDescription)")
-            return nil
-        }
+        loadingProperty = property
+        loadingFileURLs = selectedFileURLs
+        loadingFileDatas = selectedFileDatas
+        navigateToLoading = true
     }
 }
 

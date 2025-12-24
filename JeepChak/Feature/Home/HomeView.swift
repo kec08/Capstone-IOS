@@ -131,7 +131,8 @@ struct PropertySearchView: View {
         HStack(spacing: 8) {
             TextField("찾으시는 방을 검색해보세요", text: $query)
                 .font(.system(size: 14))
-                .foregroundColor(Color("customBlack"))
+                .foregroundColor(.customBlack)
+                .tint(.customBlack)
                 .submitLabel(.search)
                 .onSubmit { triggerSearch() }
 
@@ -151,6 +152,7 @@ struct PropertySearchView: View {
                 .stroke(Color.black.opacity(0.06), lineWidth: 1)
         )
         .cornerRadius(14)
+        .environment(\.colorScheme, .light)
     }
 
     // MARK: - Content
@@ -161,7 +163,7 @@ struct PropertySearchView: View {
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
         } else if results.isEmpty {
             Text("키워드가 없습니다")
-                .font(.system(size: 16, weight: .semibold))
+                .font(.system(size: 20, weight: .semibold))
                 .foregroundColor(Color("customBlack"))
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
         } else {
@@ -197,7 +199,7 @@ struct PropertySearchView: View {
                 .foregroundColor(Color("customDarkGray"))
                 .multilineTextAlignment(.center)
         }
-        .padding(.top, 140)
+        .padding(.bottom, 50)
     }
 
     // MARK: - Logic

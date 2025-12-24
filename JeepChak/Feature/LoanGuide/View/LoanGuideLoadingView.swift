@@ -32,7 +32,7 @@ struct LoanGuideLoadingView: View {
                 Text("AI가 최적의 대출 가이드를\n생성하는 중입니다…")
                     .font(.system(size: 20, weight: .bold))
                     .foregroundColor(.customDarkGray)
-                    .lineLimit(8)
+                    .lineLimit(10)
                     .padding(.top, 30)
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -43,7 +43,7 @@ struct LoanGuideLoadingView: View {
             }
             .onAppear {
                 isAnimating = true
-                // 고정 3초 로딩 제거: API 응답이 오면 즉시 결과로 이동
+                // API 응답이 오면 즉시 결과로 이동
                 if !hasRequested {
                     hasRequested = true
                     viewModel.loanResult = nil

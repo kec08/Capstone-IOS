@@ -45,6 +45,11 @@ struct HomeHeaderView: View {
             .frame(width: 230, height: 44)
             .padding(.trailing, -24)
 
+            .environment(\.colorScheme, .light)
+            .buttonStyle(PlainButtonStyle())
+            .frame(width: 230, height: 44)
+            .padding(.trailing, -24)
+
         }
         .background(Color("customBackgroundBlue"))
     }

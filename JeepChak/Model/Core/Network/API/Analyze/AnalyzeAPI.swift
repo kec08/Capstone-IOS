@@ -51,32 +51,14 @@ extension AnalyzeAPI: TargetType {
             // ✅ 서버가 @RequestPart("request") 형태(JSON 파트)를 요구하는 경우를 위해 request JSON도 함께 전송
             if let json = try? JSONEncoder().encode(request) {
                 formData.append(
+                    // Postman의 Text 필드처럼 filename 없이 보내야 서버가 "request" 파트를 올바르게 파싱하는 경우가 많음
                     Moya.MultipartFormData(
                         provider: .data(json),
                         name: "request",
-                        fileName: "request.json",
                         mimeType: "application/json"
                     )
                 )
             }
-
-            // API 명세에 따라 propertyId, marketPrice, deposit, monthlyRent를 개별 필드로 추가
-            formData.append(Moya.MultipartFormData(
-                provider: .data("\(request.propertyId)".data(using: .utf8)!),
-                name: "propertyId"
-            ))
-            formData.append(Moya.MultipartFormData(
-                provider: .data("\(request.marketPrice)".data(using: .utf8)!),
-                name: "marketPrice"
-            ))
-            formData.append(Moya.MultipartFormData(
-                provider: .data("\(request.deposit)".data(using: .utf8)!),
-                name: "deposit"
-            ))
-            formData.append(Moya.MultipartFormData(
-                provider: .data("\(request.monthlyRent)".data(using: .utf8)!),
-                name: "monthlyRent"
-            ))
             
             for fileURL in files {
                 let hasAccess = fileURL.startAccessingSecurityScopedResource()
@@ -104,9 +86,9 @@ extension AnalyzeAPI: TargetType {
                         provider: .data(fileData),
                         name: "files",
                         fileName: fileName,
-                        mimeType: "application/pdf"
+                        mimeType: mimeType(for: fileURL)
                     ))
-                    print("파일 추가 성공: \(fileName), 크기: \(fileData.count) bytes, mimeType: application/pdf")
+                    print("파일 추가 성공: \(fileName), 크기: \(fileData.count) bytes, mimeType: \(mimeType(for: fileURL))")
                 } catch {
                     print("파일 읽기 실패: \(fileURL.lastPathComponent), 오류: \(error.localizedDescription)")
                     if hasAccess {
@@ -120,7 +102,7 @@ extension AnalyzeAPI: TargetType {
             print("=== Multipart Form Data 구성 ===")
             print("전체 필드 수: \(formData.count)")
             print("파일 필드 수: \(fileCount)")
-            print("데이터 필드: propertyId, marketPrice, deposit, monthlyRent")
+            print("데이터 필드: request(json)")
             if fileCount == 0 {
                 print("경고: 업로드할 파일이 없습니다.")
             } else {
@@ -136,20 +118,14 @@ extension AnalyzeAPI: TargetType {
             // ✅ 서버가 @RequestPart("request") 형태(JSON 파트)를 요구하는 경우를 위해 request JSON도 함께 전송
             if let json = try? JSONEncoder().encode(request) {
                 formData.append(
+                    // Postman의 Text 필드처럼 filename 없이 전송
                     Moya.MultipartFormData(
                         provider: .data(json),
                         name: "request",
-                        fileName: "request.json",
                         mimeType: "application/json"
                     )
                 )
             }
-            
-            // propertyId, marketPrice, deposit, monthlyRent를 개별 필드로 추가
-            formData.append(Moya.MultipartFormData(provider: .data("\(request.propertyId)".data(using: .utf8)!), name: "propertyId"))
-            formData.append(Moya.MultipartFormData(provider: .data("\(request.marketPrice)".data(using: .utf8)!), name: "marketPrice"))
-            formData.append(Moya.MultipartFormData(provider: .data("\(request.deposit)".data(using: .utf8)!), name: "deposit"))
-            formData.append(Moya.MultipartFormData(provider: .data("\(request.monthlyRent)".data(using: .utf8)!), name: "monthlyRent"))
             
             for fileURL in files {
                 // 파일 접근 권한 확인 및 획득
@@ -174,7 +150,7 @@ extension AnalyzeAPI: TargetType {
                         provider: .data(fileData),
                         name: "files",
                         fileName: fileName,
-                        mimeType: "application/pdf"
+                        mimeType: mimeType(for: fileURL)
                     ))
                 } catch {
                     if hasAccess {
