@@ -9,14 +9,15 @@ import SwiftUI
 
 struct LoanGuideLoadingView: View {
     @Environment(\.dismiss) private var dismiss
-    @StateObject private var viewModel = LoanGuideViewModel.shared
+    // 싱글톤 ObservableObject는 @StateObject가 아니라 @ObservedObject로 관찰하는 것이 안전합니다.
+    @ObservedObject private var viewModel = LoanGuideViewModel.shared
     @State private var navigateToResult = false
-    @State private var isLoading = true
     let source: LoanGuideSource
     
     var onComplete: () -> Void
 
     @State private var isAnimating = false
+    @State private var hasRequested = false
 
     var body: some View {
         NavigationStack {
@@ -42,10 +43,28 @@ struct LoanGuideLoadingView: View {
             }
             .onAppear {
                 isAnimating = true
-                // 3초 후 결과 페이지로 이동
-                DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+                // 고정 3초 로딩 제거: API 응답이 오면 즉시 결과로 이동
+                if !hasRequested {
+                    hasRequested = true
+                    viewModel.loanResult = nil
+                    viewModel.requestLoanGuide()
+                }
+            }
+            .onChange(of: viewModel.loanResult != nil) { hasResult in
+                if hasResult {
                     navigateToResult = true
                 }
+            }
+            .alert("대출 가이드 생성 실패", isPresented: $viewModel.showLoanErrorAlert) {
+                Button("닫기", role: .cancel) {
+                    dismiss()
+                }
+                Button("다시 시도") {
+                    viewModel.loanErrorMessage = nil
+                    viewModel.requestLoanGuide()
+                }
+            } message: {
+                Text(viewModel.loanErrorMessage ?? "알 수 없는 오류가 발생했습니다.")
             }
         }
     }

@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		BCF777AA2F0A0001002F9EEF /* LoanAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCF777A72F0A0001002F9EEF /* LoanAPI.swift */; };
+		BCF777AB2F0A0001002F9EEF /* LoanDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCF777A82F0A0001002F9EEF /* LoanDTO.swift */; };
+		BCF777AC2F0A0001002F9EEF /* LoanService.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCF777A92F0A0001002F9EEF /* LoanService.swift */; };
 		BC012C8C2EF994FD00C69910 /* NMapsMap in Frameworks */ = {isa = PBXBuildFile; productRef = BC012C8B2EF994FD00C69910 /* NMapsMap */; };
 		BC10B1E12EC4E2D60067C14E /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC10B1782EC4E2D60067C14E /* AppState.swift */; };
 		BC10B1E22EC4E2D60067C14E /* JeepChakApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC10B1792EC4E2D60067C14E /* JeepChakApp.swift */; };
@@ -155,6 +158,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		BCF777A72F0A0001002F9EEF /* LoanAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JeepChak/Model/Core/Network/API/Loan/LoanAPI.swift; sourceTree = SOURCE_ROOT; };
+		BCF777A82F0A0001002F9EEF /* LoanDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JeepChak/Model/Core/Network/API/DTO/LoanDTO.swift; sourceTree = SOURCE_ROOT; };
+		BCF777A92F0A0001002F9EEF /* LoanService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JeepChak/Model/Core/Network/Service/LoanService.swift; sourceTree = SOURCE_ROOT; };
 		BC10B1782EC4E2D60067C14E /* AppState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
 		BC10B1792EC4E2D60067C14E /* JeepChakApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JeepChakApp.swift; sourceTree = "<group>"; };
 		BC10B17A2EC4E2D60067C14E /* MainTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabView.swift; sourceTree = "<group>"; };
@@ -1018,6 +1024,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BCF777AA2F0A0001002F9EEF /* LoanAPI.swift in Sources */,
+				BCF777AB2F0A0001002F9EEF /* LoanDTO.swift in Sources */,
+				BCF777AC2F0A0001002F9EEF /* LoanService.swift in Sources */,
 				BCF9E25E2ECCBD2F004FB229 /* PropertyDTO.swift in Sources */,
 				BCF7778E2EF976AF002F9EEF /* GoMapBottomBar.swift in Sources */,
 				BCF777902EF976AF002F9EEF /* MapView.swift in Sources */,
