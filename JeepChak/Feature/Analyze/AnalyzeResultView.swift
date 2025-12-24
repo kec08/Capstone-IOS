@@ -7,6 +7,7 @@
 
 import SwiftUI
 import Combine
+import Foundation
 
 struct AnalyzeResultView: View {
     @Environment(\.dismiss) private var dismiss
@@ -17,7 +18,8 @@ struct AnalyzeResultView: View {
     let details: [RiskDetail]
     let property: SavedProperty?
     let analyzeResult: AnalyzeResponseDTO?
-    let fileURL: URL?
+    /// `AnalyzeLoadingView`가 만든 임시 파일 URL들 (결과 화면 이탈 시 정리)
+    let tempFileURLs: [URL]
     
     @State private var showingRiskSolution = false
     @State private var riskSolutionData: RiskSolutionResponseDTO?
@@ -171,6 +173,9 @@ struct AnalyzeResultView: View {
         }
         .background(Color.customBackgroundGray)
         .navigationBarHidden(true)
+        .onDisappear {
+            cleanupTempFiles()
+        }
     }
     
     private func loadRiskSolution() {
@@ -191,8 +196,7 @@ struct AnalyzeResultView: View {
         errorMessage = nil
         
         // 파일 전달
-        let files = fileURL != nil ? [fileURL!] : []
-        analyzeService.riskSolution(request: request, files: files)
+        analyzeService.riskSolution(request: request, files: tempFileURLs)
             .receive(on: DispatchQueue.main)
             .sink { completion in
                 isLoading = false
@@ -205,6 +209,13 @@ struct AnalyzeResultView: View {
                 showingRiskSolution = true
             }
             .store(in: &cancellables)
+    }
+    
+    private func cleanupTempFiles() {
+        guard !tempFileURLs.isEmpty else { return }
+        for url in tempFileURLs {
+            try? FileManager.default.removeItem(at: url)
+        }
     }
 }
 
@@ -239,7 +250,7 @@ extension AnalyzeResultView {
             details: mockResult.details.map { RiskDetail(title: $0.original, description: $0.analysisText) },
             property: nil,
             analyzeResult: mockResult,
-            fileURL: nil
+            tempFileURLs: []
         )
     }
 }

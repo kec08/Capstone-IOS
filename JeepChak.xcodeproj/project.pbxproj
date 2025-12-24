@@ -10,6 +10,7 @@
 		BCF777AA2F0A0001002F9EEF /* LoanAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCF777A72F0A0001002F9EEF /* LoanAPI.swift */; };
 		BCF777AB2F0A0001002F9EEF /* LoanDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCF777A82F0A0001002F9EEF /* LoanDTO.swift */; };
 		BCF777AC2F0A0001002F9EEF /* LoanService.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCF777A92F0A0001002F9EEF /* LoanService.swift */; };
+		BCF777AE2F0A0001002F9EEF /* AnalyzeLoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCF777AD2F0A0001002F9EEF /* AnalyzeLoadingView.swift */; };
 		BC012C8C2EF994FD00C69910 /* NMapsMap in Frameworks */ = {isa = PBXBuildFile; productRef = BC012C8B2EF994FD00C69910 /* NMapsMap */; };
 		BC10B1E12EC4E2D60067C14E /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC10B1782EC4E2D60067C14E /* AppState.swift */; };
 		BC10B1E22EC4E2D60067C14E /* JeepChakApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC10B1792EC4E2D60067C14E /* JeepChakApp.swift */; };
@@ -161,6 +162,7 @@
 		BCF777A72F0A0001002F9EEF /* LoanAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JeepChak/Model/Core/Network/API/Loan/LoanAPI.swift; sourceTree = SOURCE_ROOT; };
 		BCF777A82F0A0001002F9EEF /* LoanDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JeepChak/Model/Core/Network/API/DTO/LoanDTO.swift; sourceTree = SOURCE_ROOT; };
 		BCF777A92F0A0001002F9EEF /* LoanService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JeepChak/Model/Core/Network/Service/LoanService.swift; sourceTree = SOURCE_ROOT; };
+		BCF777AD2F0A0001002F9EEF /* AnalyzeLoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyzeLoadingView.swift; sourceTree = "<group>"; };
 		BC10B1782EC4E2D60067C14E /* AppState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
 		BC10B1792EC4E2D60067C14E /* JeepChakApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JeepChakApp.swift; sourceTree = "<group>"; };
 		BC10B17A2EC4E2D60067C14E /* MainTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabView.swift; sourceTree = "<group>"; };
@@ -349,6 +351,7 @@
 			children = (
 				BCBF06692ED60160009ECE84 /* Components */,
 				BCBF07242ED89585009ECE84 /* AnalyzeResultView.swift */,
+				BCF777AD2F0A0001002F9EEF /* AnalyzeLoadingView.swift */,
 				BC10B17D2EC4E2D60067C14E /* AnalyzeView.swift */,
 				BC10B17E2EC4E2D60067C14E /* AnalyzeViewModel.swift */,
 				BCBF07282ED8970C009ECE84 /* RiskSolutionView.swift */,
@@ -1046,6 +1049,7 @@
 				BC10B1E42EC4E2D60067C14E /* RootView.swift in Sources */,
 				BC10B1E52EC4E2D60067C14E /* AnalyzeView.swift in Sources */,
 				BC10B1E62EC4E2D60067C14E /* AnalyzeViewModel.swift in Sources */,
+				BCF777AE2F0A0001002F9EEF /* AnalyzeLoadingView.swift in Sources */,
 				BC3C60412EF72B120025896C /* AnalyzeAPI.swift in Sources */,
 				BCBF07252ED89586009ECE84 /* AnalyzeResultView.swift in Sources */,
 				BC10B1E72EC4E2D60067C14E /* AddCheckListView.swift in Sources */,
