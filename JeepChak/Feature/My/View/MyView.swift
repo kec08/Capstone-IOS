@@ -10,8 +10,8 @@
 import SwiftUI
 
 struct MyView: View {
-    @StateObject private var viewModel = MyViewModel(appState: AppState())
     @EnvironmentObject var appState: AppState
+    @StateObject private var viewModel = MyViewModel()
     @State private var showLogoutAlert: Bool = false
 
     var body: some View {
@@ -53,7 +53,7 @@ struct MyView: View {
         .alert("로그아웃", isPresented: $showLogoutAlert) {
             Button("취소", role: .cancel) {}
             Button("로그아웃", role: .destructive) {
-                viewModel.logout()
+                appState.logout()
             }
         } message: {
             Text("정말 로그아웃 하시겠어요?")

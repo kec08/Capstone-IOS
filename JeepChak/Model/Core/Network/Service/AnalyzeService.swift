@@ -17,6 +17,46 @@ final class AnalyzeService {
         ]
     )
     
+    // MARK: - Debug helpers
+    /// multipart/form-data는 바이너리가 포함되어 raw 전체 덤프가 위험하므로, 구조를 그대로 보여주는 "프리뷰"를 출력합니다.
+    private func printMultipartRawPreview(requestJSON: String, files: [URL]) {
+        let boundary = "zipchak.boundary.\(UUID().uuidString)"
+        var preview = ""
+        
+        preview += "===== Multipart RAW Preview (boundary=\(boundary)) =====\n"
+        preview += "--\(boundary)\r\n"
+        preview += "Content-Disposition: form-data; name=\"request\"\r\n"
+        preview += "Content-Type: application/json\r\n\r\n"
+        preview += "\(requestJSON)\r\n"
+        
+        for fileURL in files {
+            let fileName = fileURL.lastPathComponent
+            let size = (try? Data(contentsOf: fileURL).count) ?? -1
+            let mimeType: String = fileURL.pathExtension.lowercased() == "pdf" ? "application/pdf" : "application/octet-stream"
+            
+            preview += "--\(boundary)\r\n"
+            preview += "Content-Disposition: form-data; name=\"files\"; filename=\"\(fileName)\"\r\n"
+            preview += "Content-Type: \(mimeType)\r\n\r\n"
+            preview += "<BINARY \(size) bytes>\r\n"
+        }
+        
+        preview += "--\(boundary)--\r\n"
+        preview += "=======================================================\n"
+        print(preview)
+        
+        // curl 프리뷰(실제 boundary는 다를 수 있지만, 서버에 들어가는 형태를 그대로 재현)
+        var curl = "curl -X POST 'http://zipchak-backend.kro.kr:8080/api/analysis' \\\n"
+        curl += "  -H 'Accept: application/json' \\\n"
+        if let token = TokenStorage.accessToken {
+            curl += "  -H 'Authorization: Bearer \(token)' \\\n"
+        }
+        curl += "  -F 'request=\(requestJSON);type=application/json' \\\n"
+        for fileURL in files {
+            curl += "  -F 'files=@\(fileURL.path);type=application/pdf' \\\n"
+        }
+        print("===== curl Preview =====\n\(curl)\n========================")
+    }
+    
     // 위험도 분석 리포트
     func analyze(request: AnalyzeRequestDTO, files: [URL]) -> AnyPublisher<AnalyzeResponseDTO, Error> {
         // 요청 정보 로깅
@@ -25,10 +65,9 @@ final class AnalyzeService {
         print("marketPrice: \(request.marketPrice)")
         print("deposit: \(request.deposit)")
         print("monthlyRent: \(request.monthlyRent)")
-        if let json = try? JSONEncoder().encode(request),
-           let jsonString = String(data: json, encoding: .utf8) {
-            print("request(JSON): \(jsonString)")
-        }
+        let requestJSON = (try? JSONEncoder().encode(request))
+            .flatMap { String(data: $0, encoding: .utf8) } ?? "{}"
+        print("request(JSON): \(requestJSON)")
         print("파일 개수: \(files.count)")
         for (index, fileURL) in files.enumerated() {
             print("파일 \(index + 1): \(fileURL.lastPathComponent)")
@@ -39,6 +78,9 @@ final class AnalyzeService {
             print("토큰 존재: 아니오")
         }
         print("==================")
+        
+        // multipart raw 프리뷰(바이너리 제외)
+        printMultipartRawPreview(requestJSON: requestJSON, files: files)
         
         return provider.requestPublisher(.analyze(request: request, files: files))
             .tryMap { response in
@@ -118,7 +160,19 @@ final class AnalyzeService {
     
     // 대처 방안 확인
     func riskSolution(request: RiskSolutionRequestDTO, files: [URL]) -> AnyPublisher<RiskSolutionResponseDTO, Error> {
-        provider.requestPublisher(.riskSolution(request: request, files: files))
+        // 요청 raw 프리뷰(바이너리 제외)
+        let requestJSON = (try? JSONEncoder().encode(request))
+            .flatMap { String(data: $0, encoding: .utf8) } ?? "{}"
+        print("=== 대처 방안 요청 정보 ===")
+        print("request(JSON): \(requestJSON)")
+        print("파일 개수: \(files.count)")
+        for (index, fileURL) in files.enumerated() {
+            print("파일 \(index + 1): \(fileURL.lastPathComponent)")
+        }
+        print("==================")
+        printMultipartRawPreview(requestJSON: requestJSON, files: files)
+        
+        return provider.requestPublisher(.riskSolution(request: request, files: files))
             .tryMap { response in
                 let decoded = try JSONDecoder().decode(
                     ApiResponse<RiskSolutionResponseDTO>.self,
