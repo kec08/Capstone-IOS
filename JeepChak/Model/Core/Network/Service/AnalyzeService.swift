@@ -25,6 +25,10 @@ final class AnalyzeService {
         print("marketPrice: \(request.marketPrice)")
         print("deposit: \(request.deposit)")
         print("monthlyRent: \(request.monthlyRent)")
+        if let json = try? JSONEncoder().encode(request),
+           let jsonString = String(data: json, encoding: .utf8) {
+            print("request(JSON): \(jsonString)")
+        }
         print("파일 개수: \(files.count)")
         for (index, fileURL) in files.enumerated() {
             print("파일 \(index + 1): \(fileURL.lastPathComponent)")
