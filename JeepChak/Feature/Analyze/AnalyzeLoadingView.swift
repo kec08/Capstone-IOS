@@ -101,6 +101,23 @@ struct AnalyzeLoadingView: View {
             showErrorAlert = true
             return
         }
+
+        // ✅ 서버 500(내부 PDF 파서 오류) 방지를 위해 업로드 전 PDF 유효성 최소 검증
+        let pdfMagic: [UInt8] = [0x25, 0x50, 0x44, 0x46, 0x2D] // %PDF-
+        for (idx, data) in selectedFileDatas.enumerated() {
+            // 너무 작은 파일은 서버에서 파싱하다 터질 확률이 큼
+            guard data.count > 1024 else {
+                errorMessage = "업로드한 파일(\(idx + 1))이 너무 작습니다. 정상 PDF를 다시 선택해주세요."
+                showErrorAlert = true
+                return
+            }
+            let header = Array(data.prefix(pdfMagic.count))
+            guard header == pdfMagic else {
+                errorMessage = "업로드한 파일(\(idx + 1))이 유효한 PDF가 아닙니다. (PDF 파일만 업로드 가능)"
+                showErrorAlert = true
+                return
+            }
+        }
         
         // marketPrice가 없으면 deposit을 사용하거나 기본값 사용
         let marketPrice = property.deposit ?? 0
@@ -117,11 +134,12 @@ struct AnalyzeLoadingView: View {
         // 파일 데이터를 임시 파일로 저장하여 URL 생성 (보안 스코프 이슈 회피)
         var createdTempURLs: [URL] = []
         for (idx, data) in selectedFileDatas.enumerated() {
-            let originalName = selectedFileURLs.indices.contains(idx)
-            ? selectedFileURLs[idx].lastPathComponent
-            : "document_\(idx).pdf"
+            // 서버 멀티파트 파싱 이슈(한글 파일명/특수문자/이중 확장자 등) 방지를 위해 ASCII 파일명으로 저장
+            let ext = selectedFileURLs.indices.contains(idx) ? selectedFileURLs[idx].pathExtension : "pdf"
+            let safeExt = ext.isEmpty ? "pdf" : ext
+            let safeName = "document_\(idx).\(safeExt)"
             
-            if let tempURL = createTempFile(from: data, fileName: originalName) {
+            if let tempURL = createTempFile(from: data, fileName: safeName) {
                 createdTempURLs.append(tempURL)
             }
         }
