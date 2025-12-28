@@ -20,7 +20,8 @@ struct LoanGuideRequestDTO: Codable {
     let loanType: String
     let overdueRecord: Bool
     let hasLeaseAgreement: Bool
-    let confirmed: Bool
+    /// 확정일자 여부 (RECEIVED, SCHEDULED, UNKNOWN)
+    let confirmed: String
 
     static func from(_ data: LoanGuideData) -> LoanGuideRequestDTO {
         LoanGuideRequestDTO(
@@ -30,7 +31,7 @@ struct LoanGuideRequestDTO: Codable {
             annualSalary: data.annualIncome ?? 0,
             monthlySalary: data.monthlyIncome ?? 0,
             incomeType: data.incomeType?.apiValue ?? "EMPLOYEE",
-            incomeCategory: data.incomeCategory?.apiValue ?? "EARNED",
+            incomeCategory: data.incomeCategory?.apiValue ?? "EARNED_INCOME",
             rentalArea: data.rentalArea ?? "",
             houseType: data.houseType?.apiValue ?? "VILLA",
             rentalType: data.leaseType?.apiValue ?? "JEONSE",
@@ -41,7 +42,7 @@ struct LoanGuideRequestDTO: Codable {
             loanType: data.loanType?.apiValue ?? "OTHER",
             overdueRecord: data.hasDelinquencyRecord ?? false,
             hasLeaseAgreement: data.hasLeaseAgreement ?? false,
-            confirmed: (data.fixedDateStatus == .received)
+            confirmed: data.fixedDateStatus?.apiValue ?? "UNKNOWN"
         )
     }
 }
@@ -70,7 +71,8 @@ private extension FamilyComposition {
     var apiValue: String {
         switch self {
         case .single:   return "SINGLE"
-        case .newlywed: return "NEWLYWED"
+        // API 명세: HONEYMOON (신혼)
+        case .newlywed: return "HONEYMOON"
         case .couple:   return "COUPLE"
         case .youth:    return "YOUTH"
         }
@@ -90,9 +92,10 @@ private extension IncomeType {
 private extension IncomeCategory {
     var apiValue: String {
         switch self {
-        case .earned:   return "EARNED"
-        case .business: return "BUSINESS"
-        case .other:    return "OTHER"
+        // API 명세: EARNED_INCOME / BUSINESS_INCOME / OTHER_INCOME
+        case .earned:   return "EARNED_INCOME"
+        case .business: return "BUSINESS_INCOME"
+        case .other:    return "OTHER_INCOME"
         }
     }
 }
@@ -131,6 +134,16 @@ private extension LoanType {
         case .jeonse:   return "JEONSE"
         case .mortgage: return "MORTGAGE"
         case .other:    return "OTHER"
+        }
+    }
+}
+
+private extension FixedDateStatus {
+    var apiValue: String {
+        switch self {
+        case .received: return "RECEIVED"
+        case .planned:  return "SCHEDULED"
+        case .unknown:  return "UNKNOWN"
         }
     }
 }
