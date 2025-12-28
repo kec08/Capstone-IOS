@@ -50,7 +50,6 @@ struct MapView: View {
 
                     if !showsCompactHeader {
                         VStack(spacing: 0) {
-                            // 헤더/필터만 상단 배경을 유지하고, 카드 영역은 지도 위에 떠있는 느낌(배경 없음)
                             VStack(spacing: 10) {
                                 HomeHeaderView(onTapSearchArea: { showSearch = true })
                                     .padding(.horizontal, 20)
@@ -93,7 +92,7 @@ struct MapView: View {
         .toolbarBackground(.visible, for: .navigationBar)
         .toolbar(showsCompactHeader ? .visible : .hidden, for: .navigationBar)
         .onAppear {
-            // 기본 탭 필터 적용 (홈 카테고리 등에서 filterTypes가 넘어오면 유지)
+            // 기본 탭 필터
             applyQuickFilter()
 
             // RecentPropertyCard에서 진입 시 해당 매물 시트 자동 오픈
@@ -187,7 +186,7 @@ private struct MapQuickFilterBar: View {
     }
 }
 
-// MARK: - Top Cards (5개)
+// MARK: - Top Cards
 private struct MapTopCardCarousel: View {
     let properties: [MapProperty]
     let onTap: (MapProperty) -> Void
@@ -213,7 +212,9 @@ private struct MapTopCardCarousel: View {
 
     private func placeholderImageName(for propertyId: Int) -> String {
         let pool = (1...14).map { "property_\($0)" }
-        return pool[abs(propertyId) % pool.count]
+        let normalized = abs(propertyId)
+        let index = (normalized == 0) ? 0 : (normalized - 1) % pool.count
+        return pool[index]
     }
 }
 
