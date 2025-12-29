@@ -119,8 +119,8 @@ struct AnalyzeLoadingView: View {
             }
         }
         
-        // marketPrice가 없으면 deposit을 사용하거나 기본값 사용
-        let marketPrice = property.deposit ?? 0
+        // marketPrice(시세)가 있으면 우선 사용, 없으면 deposit fallback
+        let marketPrice = property.marketPrice ?? property.deposit ?? 0
         let deposit = property.deposit ?? 0
         let monthlyRent = property.monthlyRent ?? 0
         

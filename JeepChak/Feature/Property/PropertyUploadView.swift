@@ -1,4 +1,6 @@
 import SwiftUI
+import Combine
+import UIKit
 
 struct PropertyUploadView: View {
     @Environment(\.dismiss) private var dismiss
@@ -6,6 +8,10 @@ struct PropertyUploadView: View {
     
     let onPropertySelected: (SavedProperty) -> Void
     @State private var selectedId: Int? = nil
+    @State private var isFetchingDetail: Bool = false
+    @State private var errorMessage: String?
+    private let propertyService = PropertyService()
+    @State private var cancellables = Set<AnyCancellable>()
     
     init(onPropertySelected: @escaping (SavedProperty) -> Void) {
         _viewModel = StateObject(wrappedValue: SavedViewModel())
@@ -33,21 +39,45 @@ struct PropertyUploadView: View {
             
             PropertyUploadBottomButton(
                 title: "업로드 하기",
-                isEnabled: selectedId != nil
+                isEnabled: selectedId != nil && !isFetchingDetail
             ) {
                 guard
                     let id = selectedId,
                     let property = viewModel.properties.first(where: { $0.id == id })
                 else { return }
-                
-                onPropertySelected(property)
-                dismiss()
+
+                // 시세 전달
+                isFetchingDetail = true
+                errorMessage = nil
+                propertyService.getPropertyDetail(id: property.propertyId)
+                    .map { SavedProperty.from($0) }
+                    .receive(on: DispatchQueue.main)
+                    .sink { completion in
+                        isFetchingDetail = false
+                        if case .failure(let e) = completion {
+                            // 상세 조회 실패 시에도 기존 선택값으로 진행
+                            errorMessage = e.localizedDescription
+                            onPropertySelected(property)
+                            dismiss()
+                        }
+                    } receiveValue: { detailed in
+                        var enriched = detailed
+                        enriched.image = property.image
+                        onPropertySelected(enriched)
+                        dismiss()
+                    }
+                    .store(in: &cancellables)
             }
             .padding(.horizontal, 20)
             .padding(.bottom, 24)
         }
         .background(Color.white.ignoresSafeArea())
         .navigationBarHidden(true)
+        .alert("매물 정보 불러오기 실패", isPresented: .constant(errorMessage != nil)) {
+            Button("확인") { errorMessage = nil }
+        } message: {
+            if let msg = errorMessage { Text(msg) }
+        }
     }
 }
 
@@ -110,6 +140,7 @@ struct PropertyUploadView_Previews: PreviewProvider {
                             details: "서울 성동구 성수동1가",
                             description: "채광 좋고 주변 조용함",
                             price: "월세 80/10",
+                            marketPrice: 15000,
                             createdAt: "2025-11-15",
                             floor: 3,
                             area: 20,
@@ -126,6 +157,7 @@ struct PropertyUploadView_Previews: PreviewProvider {
                             details: "서울 강남구 역삼동",
                             description: "회사와 가까움",
                             price: "전세 4.5억",
+                            marketPrice: 450000000,
                             createdAt: "2025-11-10",
                             floor: 5,
                             area: 30,

@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import UIKit
 
 struct SavedProperty: Identifiable {
     let id: Int
@@ -16,6 +17,8 @@ struct SavedProperty: Identifiable {
     let details: String
     let description: String
     let price: String
+    /// 매물 시세(매물분석 API 요청에 사용)
+    let marketPrice: Int?
     let createdAt: String?
     let floor: Int?
     let area: Int?
@@ -74,6 +77,7 @@ extension SavedProperty {
             details: r.address,
             description: description,
             price: priceString,
+            marketPrice: r.marketPrice,
             createdAt: r.createdAt,
             floor: r.floor,
             area: r.area,
@@ -123,6 +127,7 @@ extension SavedProperty {
             details: r.address,
             description: description,
             price: priceString,
+            marketPrice: r.marketPrice,
             createdAt: r.createdAt,
             floor: r.floor,
             area: r.area,
