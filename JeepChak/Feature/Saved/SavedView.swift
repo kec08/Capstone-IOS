@@ -74,6 +74,7 @@ struct SavedView: View {
                         details: item.address,
                         description: item.memo,
                         price: item.displayPrice,
+                        marketPrice: item.marketPrice,
                         createdAt: item.date,
                         floor: item.floor,
                         area: item.area,

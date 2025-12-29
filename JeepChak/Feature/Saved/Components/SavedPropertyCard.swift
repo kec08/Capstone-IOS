@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import UIKit
 
 struct SavedPropertyCard: View {
     let property: SavedProperty
@@ -96,6 +97,7 @@ struct SavedPropertyCard_Previews: PreviewProvider {
                     details: "서울특별시 성동구 성수동1가 123-4",
                     description: "채광 좋고 주변이 조용함",
                     price: "월세 80 / 10",
+                    marketPrice: 20000,
                     createdAt: "2025-11-15",
                     floor: 1,
                     area: 15,

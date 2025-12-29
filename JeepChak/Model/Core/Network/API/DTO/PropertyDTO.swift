@@ -28,6 +28,8 @@ struct PropertyListResponse: Codable {
     let propertyType: String?
     let floor: Int?
     let area: Int?
+    /// 시세(서버가 리스트에서도 내려주면 사용, 없으면 상세 조회에서 채움)
+    let marketPrice: Int?
     let leaseType: String?
     let deposit: Int?
     let monthlyRent: Int?
