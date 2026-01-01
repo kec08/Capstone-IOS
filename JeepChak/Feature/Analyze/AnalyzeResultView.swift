@@ -45,13 +45,13 @@ struct AnalyzeResultView: View {
             .padding(.vertical, 25)
             
             ScrollView {
-                // 점수
+                // %
                 VStack(spacing: 8) {
-                    Text("위험점수")
+                    Text("위험도")
                         .font(.system(size: 15))
                         .foregroundColor(.customDarkGray)
                     
-                    Text("\(score)점")
+                    Text("\(score)%")
                         .font(.system(size: 46, weight: .bold))
                         .foregroundColor(.customYellow)
                 }

@@ -102,7 +102,7 @@ struct AnalyzeLoadingView: View {
             return
         }
 
-        // ✅ 서버 500(내부 PDF 파서 오류) 방지를 위해 업로드 전 PDF 유효성 최소 검증
+        //  서버 500(내부 PDF 파서 오류) 방지를 위해 업로드 전 PDF 유효성 최소 검증
         let pdfMagic: [UInt8] = [0x25, 0x50, 0x44, 0x46, 0x2D] // %PDF-
         for (idx, data) in selectedFileDatas.enumerated() {
             // 너무 작은 파일은 서버에서 파싱하다 터질 확률이 큼

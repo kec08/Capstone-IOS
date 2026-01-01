@@ -15,7 +15,7 @@ struct AIResultView: View {
                     .font(.title3.bold())
                     .padding(.top, 20)
 
-                Text("68점")
+                Text("68%")
                     .font(.system(size: 48, weight: .bold))
                     .foregroundColor(.orange)
 

@@ -45,8 +45,8 @@ struct PropertyUploadView: View {
                     let id = selectedId,
                     let property = viewModel.properties.first(where: { $0.id == id })
                 else { return }
-
-                // 시세 전달
+                
+                // ✅ 분석에 필요한 marketPrice(시세)를 보장하기 위해 상세조회 후 전달
                 isFetchingDetail = true
                 errorMessage = nil
                 propertyService.getPropertyDetail(id: property.propertyId)
@@ -55,10 +55,10 @@ struct PropertyUploadView: View {
                     .sink { completion in
                         isFetchingDetail = false
                         if case .failure(let e) = completion {
-                            // 상세 조회 실패 시에도 기존 선택값으로 진행
+                            // 상세 조회 실패 시에도 기존 선택값으로 진행(시세는 deposit fallback 될 수 있음)
                             errorMessage = e.localizedDescription
-                            onPropertySelected(property)
-                            dismiss()
+                onPropertySelected(property)
+                dismiss()
                         }
                     } receiveValue: { detailed in
                         var enriched = detailed

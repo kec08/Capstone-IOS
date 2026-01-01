@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct AIGeneratedListView: View {
+    let checklistItems: [AICheckItem]
     var onConfirm: ([AICheckItem]) -> Void // 선택된 항목들을 전달
 
     @State private var items: [AICheckItem]
@@ -15,6 +16,7 @@ struct AIGeneratedListView: View {
     @State private var newItem = ""
     
     init(checklistItems: [AICheckItem] = [], onConfirm: @escaping ([AICheckItem]) -> Void) {
+        self.checklistItems = checklistItems
         self.onConfirm = onConfirm
         // API에서 받은 항목이 있으면 사용, 없으면 빈 배열 (기본값 제거)
         self._items = State(initialValue: checklistItems)
@@ -110,6 +112,12 @@ struct AIGeneratedListView: View {
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(Color.white.ignoresSafeArea())
+        // ✅ sheet가 먼저 뜬 뒤 checklistItems가 채워지는 케이스(비동기)에서도 리스트가 갱신되도록 동기화
+        .onChange(of: checklistItems.count) { _ in
+            if items.isEmpty && !checklistItems.isEmpty {
+                items = checklistItems
+            }
+        }
         .sheet(isPresented: $showAddSheet) {
             AddChecklistSheet(
                 newItem: $newItem,
