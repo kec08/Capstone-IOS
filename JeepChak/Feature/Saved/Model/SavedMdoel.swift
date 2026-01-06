@@ -17,7 +17,6 @@ struct SavedProperty: Identifiable {
     let details: String
     let description: String
     let price: String
-    /// 매물 시세(매물분석 API 요청에 사용)
     let marketPrice: Int?
     let createdAt: String?
     let floor: Int?

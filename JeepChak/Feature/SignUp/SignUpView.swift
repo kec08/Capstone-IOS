@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import UIKit
 
 struct SignUpView: View {
     @StateObject private var viewModel = SignUpViewModel()
@@ -26,19 +27,16 @@ struct SignUpView: View {
                 
                 ScrollView {
                     VStack(spacing: 24) {
-                        
-                        // Apple 로그인
-                        AppleSignInStyledButton {
-                            viewModel.signInWithApple()
-                        }
-                        
                         signUpFormSection
                         
                         signUpButton
                         
                         loginLink
                     }
-                    .padding(.horizontal, 30)
+                    // ✅ iPad 등 큰 화면 대응: 폼 최대폭 제한(가독성/터치 영역 개선)
+                    .frame(maxWidth: 420)
+                    .frame(maxWidth: .infinity)
+                    .padding(.horizontal, 24)
                     .padding(.top, 10)
                 }
             }
@@ -68,7 +66,7 @@ extension SignUpView {
                 .foregroundColor(.customBlack)
                 .padding(.bottom, 7)
 
-            Text("간편하게 애플계정으로 로그인하여\n빠르게 서비스를 이용해보세요.")
+            Text("빠르게 로그인하여 서비스를 이용해보세요.")
                 .font(.system(size: 14))
                 .foregroundColor(.customDarkGray)
                 .lineSpacing(4)

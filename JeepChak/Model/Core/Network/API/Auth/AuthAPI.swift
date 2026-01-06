@@ -13,6 +13,8 @@ enum AuthAPI {
     case login(email: String, password: String)
     case signup(email: String, password: String, firstName: String, lastName: String)
     case refresh(refreshToken: String)
+    /// 계정 삭제: DELETE /api/user/me
+    case deleteMe
 }
 
 extension AuthAPI: TargetType {
@@ -29,6 +31,8 @@ extension AuthAPI: TargetType {
             return "/api/auth/signup"
         case .refresh:
             return "/api/auth/refresh"
+        case .deleteMe:
+            return "/api/user/me"
         }
     }
     
@@ -40,6 +44,8 @@ extension AuthAPI: TargetType {
             return .post
         case .refresh:
             return .post
+        case .deleteMe:
+            return .delete
         }
     }
     
@@ -64,7 +70,9 @@ extension AuthAPI: TargetType {
         case let .refresh(refreshToken):
                     let body = RefreshRequest(refreshToken: refreshToken)
                     return .requestJSONEncodable(body)
-                }
+        case .deleteMe:
+            return .requestPlain
+        }
     }
     
     var headers: [String : String]? {
@@ -78,6 +86,14 @@ extension AuthAPI: TargetType {
                 ]
                 if let refresh = TokenStorage.refreshToken {
                     headers["Authorization"] = "Bearer \(refresh)"
+                }
+                return headers
+            case .deleteMe:
+                var headers: [String: String] = [
+                    "Accept": "application/json"
+                ]
+                if let access = TokenStorage.accessToken {
+                    headers["Authorization"] = "Bearer \(access)"
                 }
                 return headers
             }

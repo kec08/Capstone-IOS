@@ -13,9 +13,11 @@ struct MyHeaderView: View {
     
     var body: some View {
         HStack {
+            // 왼쪽 여백(타이틀 중앙 정렬을 위한 대칭)
+            Color.clear
+                .frame(width: 24, height: 24)
 
             Spacer()
-                .frame(width: 158)
 
             Text("마이")
                 .font(.system(size: 18, weight: .bold))

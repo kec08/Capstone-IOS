@@ -25,10 +25,6 @@ final class SignUpViewModel: ObservableObject {
 
     private let authService = AuthService.shared
 
-    func signInWithApple() {
-        print("Apple 로그인 시도")
-    }
-
     @MainActor
     func signUp() {
         guard isSignUpEnabled else { return }
