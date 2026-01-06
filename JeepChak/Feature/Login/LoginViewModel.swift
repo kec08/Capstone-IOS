@@ -21,10 +21,6 @@ final class LoginViewModel: ObservableObject {
             .assign(to: &$isLoginEnabled)
     }
 
-    func signInWithApple() {
-        print("Apple 로그인 시도")
-    }
-
     // MARK: - 로그인 API
     @MainActor
     func login(onSuccess: @escaping () -> Void) {

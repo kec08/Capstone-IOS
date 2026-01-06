@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import UIKit
 
 struct LoginView: View {
     @StateObject private var viewModel = LoginViewModel()
@@ -23,21 +24,15 @@ struct LoginView: View {
                 VStack(spacing: 32) {
                     titleSection
 
-                    // Apple 로그인
-                    AppleSignInStyledButton {
-                        viewModel.signInWithApple()
-                    }
-                    .padding(.horizontal, 8)
-
-                    Divider()
-                        .padding(.horizontal, 40)
-
                     loginFormSection
                     autoLoginToggle
                     loginButton
                     signUpLink
                 }
-                .padding(.horizontal, 32)
+                // ✅ iPad 등 큰 화면 대응: 폼 최대폭 제한(가독성/터치 영역 개선)
+                .frame(maxWidth: 420)
+                .frame(maxWidth: .infinity)
+                .padding(.horizontal, 24)
                 .padding(.top, 20)
 
                 Spacer()
@@ -61,7 +56,7 @@ struct LoginView: View {
                 .foregroundColor(.customBlack)
                 .padding(.bottom, 7)
 
-            Text("간편하게 애플계정으로 로그인하여\n빠르게 서비스를 이용해보세요.")
+            Text("빠르게 로그인하여 서비스를 이용해보세요.")
                 .font(.system(size: 14))
                 .foregroundColor(.customDarkGray)
                 .lineSpacing(4)
