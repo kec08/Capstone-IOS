@@ -138,6 +138,7 @@
 		BCF777AC2F0A0001002F9EEF /* JeepChak/Model/Core/Network/Service/LoanService.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCF777A92F0A0001002F9EEF /* JeepChak/Model/Core/Network/Service/LoanService.swift */; };
 		BCF777AE2F0A0001002F9EEF /* AnalyzeLoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCF777AD2F0A0001002F9EEF /* AnalyzeLoadingView.swift */; };
 		BCF9E25E2ECCBD2F004FB229 /* PropertyDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCF9E25D2ECCBD28004FB229 /* PropertyDTO.swift */; };
+		BCF9E2A12F1A0001004FB229 /* UserDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCF9E2A02F1A0001004FB229 /* UserDTO.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -288,6 +289,7 @@
 		BCF777A92F0A0001002F9EEF /* JeepChak/Model/Core/Network/Service/LoanService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JeepChak/Model/Core/Network/Service/LoanService.swift; sourceTree = SOURCE_ROOT; };
 		BCF777AD2F0A0001002F9EEF /* AnalyzeLoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyzeLoadingView.swift; sourceTree = "<group>"; };
 		BCF9E25D2ECCBD28004FB229 /* PropertyDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PropertyDTO.swift; sourceTree = "<group>"; };
+		BCF9E2A02F1A0001004FB229 /* UserDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDTO.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -844,6 +846,7 @@
 				BC10B2E62EC84F2C0067C14E /* ChecklistDTO.swift */,
 				BC10B1D72EC4E2D60067C14E /* AuthDTO.swift */,
 				BCF9E25D2ECCBD28004FB229 /* PropertyDTO.swift */,
+				BCF9E2A02F1A0001004FB229 /* UserDTO.swift */,
 			);
 			path = DTO;
 			sourceTree = "<group>";
@@ -1039,6 +1042,7 @@
 				BCF777AB2F0A0001002F9EEF /* JeepChak/Model/Core/Network/API/DTO/LoanDTO.swift in Sources */,
 				BCF777AC2F0A0001002F9EEF /* JeepChak/Model/Core/Network/Service/LoanService.swift in Sources */,
 				BCF9E25E2ECCBD2F004FB229 /* PropertyDTO.swift in Sources */,
+				BCF9E2A12F1A0001004FB229 /* UserDTO.swift in Sources */,
 				BCF7778E2EF976AF002F9EEF /* GoMapBottomBar.swift in Sources */,
 				BCF777902EF976AF002F9EEF /* MapView.swift in Sources */,
 				BCF777922EF976AF002F9EEF /* NaverMapViewRepresentable.swift in Sources */,
@@ -1341,7 +1345,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 1.1.5;
 				PRODUCT_BUNDLE_IDENTIFIER = com.kimeunchan.jeepchak;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;
@@ -1386,7 +1390,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 1.1.5;
 				PRODUCT_BUNDLE_IDENTIFIER = com.kimeunchan.jeepchak;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;

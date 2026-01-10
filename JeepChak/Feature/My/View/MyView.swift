@@ -45,7 +45,7 @@ struct MyView: View {
                     .padding(.top, 60)
                     .padding(.bottom, 50)
                 }
-                // ✅ iPad 등 큰 화면에서 컨텐츠가 과하게 넓어지지 않도록 최대 폭 제한
+                // iPad 회면 대응
                 .frame(maxWidth: 600)
                 .frame(maxWidth: .infinity)
             }
@@ -96,7 +96,7 @@ private struct MySettingsView: View {
                     }
                     .disabled(isDeleting)
                 } footer: {
-                    Text("계정 삭제 시 데이터가 복구되지 않을 수 있습니다.")
+                    Text("계정 삭제 시 데이터가 복구되지 않습니다.")
                 }
 
                 Section {
@@ -153,7 +153,7 @@ private struct MySettingsView: View {
                 showResultAlert = true
             }
         } receiveValue: { message in
-            // ✅ 계정 삭제 성공 → 토큰 정리 + 로그아웃
+            // 계정 삭제 성공
             appState.logout()
             resultMessage = message.isEmpty ? "계정이 삭제되었습니다." : message
             showResultAlert = true
