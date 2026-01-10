@@ -81,7 +81,7 @@ final class AuthService {
         }
     }
 
-    // 계정 삭제: DELETE /api/user/me
+    // 계정 삭제
     func deleteMe() async throws -> String {
         let result = await provider.requestAsync(.deleteMe)
         switch result {
@@ -96,9 +96,31 @@ final class AuthService {
                 )
             }
 
-            // 그냥 문자열/빈 응답일 수도 있음
+            // 빈 응답 처리
             let raw = String(data: response.data, encoding: .utf8) ?? ""
             return raw.isEmpty ? "계정이 삭제되었습니다." : raw
+
+        case .failure(let error):
+            throw error
+        }
+    }
+
+    // 내 정보 조회
+    func getMe() async throws -> UserMeDTO {
+        let result = await provider.requestAsync(.getMe)
+        switch result {
+        case .success(let response):
+            // 래핑/비래핑 모두 허용
+            if let wrapped = try? JSONDecoder().decode(ApiResponse<UserMeDTO>.self, from: response.data) {
+                if wrapped.success, let data = wrapped.data { return data }
+                throw NSError(
+                    domain: "AuthService",
+                    code: response.statusCode,
+                    userInfo: [NSLocalizedDescriptionKey: wrapped.message]
+                )
+            }
+
+            return try JSONDecoder().decode(UserMeDTO.self, from: response.data)
 
         case .failure(let error):
             throw error

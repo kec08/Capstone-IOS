@@ -29,7 +29,7 @@ struct LoginView: View {
                     loginButton
                     signUpLink
                 }
-                // ✅ iPad 등 큰 화면 대응: 폼 최대폭 제한(가독성/터치 영역 개선)
+                // iPad 등 큰 화면 대응
                 .frame(maxWidth: 420)
                 .frame(maxWidth: .infinity)
                 .padding(.horizontal, 24)
