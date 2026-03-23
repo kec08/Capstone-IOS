@@ -1,7 +1,7 @@
 # 집착 (ZipChak) - AI 전월세 안심 거래 도우미
 
 <p align="center">
-  <img src="JeepChak/Assets.xcassets/Splash/splash_logo.imageset/splash_logo.png" alt="집착 로고" width="120"/>
+  <img width="878" height="463" alt="Image" src="https://github.com/user-attachments/assets/bb64b85e-0628-4e6d-b21c-d9dfb5feee31" alt="집착" width="120"/>
 </p>
 
 <p align="center">
