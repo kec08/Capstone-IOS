@@ -5,7 +5,7 @@
 </p>
 
 <p align="center">
-  <strong>"집에 착하게 살자" - 안전한 전월세 거래를 위한 AI 부동산 분석 앱</strong>
+  <strong>"내가 찾는 집 바로 여기 착" - 안전한 전월세 거래를 위한 AI 부동산 분석 앱</strong>
 </p>
 
 <p align="center">
