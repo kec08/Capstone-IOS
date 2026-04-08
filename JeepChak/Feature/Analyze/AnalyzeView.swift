@@ -83,7 +83,7 @@ struct AnalyzeView: View {
                     var pickedURLs: [URL] = []
                     var pickedDatas: [Data] = []
 
-                    // ✅ 최대 2개까지만 허용
+                    // 최대 2개까지만 허용
                     for url in urls.prefix(2) {
                         if url.startAccessingSecurityScopedResource() {
                             defer { url.stopAccessingSecurityScopedResource() }
