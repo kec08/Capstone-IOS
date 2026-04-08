@@ -8,6 +8,8 @@
   <strong>"내가 찾는 집 바로 여기 착" - 안전한 전월세 거래를 위한 AI 부동산 분석 앱</strong>
 </p>
 
+<h3 align="center">📹 <a href="https://youtu.be/rTH4DSMs_nk?si=3sqZBFgG9DJUZnfB">시연영상 보러가기</a></h3>
+
 <p align="center">
   <a href="https://apps.apple.com/kr/app/%EC%A7%91%EC%B0%A9/id6757211728">
     <img src="https://developer.apple.com/assets/elements/badges/download-on-the-app-store.svg" alt="App Store" height="40"/>
