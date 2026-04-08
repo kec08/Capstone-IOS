@@ -9,6 +9,14 @@
 </p>
 
 <p align="center">
+  <a href="https://youtu.be/vIUcH8E60pg?si=FS7nKiLLC_Ti2CTS">
+    <img src="https://img.youtube.com/vi/vIUcH8E60pg/maxresdefault.jpg" alt="시연영상" width="700"/>
+  </a>
+  <br/>
+  📹 클릭하면 시연영상을 볼 수 있습니다.
+</p>
+
+<p align="center">
   <a href="https://apps.apple.com/kr/app/%EC%A7%91%EC%B0%A9/id6757211728">
     <img src="https://developer.apple.com/assets/elements/badges/download-on-the-app-store.svg" alt="App Store" height="40"/>
   </a>
