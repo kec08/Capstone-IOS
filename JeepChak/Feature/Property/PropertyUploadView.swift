@@ -46,7 +46,7 @@ struct PropertyUploadView: View {
                     let property = viewModel.properties.first(where: { $0.id == id })
                 else { return }
                 
-                // ✅ 분석에 필요한 marketPrice(시세)를 보장하기 위해 상세조회 후 전달
+                // 분석에 필요한 marketPrice(시세)를 보장하기 위해 상세조회 후 전달
                 isFetchingDetail = true
                 errorMessage = nil
                 propertyService.getPropertyDetail(id: property.propertyId)
